@@ -1,0 +1,211 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: html_head"/>
+
+<body>
+  <!-- container section start -->
+  <section id="container" class="">
+    <!--header start-->
+    <!--header start-->
+		<header th:replace="fragments :: bar" ></header>
+		<aside th:replace="fragments :: menu"></aside>
+
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+        <div class="row">
+          <div class="col-lg-12">
+            <h3 class="page-header" style="font-family: arial;"><i class="fa fa-files-o"></i> Sửa sản phẩm</h3>
+            <ol class="breadcrumb" style="font-family: arial;">
+              <li><a th:href="@{/templates/admin}">Trang chủ</a></li>
+              <li>Sản phẩm</li>
+              <li>Sửa sản phẩm</li>
+            </ol>
+          </div>
+        </div>
+        <!-- Form validations -->
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+              
+              <div class="panel-body">
+                <div class="form">
+                  <form class="form-validate form-horizontal"  enctype="multipart/form-data" action="#"  th:action="@{/admin/product/saveproduct}" th:object="${product}" method="post">
+                    <div class="form-group ">
+                      <label for="tensp" class="control-label col-lg-2">Mã sản phẩm <span class="required">*</span></label>
+                      <div class="col-lg-10">
+                        <input th:field="*{id}" readonly="readonly" class="form-control" id="tensp" name="tensp" minlength="5" type="text" required  />
+                      </div>
+                    </div>
+                           <div class="form-group ">
+                      <label for="tensp" class="control-label col-lg-2">Tên sản phẩm <span class="required">*</span></label>
+                      <div class="col-lg-10">
+                        <input th:field="*{name}" class="form-control" id="name" name="name" minlength="5" type="text" required  />
+                      </div>
+                    </div>
+                     
+                    
+                        <input th:field="*{oncreate}" readonly class="form-control" id="name" name="oncreate"  type="hidden"   />
+                     
+                     <div class="form-group ">
+                      <label for="anhmh" class="control-label col-lg-2">Ảnh <span class="required">*</span></label>
+                      <div class="col-lg-10">
+                        <input class="form-control"  id="fileImage" name="image"  type="file" accept="image/png, image/jpeg" required  />
+                      	<img style="margin-top: 10px; height: 166px;width: 166px; " id="thumbnail" alt=" "/>
+                      </div>
+                      
+                    </div>
+                    <div class="form-group ">
+                      <label for="anhmh" class="control-label col-lg-2">Ảnh 2<span class="required">*</span></label>
+                      <div class="col-lg-10">
+                        <input class="form-control"  id="fileImage2" name="image2"  type="file" accept="image/png, image/jpeg"  />
+                      	<img style="margin-top: 10px; height: 166px;width: 166px; " id="thumbnail2" alt=" "/>
+                      </div>
+                      
+                    </div>
+                     <div class="form-group ">
+                      <label for="anhmh" class="control-label col-lg-2">Ảnh 3<span class="required">*</span></label>
+                      <div class="col-lg-10">
+                        <input class="form-control"  id="fileImage3" name="image3"  type="file" accept="image/png, image/jpeg"  />
+                      	<img style="margin-top: 10px; height: 166px;width: 166px; " id="thumbnail3" alt=" "/>
+                      </div>
+                      
+                    </div>
+                     <div class="form-group ">
+                      <label for="anhmh" class="control-label col-lg-2">Ảnh 4<span class="required">*</span></label>
+                      <div class="col-lg-10">
+                        <input class="form-control"  id="fileImage4" name="image4"  type="file" accept="image/png, image/jpeg"   />
+                      	<img style="margin-top: 10px; height: 166px;width: 166px; " id="thumbnail4" alt=" "/>
+                      </div>
+                      
+                    </div>
+                     <div class="form-group ">
+                      <label for="nguyenlieu" class="control-label col-lg-2">Giá <span class="required">*</span></label>
+                      <div class="col-lg-10">
+                        <input th:field="*{price}" class="form-control" id="price" name="price" min="0" type="number" required />
+                      </div>
+                    </div>
+                     <div class="form-group ">
+                      <label for="dongia" class="control-label col-lg-2">Sale <span class="required">*</span></label>
+                      <div class="col-lg-10">
+                        <input class="form-control" th:field="*{sale}" id="sale" min="0"name="sale" type="number" required />
+                      </div>
+                    </div>
+                     <div class="form-group ">
+                      <label for="madm" class="control-label col-lg-2">Danh mục <span class="required" >*</span></label>
+                      <div class="col-lg-10">
+                       <select class="form-control m-bot15" th:field="*{c}" required>
+                       		<th:block th:each="c : ${c}">
+                       			<option th:text="${c.name}" th:value = "${c.id}"></option>
+                       		</th:block>              
+                     	</select>
+                      </div>
+                    </div>
+                    <div class="form-group ">
+                      <label for="tensp" class="control-label col-lg-2">Chi tiết sản phẩm <span class="required">*</span></label>
+                      <div class="col-lg-10">
+                        <input th:field="*{detail}" class="form-control" id="detail" name="detail" minlength="5" type="text" required  />
+                      </div>
+                    </div>
+                    <div class="form-group ">
+                      <label for="tensp" class="control-label col-lg-2">Code <span class="required">*</span></label>
+                      <div class="col-lg-10">
+                        <input th:field="*{code}" class="form-control" id="code" name="code" minlength="5" type="text" required  />
+                      </div>
+                    </div>
+       
+                    <div class="form-group ">
+                      <label for="tensp" class="control-label col-lg-2">Màu <span class="required">*</span></label>
+                      <div class="col-lg-10">
+                        <input th:field="*{color}" class="form-control" id="color" name="color" minlength="3" type="text" required  />
+                      </div>
+                    </div>
+                    <div class="form-group ">
+                      <label for="tensp" class="control-label col-lg-2">Tình trạng <span class="required">*</span></label>
+                      <div class="col-lg-10">
+                        <input th:field="*{status}" class="form-control" id="status" name="status" minlength="5" type="text" required  />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-lg-offset-2 col-lg-10">
+                        <button class="btn btn-primary" type="submit">Cập nhật</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+              </div>
+            </section>
+          </div>
+        </div>
+        <!-- page end-->
+      </section>
+    </section>
+    <!--main content end-->
+   
+  </section>
+  <!-- container section end -->
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#fileImage').change(function(){
+			showImageThumbnail(this);
+		});
+	});
+	
+	function showImageThumbnail(fileInput){
+		file = fileInput.files[0];
+		reader = new FileReader();
+		reader.onload = function(e){
+			$('#thumbnail').attr('src',e.target.result);
+		};
+		reader.readAsDataURL(file);
+	}
+	$(document).ready(function(){
+		$('#fileImage2').change(function(){
+			showImageThumbnail2(this);
+		});
+	});
+	
+	function showImageThumbnail2(fileInput){
+		file = fileInput.files[0];
+		reader = new FileReader();
+		reader.onload = function(e){
+			$('#thumbnail2').attr('src',e.target.result);
+		};
+		reader.readAsDataURL(file);
+	}
+	$(document).ready(function(){
+		$('#fileImage3').change(function(){
+			showImageThumbnail3(this);
+		});
+	});
+	
+	function showImageThumbnail3(fileInput){
+		file = fileInput.files[0];
+		reader = new FileReader();
+		reader.onload = function(e){
+			$('#thumbnail3').attr('src',e.target.result);
+		};
+		reader.readAsDataURL(file);
+	}
+	$(document).ready(function(){
+		$('#fileImage4').change(function(){
+			showImageThumbnail4(this);
+		});
+	});
+	
+	function showImageThumbnail4(fileInput){
+		file = fileInput.files[0];
+		reader = new FileReader();
+		reader.onload = function(e){
+			$('#thumbnail4').attr('src',e.target.result);
+		};
+		reader.readAsDataURL(file);
+	}
+	
+</script>
+
+</body>
+
+</html>

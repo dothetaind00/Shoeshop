@@ -1,0 +1,122 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: html_head"/>
+
+<body>
+	<!-- container section start -->
+	<section id="container" class="">
+		<header th:replace="fragments :: bar" ></header>
+		<aside th:replace="fragments :: menu"></aside>
+		<!--main content start-->
+		<section id="main-content">
+			<section class="wrapper">
+				<div class="row">
+					<div class="col-lg-12">
+						<h3 class="page-header" style="font-family: arial;">
+							<i class="fa fa-gift"></i> Sản phẩm
+						</h3>
+						<ol class="breadcrumb" style="font-family: arial;">
+							<li><a th:href="@{/templates/admin}">Trang chủ</a></li>
+							<li>Sản phẩm</li>
+						</ol>
+					</div>
+				</div>
+				<!-- page start-->
+				<div class="row">
+					<div class="col-lg-12">
+
+						<div class="btn-group" style="margin-bottom: 20px;width: 1156px;">
+                            <div class="col-lg-6">
+                                <a class="btn btn-success" th:href="@{/admin/product/addproduct}">Thêm
+                                    mới</a>
+                            </div>
+                            <div class="col-lg-6">
+                                <form class="navbar-form" th:action="@{/page/1}" style="margin-left: 264px;">
+                                    <input class="form-control" placeholder="Tìm kiếm" name="keyword" th:value="${keyword}" type="text" required/>
+                                    <input class="btn btn-warning" type="submit" value="Tìm kiếm"/>
+                                </form>
+
+                            </div>
+                        </div> 
+						<section class="panel">
+						
+							<table  class="table table-striped table-advance table-hover"
+								style="font-family: arial;">
+								
+									<tr>
+										<th style="text-align: center;">ID</th>
+										<th style="text-align: center;">Tên sản phẩm</th>
+										<th style="text-align: center;">Ảnh</th>
+										<th style="text-align: center;">Ảnh 2</th>
+										<th style="text-align: center;">Ảnh 3</th>
+										<th style="text-align: center;">Ảnh 4</th>
+										<th style="text-align: center;">Giá</th>
+										<th style="text-align: center;">Sale</th>
+										<th style="text-align: center;">Danh mục</th>
+										<th style="text-align: center;">Chi tiết</th>
+										<th style="text-align: center;">Mã</th>
+										<th style="text-align: center;">Ngày lập</th>
+										<th style="text-align: center;">Màu</th>
+										<th style="text-align: center;">Tình trạng</th>
+										<th style="text-align: center;">Lượt xem</th>
+									</tr>
+									<tbody id="productTable">
+									<tr  th:each="sp : ${list}" style="text-align: center;">
+										<td th:text="${sp.id}"></td>
+										<td th:text="${sp.name}"></td>
+										<td><img th:src="@{${sp.img}}"
+											alt="" style="height: 40px; width: 40px;"></td>
+											<td><img th:src="@{${sp.img2}}"
+											alt="" style="height: 40px; width: 40px;"></td>
+											<td><img th:src="@{${sp.img3}}"
+											alt="" style="height: 40px; width: 40px;"></td>
+											<td><img th:src="@{${sp.img4}}"
+											alt="" style="height: 40px; width: 40px;"></td>
+										<td th:text="${sp.price}"></td>
+										<td th:text="${sp.sale}"></td>
+										<td th:text="${sp.c.name}"></td>
+										<td th:text="${sp.detail}"></td>
+										<td th:text="${sp.code}"></td>
+										<td th:text="${sp.oncreate}"></td>
+										<td th:text="${sp.color}"></td>
+										<td th:text="${sp.status}"></td>
+										<td th:text="${sp.view}"></td>
+	
+										<td>
+											<div class="btn-group">
+												<a class="btn btn-primary"
+													th:href="@{'/admin/product/edit/' +${sp.id}}">Sửa</a> <a
+													class="btn btn-danger"
+													onclick="if(!confirm('Bạn có chắc chắn muốn xóa')) return false;"
+													th:href="@{'/admin/product/deleteproduct/' +${sp.id}}">Xóa</a>
+													<a class="btn btn-primary"
+													th:href="@{'/admin/product/size/' +${sp.id}}">Size</a>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</section>
+						<div class = "col-lg-6">
+                            <h4 style="font-family: arial;">Tổng sản phẩm: [[${totalItems}]] - Trang [[${currentPage}]]/[[${totalPages}]]</h4>
+                        &nbsp;
+                        </div>
+                        <div class = "col-lg-6">
+                            <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                            <a  th:href="@{'/admin/product/page/' + ${i}} + ${keyword != null ? '?keyword=' + keyword : ''}" style="font-family: arial; font-size: 18px;">[[${i}]]</a>&nbsp;&nbsp;
+                        </span>
+                        </div>
+					</div>
+				</div>
+				<!-- page end-->
+			</section>
+		</section>
+		<!--main content end-->
+		
+	</section>
+
+	
+</body>
+
+</html>

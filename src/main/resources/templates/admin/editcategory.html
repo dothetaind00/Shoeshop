@@ -1,0 +1,91 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: html_head"/>
+
+<body>
+  <!-- container section start -->
+  <section id="container" class="">
+   <header th:replace="fragments :: bar" ></header>
+	<aside th:replace="fragments :: menu"></aside>
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+        <div class="row">
+          <div class="col-lg-12">
+            <h3 class="page-header" style="font-family: arial;"><i class="fa fa-files-o"></i> Sửa danh mục</h3>
+            <ol class="breadcrumb" style="font-family: arial;">
+              <li><a th:href="@{/templates/admin}">Trang chủ</a></li>
+              <li>Danh mục</li>
+              <li>Sửa danh mục</li>
+            </ol>
+          </div>
+        </div>
+        <!-- Form validations -->
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+              
+              <div class="panel-body">
+                <div class="form">
+                  <form class="form-validate form-horizontal" action="#"  th:action="@{/admin/category/savecategory}" th:object="${category}" method="post">
+                    <div class="form-group ">
+                      <label for="tensp" class="control-label col-lg-2">Mã danh mục <span class="required">*</span></label>
+                      <div class="col-lg-10">
+                        <input th:field="*{id}" readonly="readonly" class="form-control" id="tensp" name="id" minlength="5" type="text" required  />
+                      </div>
+                    </div>
+                    <div class="form-group ">
+                      <label for="tensp" class="control-label col-lg-2">Tên danh mục <span class="required">*</span></label>
+                      <div class="col-lg-10">
+                        <input th:field="*{name}" class="form-control" id="tenDM" name="tenDM" minlength="5" type="text" required  />
+                      </div>
+                    </div> 
+                      <div class="form-group ">
+                      <label for="tensp" class="control-label col-lg-2">Chi tiết <span class="required">*</span></label>
+                      <div class="col-lg-10">
+                        <input th:field="*{detail}" class="form-control" id="detail" name="detail" minlength="5" type="text" required  />
+                      </div>
+                    </div> 
+                    <div class="form-group">
+                      <div class="col-lg-offset-2 col-lg-10">
+                        <button class="btn btn-primary" type="submit">Cập nhật</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+              </div>
+            </section>
+          </div>
+        </div>
+        <!-- page end-->
+      </section>
+    </section>
+    <!--main content end-->
+   
+  </section>
+  <!-- container section end -->
+
+ 
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#fileImage').change(function(){
+			showImageThumbnail(this);
+		});
+	});
+	
+	function showImageThumbnail(fileInput){
+		file = fileInput.files[0];
+		reader = new FileReader();
+		reader.onload = function(e){
+			$('#thumbnail').attr('src',e.target.result);
+		};
+		reader.readAsDataURL(file);
+	}
+	
+</script>
+
+</body>
+
+</html>
