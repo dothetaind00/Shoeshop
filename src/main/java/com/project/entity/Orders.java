@@ -42,9 +42,6 @@ public class Orders {
     @JoinColumn(name = "coupon_id")
     private Coupon coupon;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orders")
-    private List<OrderDetail> orderDetails = new ArrayList<>();
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "status_id")
     private Status status;

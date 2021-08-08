@@ -19,7 +19,7 @@ public class Color {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 50)
+    @Column
     private String color;
 
     @Column

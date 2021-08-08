@@ -25,9 +25,6 @@ public class CartDetail {
     @Column
     private Double price;
 
-    @Column(name = "promotion_value")
-    private Double promotionValue;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id")
     private Cart cart;
@@ -35,8 +32,4 @@ public class CartDetail {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "promotion_id")
-    private Promotion promotion;
 }

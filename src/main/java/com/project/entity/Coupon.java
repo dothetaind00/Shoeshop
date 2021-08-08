@@ -26,6 +26,9 @@ public class Coupon {
     private String code;
 
     @Column
+    private Integer amount;
+
+    @Column
     private Integer percent;
 
     @Column(name = "start_date")

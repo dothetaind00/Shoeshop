@@ -24,6 +24,9 @@ public class Brand {
     @Column
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "brand")
-    private List<Product> products = new ArrayList<>();
+    @Column(name = "isdisplay")
+    private Integer isDisplay;
+
+    @Column
+    private Integer position;
 }

@@ -12,20 +12,22 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "image")
-public class Image {
+@Table(name = "contact")
+public class Contact {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "image_url")
-    private String imageUrl;
+    @Column
+    private String name;
 
     @Column
-    private String title;
+    private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @Column(length = 11)
+    private String phone;
+
+    @Column(columnDefinition = "TEXT")
+    private String address;
 }

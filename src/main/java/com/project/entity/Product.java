@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 @Entity
 @AllArgsConstructor
@@ -33,6 +32,33 @@ public class Product {
     @Column
     private Integer view;
 
+    @Column
+    private String image1;
+
+    @Column
+    private String image2;
+
+    @Column
+    private String image3;
+
+    @Column
+    private String image4;
+
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
+    @Column
+    private String status;
+
+    @Column(name = "is_enable", length = 2)
+    private Integer isEnable;
+
+    @Column(name = "oncreate")
+    private Date onCreate;
+
+    @Column(name = "onupdate")
+    private Date onUpdate;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
@@ -40,25 +66,4 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "brand_id")
     private Brand brand;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-    private List<Product> products = new ArrayList<>();
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-    private List<Image> images = new ArrayList<>();
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-    private List<Promotion> promotions = new ArrayList<>();
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-    private List<Comment> comments = new ArrayList<>();
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-    private List<CartDetail> cartDetails = new ArrayList<>();
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-    private List<OrderDetail> orderDetails = new ArrayList<>();
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-    private List<Wishlist> wishlists = new ArrayList<>();
 }

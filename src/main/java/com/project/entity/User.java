@@ -23,7 +23,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String userName;
 
     @Column
@@ -47,19 +47,16 @@ public class User {
     @Column(name = "lastlogined")
     private Date lastLogined;
 
+    @Column(name = "is_enable", length = 2)
+    private Integer isEnable;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id")
             ,inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private List<Comment> comments = new ArrayList<>();
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private List<Cart> carts = new ArrayList<>();
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private List<Order> orders = new ArrayList<>();
+    private List<Orders> orders = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Wishlist> wishlists = new ArrayList<>();

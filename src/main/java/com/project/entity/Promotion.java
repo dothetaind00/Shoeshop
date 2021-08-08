@@ -6,9 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -34,10 +32,4 @@ public class Promotion {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "promotion")
-    private List<CartDetail> cartDetails = new ArrayList<>();
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "promotion")
-    private List<OrderDetail> orderDetails = new ArrayList<>();
 }

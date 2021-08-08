@@ -23,7 +23,4 @@ public class Status {
 
     @Column
     private String name;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "status")
-    private List<Orders> orders = new ArrayList<>();
 }

@@ -21,13 +21,10 @@ public class Size {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 10)
+    @Column
     private String size;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "size")
-    private List<Color> colors = new ArrayList<>();
 }
