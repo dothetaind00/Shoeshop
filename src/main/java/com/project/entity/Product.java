@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,64 +17,64 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Entity
-@Table(name = "Product")
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
+@Table(name = "product")
 public class Product {
 
-	@Id
-	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	@Column(name = "name", length = 255)
-	private String name;
+    @Column
+    private String name;
 
-	@ManyToOne
-	@JoinColumn(name = "category_id", nullable = false)
-	private Category category;
+    @Column
+    private Double price;
 
-	@ManyToOne
-	@JoinColumn(name = "brand_id", nullable = false)
-	private Brand brand;
+    @Column
+    private Integer sale;
 
-	@Column(name = "price")
-	private double price;
+    @Column
+    private Integer view;
 
-	@Column(name = "sale")
-	private int sale;
+    @Column
+    private String image1;
 
-	@Column(name = "view")
-	private int view;
+    @Column
+    private String image2;
 
-	@Column(name = "image1")
-	private String image1;
+    @Column
+    private String image3;
 
-	@Column(name = "image2")
-	private String image2;
+    @Column
+    private String image4;
 
-	@Column(name = "image3")
-	private String image3;
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
-	@Column(name = "image4")
-	private String image4;
+    @Column
+    private String status;
 
-	@Column(name = "oncreate")
-	private Date oncreate;
+    @Column(name = "is_enable", length = 2)
+    private Integer isEnable;
 
-	@Column(name = "onupdate")
-	private Date onupdate;
+    @Column(name = "oncreate")
+    private Date onCreate;
 
-	@Column(name = "description")
-	private String description;
+    @Column(name = "onupdate")
+    private Date onUpdate;
 
-	@Column(name = "status")
-	private String status;
-	
-	@Column(name = "is_enable")
-	private int is_enable;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 
 }

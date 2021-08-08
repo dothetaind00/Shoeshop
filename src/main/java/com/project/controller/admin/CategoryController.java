@@ -1,22 +1,16 @@
-package com.project.controller;
+package com.project.controller.admin;
 
-import java.lang.ProcessBuilder.Redirect;
-import java.util.List;
+
 import java.util.Optional;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.project.entity.Category;
 import com.project.service.CategoryService;
@@ -32,17 +26,15 @@ public class CategoryController {
 	
 	@GetMapping("/category")
 	public String categoryHome(ModelMap model) {
-
-		model.addAttribute("list", categoryService.findAll());
-		
-		return "category";
+		model.addAttribute("list", categoryService.findAll());	
+		return "admin/category";
 	}
 	
 	@GetMapping("/category/addcategory")
 	public String addOrEdit(ModelMap model) {
 		Category category = new Category();
 		model.addAttribute("category", category);
-		return "addcategory";
+		return "admin/addcategory";
 	}
 	// Save or Update Category
 	@PostMapping("/category/savecategory")
@@ -61,6 +53,7 @@ public class CategoryController {
 		}
 		return "redirect:/admin/category";
 	}
+	
 	// Delete Category
 	@RequestMapping("/deletecategory/{id}")
 	public String delete(ModelMap model, @PathVariable Integer id) {
@@ -75,7 +68,7 @@ public class CategoryController {
 		if(cate.isPresent()) {
 			// Exist
 			model.addAttribute("category", cate.get());
-			return "addcategory";
+			return "admin/addcategory";
 		}else {
 			// Not Exist
 			// Error Page
@@ -84,9 +77,6 @@ public class CategoryController {
 		
 		
 	}
-	
-	
-	
-	
-	
+			
+
 }

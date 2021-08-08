@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="fragments_user :: html_head(title = 'Thanh toán')"></head>
+
+<body>
+    <!-- Offcanvas Menu Begin -->
+    <div th:replace="fragments_user :: menu_begin"></div>
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+    <header th:replace="fragments_user :: header"></header>
+    <!-- Header Section End -->
+
+    <!-- Breadcrumb Begin -->
+    <div th:replace="fragments_user :: breadcrumb(href = './index.html', content = 'Checkout')"></div>
+    <!-- Breadcrumb End -->
+
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad">
+        <div class="container">
+
+            <form action="#" class="checkout__form">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h5>Thông tin hóa đơn</h5>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="checkout__form__input">
+                                    <p>Họ <span>*</span></p>
+                                    <input type="text">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="checkout__form__input">
+                                    <p>Tên <span>*</span></p>
+                                    <input type="text">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+
+                                <div class="checkout__form__input">
+                                    <p>Địa chỉ <span>*</span></p>
+                                    <input type="text" placeholder="Phố">
+                                    <input type="text" placeholder="Địa chỉ nhà">
+                                </div>
+                                <div class="checkout__form__input">
+                                    <p>Tỉnh/Thành phố <span>*</span></p>
+                                    <input type="text">
+                                </div>
+
+
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="checkout__form__input">
+                                    <p>Điện thoại <span>*</span></p>
+                                    <input type="text">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="checkout__form__input">
+                                    <p>Email <span>*</span></p>
+                                    <input type="text">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="checkout__form__checkbox">
+                                    <label for="acc">
+                                        Tạo tài  khoản?
+                                        <input type="checkbox" id="acc">
+                                        <span class="checkmark"></span>
+                                    </label>
+
+                                </div>
+                                <div class="checkout__form__input">
+                                    <p>Mật khẩu <span>*</span></p>
+                                    <input type="text">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="checkout__order">
+                            <h5>Hàng của bạn</h5>
+                            <div class="checkout__order__product">
+                                <ul>
+                                    <li>
+                                        <span class="top__text">Sản phẩm</span>
+                                        <span class="top__text__right">Tổng</span>
+                                    </li>
+                                    <li>01. Dom Pérignon Rose - 750ml <span>10,800,000 VNĐ</span></li>
+                                    <li>02. Dom Pérignon Blanc - 750ml<br />  <span>4,900,000 VNĐ</span></li>
+                                    <li>03. Moët & Chandon Imperial B Box - 750ml <span>1,450,000 VNĐ</span></li>
+                                    <li>04. MOET Rosé Imperial C6 Box - 750ml <span>1,890,000 VNĐ</span></li>
+                                </ul>
+                            </div>
+                            <div class="checkout__order__total">
+                                <ul>
+                                    <li>Trừ <span>5,000,000VNĐ</span></li>
+                                    <li>Tổng <span>14,040,000VNĐ</span></li>
+                                </ul>
+                            </div>
+                            <div class="checkout__order__widget">
+
+
+                            </div>
+                            <button type="submit" class="site-btn">Đặt hàng</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <!-- Checkout Section End -->
+
+    <div th:replace="fragments_user :: instagram"></div>
+
+    <footer th:replace="fragments_user :: footer"></footer>
+
+    <!-- Search Begin -->
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Search here.....">
+            </form>
+        </div>
+    </div>
+    <!-- Search End -->`
+
+    <div th:replace="fragments_user :: script"></div>
+
+</body>
+</html>
