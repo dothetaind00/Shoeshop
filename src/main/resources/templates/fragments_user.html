@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:fragment="html_head(title)">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+    <meta name="author" content="GeeksLabs">
+    <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+    <title>[[${title}]]</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="user/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="user/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="user/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="user/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="user/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="user/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="user/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="user/css/style.css" type="text/css">
+</head>
+
+<body>
+    <!-- Offcanvas Menu Begin -->
+    <div th:fragment="menu_begin" th:remove="tag">
+        <!-- Page Preloder -->
+        <div id="preloder">
+            <div class="loader"></div>
+        </div>
+
+        <!-- Offcanvas Menu Begin -->
+        <div class="offcanvas-menu-overlay"></div>
+        <div class="offcanvas-menu-wrapper">
+            <div class="offcanvas__close">+</div>
+            <ul class="offcanvas__widget">
+                <li><span class="icon_search search-switch"></span></li>
+                <li><a href="#"><span class="icon_heart_alt"></span>
+                    <div class="tip">2</div>
+                </a></li>
+                <li><a href="#"><span class="icon_bag_alt"></span>
+                    <div class="tip">2</div>
+                </a></li>
+            </ul>
+            <div class="offcanvas__logo">
+                <a href="./index.html"><img src="img/logo.png" alt=""></a>
+            </div>
+            <div id="mobile-menu-wrap"></div>
+            <div class="offcanvas__auth">
+                <a href="#">Đăng nhập</a>
+                <a href="#">Đăng kí</a>
+            </div>
+        </div>
+        <!-- Offcanvas Menu End -->
+    </div>
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+    <header class="header" th:fragment="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-3 col-lg-2">
+                    <div class="header__logo">
+                        <a href="user/index.html"><img src="/user/img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-7">
+                    <nav class="header__menu">
+                        <ul>
+                            <li class="active"><a href="user/index.html">Home</a></li>
+                            <li><a href="#">Nike</a></li>
+                            <li><a href="#">Converse</a></li>
+                            <li><a href="./shop.html">Adidas</a></li>
+                            <li><a href="#">Van</a></li>
+                            <li><a href="#">Pages</a>
+                                <ul class="dropdown">
+                                    <li><a href="./product-details.html">Product Details</a></li>
+                                    <li><a href="./shop-cart.html">Shop Cart</a></li>
+                                    <li><a href="./checkout.html">Checkout</a></li>
+                                    <li><a href="./blog-details.html">Blog Details</a></li>
+                                    <li><a href="./contact.html">Contact</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="./blog.html">Blog</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <div class="header__right">
+                        <div class="header__right__auth">
+                            <a href="./login.html">Đăng nhập</a>
+                            <a href="./register.html">Đăng kí</a>
+                        </div>
+                        <ul class="header__right__widget">
+                            <li><span class="icon_search search-switch"></span></li>
+                            <li><a href="#"><span class="icon_heart_alt"></span>
+                                <div class="tip">2</div>
+                            </a></li>
+                            <li><a href="#"><span class="icon_bag_alt"></span>
+                                <div class="tip">2</div>
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="canvas__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option" th:fragment="breadcrumb(href, content)">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__links">
+                        <a th:href="${href}"><i class="fa fa-home"></i> Home</a>
+                        <span th:text="${content}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Instagram Begin -->
+    <div class="instagram" th:fragment="instagram">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="user/img/instagram/1.jpg" style="background-image: url(&quot;/user/img/instagram/1.jpg&quot;);">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#">Bụi</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="user/img/instagram/2.jpg" style="background-image: url(&quot;/user/img/instagram/2.jpg&quot;);">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#">Bụi</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="user/img/instagram/3.jpg" style="background-image: url(&quot;/user/img/instagram/3.jpg&quot;);">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#">Bụi</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="user/img/instagram/4.jpg" style="background-image: url(&quot;/user/img/instagram/4.jpg&quot;);">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#">Bụi</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="user/img/instagram/5.jpg" style="background-image: url(&quot;/user/img/instagram/5.jpg&quot;);">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#">Bụi</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="user/img/instagram/6.jpg" style="background-image: url(&quot;/user/img/instagram/6.jpg&quot;);">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#">Bụi</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Instagram End -->
+
+    <!-- Footer Section Begin -->
+    <footer class="footer" th:fragment="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-7">
+                    <div class="footer__about">
+                        <div class="footer__logo">
+                            <a href="user/index.html"><img src="/user/img/logo.png" alt=""></a>
+                        </div>
+                        <p>Mỗi bước chân là một dấu ấn.</p>
+                        <div class="footer__payment">
+                            <a href="#"><img src="/user/img/payment/payment-1.png" alt=""></a>
+                            <a href="#"><img src="/user/img/payment/payment-2.png" alt=""></a>
+                            <a href="#"><img src="/user/img/payment/payment-3.png" alt=""></a>
+                            <a href="#"><img src="/user/img/payment/payment-4.png" alt=""></a>
+                            <a href="#"><img src="/user/img/payment/payment-5.png" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-5">
+                    <div class="footer__widget">
+                        <h6>Links</h6>
+                        <ul>
+                            <li><a href="#">Về chúng tôi</a></li>
+                            <li><a href="#">Blogs</a></li>
+                            <li><a href="./contact.html">Liên hệ </a></li>
+                            <li><a href="#">Câu hỏi nhanh</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4">
+                    <div class="footer__widget">
+                        <h6>Tài khoản</h6>
+                        <ul>
+                            <li><a href="#">Tài khoản của tôi</a></li>
+                            <li><a href="#">Tra cứu đơn hàng</a></li>
+                            <li><a href="#">Checkout</a></li>
+                            <li><a href="#">Wishlist</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-8 col-sm-8">
+                    <div class="footer__newslatter">
+                        <h6>Hòm thư mới</h6>
+                        <form action="#">
+                            <input type="text" placeholder="Email">
+                            <button type="submit" class="site-btn">Đăng kí</button>
+                        </form>
+                        <div class="footer__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-youtube-play"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    <div class="footer__copyright__text">
+                        <p>Copyright © All rights reserved | This template is made by Nhóm 3
+                            <i class="fa fa-heart" aria-hidden="true">
+                            </i> by <a href="https://colorlib.com" target="_blank">:D</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Js Plugins -->
+    <div th:fragment="script" th:remove="tag">
+        <!-- Js Plugins -->
+        <script src="/user/js/jquery-3.3.1.min.js"></script>
+        <script src="/user/js/bootstrap.min.js"></script>
+        <script src="/user/js/jquery.magnific-popup.min.js"></script>
+        <script src="/user/js/jquery-ui.min.js"></script>
+        <script src="/user/js/mixitup.min.js"></script>
+        <script src="/user/js/jquery.countdown.min.js"></script>
+        <script src="/user/js/jquery.slicknav.js"></script>
+        <script src="/user/js/owl.carousel.min.js"></script>
+        <script src="/user/js/jquery.nicescroll.min.js"></script>
+        <script src="/user/js/main.js"></script>
+    </div>
+    <!-- Js Plugins -->
+</body>
+</html>
