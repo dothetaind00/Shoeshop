@@ -56,31 +56,26 @@
 										<th style="text-align: center;">Thể loại</th>
 										<th style="text-align: center;">Chi tiết</th>
 										<th style="text-align: center;">Ngày lập</th>
-										<th style="text-align: center;">Ngày chỉnh sửa</th>
-										
+										<th style="text-align: center;">Ngày chỉnh sửa</th>										
 										<th style="text-align: center;">Tình Trạng</th>
 										<th style="text-align: center;">Lượt xem</th>
+										<th style="text-align: center;">Chi tiết</th>
 									</tr>
 									<tbody id="productTable">
 									<tr  th:each="sp : ${list}" style="text-align: center;">
 										<td th:text="${sp.id}"></td>
 										<td th:text="${sp.name}"></td>
-										<td><img th:src="@{${sp.img}}"
-											alt="" style="height: 40px; width: 40px;"></td>
-											<td><img th:src="@{${sp.img2}}"
-											alt="" style="height: 40px; width: 40px;"></td>
-											<td><img th:src="@{${sp.img3}}"
-											alt="" style="height: 40px; width: 40px;"></td>
-											<td><img th:src="@{${sp.img4}}"
-											alt="" style="height: 40px; width: 40px;"></td>
+										<td> Ảnh 1</td>
+										<td>Ảnh 2</td>
+										<td>Ảnh 3</td>
+										<td>Ảnh 4</td>
 										<td th:text="${sp.price}"></td>
 										<td th:text="${sp.sale}"></td>
 										<td th:text="${sp.brand.name}"></td>
 										<td th:text="${sp.category.name}"></td>
-										<td th:text="${sp.detail}"></td>									
-										<td th:text="${sp.oncreate}"></td>
-										<td th:text="${sp.onupdate}"></td>
-										
+										<td th:text="${sp.description}"></td>									
+										<td th:text="${sp.onCreate}"></td>
+										<td th:text="${sp.onUpdate}"></td>									
 										<td th:text="${sp.status}"></td>
 										<td th:text="${sp.view}"></td>
 	
@@ -99,7 +94,7 @@
 								</tbody>
 							</table>
 						</section>
-						<div class = "col-lg-6">
+	<!--  				<div class = "col-lg-6">
                             <h4 style="font-family: arial;">Tổng sản phẩm: [[${totalItems}]] - Trang [[${currentPage}]]/[[${totalPages}]]</h4>
                         &nbsp;
                         </div>
@@ -107,7 +102,7 @@
                             <span th:each="i: ${#numbers.sequence(1, totalPages)}">
                             <a  th:href="@{'/admin/product/page/' + ${i}} + ${keyword != null ? '?keyword=' + keyword : ''}" style="font-family: arial; font-size: 18px;">[[${i}]]</a>&nbsp;&nbsp;
                         </span>
-                        </div>
+                        </div>  -->
 					</div>
 				</div>
 				<!-- page end-->
@@ -116,6 +111,15 @@
 		<!--main content end-->
 		
 	</section>
+	
+	<!-- <td><img th:src="@{${sp.img}}"
+											alt="" style="height: 40px; width: 40px;"></td>
+											<td><img th:src="@{${sp.img2}}"
+											alt="" style="height: 40px; width: 40px;"></td>
+											<td><img th:src="@{${sp.img3}}"
+											alt="" style="height: 40px; width: 40px;"></td>
+											<td><img th:src="@{${sp.img4}}"
+											alt="" style="height: 40px; width: 40px;"></td> -->
 
 	
 </body>

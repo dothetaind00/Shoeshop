@@ -32,30 +32,29 @@
               <div class="panel-body">
                 <div class="form">
                   <form class="form-validate form-horizontal"  enctype="multipart/form-data" action="#"  th:action="@{/admin/product/saveproduct}" th:object="${product}" method="post">
+                  
                     <div class="form-group ">
                       <label for="tensp" class="control-label col-lg-2">Mã sản phẩm <span class="required">*</span></label>
                       <div class="col-lg-10">
                         <input th:field="*{id}" readonly="readonly" class="form-control" id="tensp" name="tensp" minlength="5" type="text" required  />
                       </div>
                     </div>
-                           <div class="form-group ">
+                    
+                      <div class="form-group ">
                       <label for="tensp" class="control-label col-lg-2">Tên sản phẩm <span class="required">*</span></label>
                       <div class="col-lg-10">
                         <input th:field="*{name}" class="form-control" id="name" name="name" minlength="5" type="text" required  />
                       </div>
                     </div>
-                     
-                    
-                        <input th:field="*{oncreate}" readonly class="form-control" id="name" name="oncreate"  type="hidden"   />
-                     
+                                                
                      <div class="form-group ">
                       <label for="anhmh" class="control-label col-lg-2">Ảnh <span class="required">*</span></label>
                       <div class="col-lg-10">
                         <input class="form-control"  id="fileImage" name="image"  type="file" accept="image/png, image/jpeg" required  />
                       	<img style="margin-top: 10px; height: 166px;width: 166px; " id="thumbnail" alt=" "/>
-                      </div>
-                      
+                      </div>                     
                     </div>
+                    
                     <div class="form-group ">
                       <label for="anhmh" class="control-label col-lg-2">Ảnh 2<span class="required">*</span></label>
                       <div class="col-lg-10">
@@ -86,47 +85,79 @@
                         <input th:field="*{price}" class="form-control" id="price" name="price" min="0" type="number" required />
                       </div>
                     </div>
+                    
                      <div class="form-group ">
                       <label for="dongia" class="control-label col-lg-2">Sale <span class="required">*</span></label>
                       <div class="col-lg-10">
                         <input class="form-control" th:field="*{sale}" id="sale" min="0"name="sale" type="number" required />
                       </div>
                     </div>
+                    
                      <div class="form-group ">
-                      <label for="madm" class="control-label col-lg-2">Danh mục <span class="required" >*</span></label>
+                      <label for="category" class="control-label col-lg-2">Thể loại <span class="required" >*</span></label>
                       <div class="col-lg-10">
-                       <select class="form-control m-bot15" th:field="*{c}" required>
+                       <select class="form-control m-bot15" th:field="*{category}" required>
                        		<th:block th:each="c : ${c}">
                        			<option th:text="${c.name}" th:value = "${c.id}"></option>
                        		</th:block>              
                      	</select>
                       </div>
                     </div>
+                    
                     <div class="form-group ">
-                      <label for="tensp" class="control-label col-lg-2">Chi tiết sản phẩm <span class="required">*</span></label>
+                      <label for="brand" class="control-label col-lg-2">Hãng <span class="required" >*</span></label>
                       <div class="col-lg-10">
-                        <input th:field="*{detail}" class="form-control" id="detail" name="detail" minlength="5" type="text" required  />
+                       <select class="form-control m-bot15" th:field="*{brand}" required>
+                       		<th:block th:each="b : ${brand}">
+                       			<option th:text="${b.name}" th:value = "${b.id}"></option>
+                       		</th:block>              
+                     	</select>
                       </div>
                     </div>
+                    
                     <div class="form-group ">
-                      <label for="tensp" class="control-label col-lg-2">Code <span class="required">*</span></label>
+                      <label for="description" class="control-label col-lg-2">Chi tiết sản phẩm <span class="required">*</span></label>
                       <div class="col-lg-10">
-                        <input th:field="*{code}" class="form-control" id="code" name="code" minlength="5" type="text" required  />
+                        <input th:field="*{description}" class="form-control" id="description" name="description" minlength="5" type="text" required  />
                       </div>
                     </div>
-       
-                    <div class="form-group ">
-                      <label for="tensp" class="control-label col-lg-2">Màu <span class="required">*</span></label>
+                    
+                     <div class="form-group ">
+                      <label for="onCreate" class="control-label col-lg-2">Ngày tạo <span class="required">*</span></label>
                       <div class="col-lg-10">
-                        <input th:field="*{color}" class="form-control" id="color" name="color" minlength="3" type="text" required  />
+                        <input th:field="*{onCreate}" class="form-control" id="onCreate" name="onCreate"  type="datetime" required readonly  />
                       </div>
                     </div>
+                    
+                     <div class="form-group ">
+                      <label for="onUpdate" class="control-label col-lg-2">Ngày chỉnh sửa <span class="required">*</span></label>
+                      <div class="col-lg-10">
+                        <input th:field="*{onUpdate}" class="form-control" id="onUpdate" name="onUpdate"  type="datetime" required readonly  />
+                      </div>
+                    </div>
+     
                     <div class="form-group ">
-                      <label for="tensp" class="control-label col-lg-2">Tình trạng <span class="required">*</span></label>
+                      <label for="status" class="control-label col-lg-2">Tình trạng <span class="required">*</span></label>
                       <div class="col-lg-10">
                         <input th:field="*{status}" class="form-control" id="status" name="status" minlength="5" type="text" required  />
                       </div>
                     </div>
+                                      
+                     <div class="form-group ">
+                      <label for="view" class="control-label col-lg-2">Lượt xem <span class="required">*</span></label>
+                      <div class="col-lg-10">
+                        <input th:field="*{status}" class="form-control" id="view" name="view"  type="number" min="0" required readonly value="0"  />
+                      </div>
+                    </div>
+                    
+                      <div class="form-group ">
+                      <label for="isEnable" class="control-label col-lg-2">Trạng thái <span class="required">*</span></label>
+       				   <input th:field="*{isEnable}" class="" id="isEnable" name="true" type="radio" value="1" />
+       				   <label for="html">Hiển thị</label>
+                       <input th:field="*{isEnable}" class="" id="isEnable" name="false" type="radio" value="0" />
+       				   <label for="html">Không hiển thị</label>
+                    </div>
+                    
                     <div class="form-group">
                       <div class="col-lg-offset-2 col-lg-10">
                         <button class="btn btn-primary" type="submit">Cập nhật</button>
