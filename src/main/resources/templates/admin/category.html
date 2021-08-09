@@ -16,7 +16,7 @@
 							<i class="fa fa-gift"></i> Danh mục sản phẩm
 						</h3>
 						<ol class="breadcrumb" style="font-family: arial;">
-							<li><a th:href="@{/templates/admin}">Trang chủ</a></li>
+							<li><a th:href="@{/admin}">Trang chủ</a></li>
 							<li>Danh mục sản phẩm</li>
 						</ol>
 					</div>
@@ -36,17 +36,21 @@
 								<tbody>
 									<tr>
 										<th style="text-align: center;">ID</th>
-										<th style="text-align: center;">Tên danh mục</th>
-										<th style="text-align: center;">Chi tiết</th>
+										<th style="text-align: center;">Tên</th>
+										<th style="text-align: center;">Trạng thái sản phẩm</th>
+										<th style="text-align: center;">Vị trí hiển thị</th>
+										<th style="text-align: center;">Chi Tiết</th>
 									</tr>
 									<tr th:each="c : ${list}" style="text-align: center;">
 										<td th:text="${c.id}"></td>
 										<td th:text="${c.name}"></td>
-										<td th:text="${c.detail}"></td>
+										<td th:text="${c.isdisplay}? 'Được hiển thị' : 'Không hiển thị'"></td>
+										<td th:text="${c.position}"></td>
+										
 										<td>
 											<div class="btn-group">
 												<a class="btn btn-primary" th:href="@{'/admin/category/edit/' +${c.id}}">Sửa</a> 
-												<a class="btn btn-danger" onclick="if(!confirm('Bạn có chắc chắn muốn xóa')) return false;" th:href="@{'/admin/deletecategory/' +${c.id}}">Xóa</a>
+												<a class="btn btn-danger" onclick="if(!confirm('Bạn có chắc muốn xóa sản phẩm?')) return false;" th:href="@{'/admin/deletecategory/' +${c.id}}">Xóa</a>
 											</div>
 										</td>
 									</tr>

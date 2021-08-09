@@ -17,7 +17,7 @@
 							<i class="fa fa-gift"></i> Sản phẩm
 						</h3>
 						<ol class="breadcrumb" style="font-family: arial;">
-							<li><a th:href="@{/templates/admin}">Trang chủ</a></li>
+							<li><a th:href="@{/admin}">Trang chủ</a></li>
 							<li>Sản phẩm</li>
 						</ol>
 					</div>
@@ -28,8 +28,7 @@
 
 						<div class="btn-group" style="margin-bottom: 20px;width: 1156px;">
                             <div class="col-lg-6">
-                                <a class="btn btn-success" th:href="@{/admin/product/addproduct}">Thêm
-                                    mới</a>
+                                <a class="btn btn-success" th:href="@{/admin/product/addproduct}">Thêm mới</a>
                             </div>
                             <div class="col-lg-6">
                                 <form class="navbar-form" th:action="@{/page/1}" style="margin-left: 264px;">
@@ -53,12 +52,13 @@
 										<th style="text-align: center;">Ảnh 4</th>
 										<th style="text-align: center;">Giá</th>
 										<th style="text-align: center;">Sale</th>
-										<th style="text-align: center;">Danh mục</th>
+										<th style="text-align: center;">Hãng</th>
+										<th style="text-align: center;">Thể loại</th>
 										<th style="text-align: center;">Chi tiết</th>
-										<th style="text-align: center;">Mã</th>
 										<th style="text-align: center;">Ngày lập</th>
-										<th style="text-align: center;">Màu</th>
-										<th style="text-align: center;">Tình trạng</th>
+										<th style="text-align: center;">Ngày chỉnh sửa</th>
+										
+										<th style="text-align: center;">Tình Trạng</th>
 										<th style="text-align: center;">Lượt xem</th>
 									</tr>
 									<tbody id="productTable">
@@ -75,11 +75,12 @@
 											alt="" style="height: 40px; width: 40px;"></td>
 										<td th:text="${sp.price}"></td>
 										<td th:text="${sp.sale}"></td>
-										<td th:text="${sp.c.name}"></td>
-										<td th:text="${sp.detail}"></td>
-										<td th:text="${sp.code}"></td>
+										<td th:text="${sp.brand.name}"></td>
+										<td th:text="${sp.category.name}"></td>
+										<td th:text="${sp.detail}"></td>									
 										<td th:text="${sp.oncreate}"></td>
-										<td th:text="${sp.color}"></td>
+										<td th:text="${sp.onupdate}"></td>
+										
 										<td th:text="${sp.status}"></td>
 										<td th:text="${sp.view}"></td>
 	
@@ -88,7 +89,7 @@
 												<a class="btn btn-primary"
 													th:href="@{'/admin/product/edit/' +${sp.id}}">Sửa</a> <a
 													class="btn btn-danger"
-													onclick="if(!confirm('Bạn có chắc chắn muốn xóa')) return false;"
+													onclick="if(!confirm('Bạn có chắc chắn muốn xóa không?')) return false;"
 													th:href="@{'/admin/product/deleteproduct/' +${sp.id}}">Xóa</a>
 													<a class="btn btn-primary"
 													th:href="@{'/admin/product/size/' +${sp.id}}">Size</a>
