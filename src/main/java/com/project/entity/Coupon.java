@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,11 +32,11 @@ public class Coupon {
     @Column
     private Integer percent;
 
-    @Column(name = "start_date")
-    private Date startDate;
+    @Column(name = "start_date", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Timestamp startDate;
 
-    @Column(name = "end_date")
-    private Date endDate;
+    @Column(name = "end_date", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Timestamp endDate;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "coupon")
     private List<Orders> orders = new ArrayList<>();

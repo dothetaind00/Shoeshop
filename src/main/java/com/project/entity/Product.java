@@ -1,5 +1,6 @@
 package com.project.entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -63,11 +64,11 @@ public class Product {
     @Column(name = "is_enable", length = 2)
     private Integer isEnable;
 
-    @Column(name = "oncreate")
-    private Date onCreate;
+    @Column(name = "oncreate", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Timestamp onCreate;
 
-    @Column(name = "onupdate")
-    private Date onUpdate;
+    @Column(name = "onupdate", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Timestamp onUpdate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")

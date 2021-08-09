@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.criterion.Order;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,8 +45,8 @@ public class User {
     @Column(length = 11)
     private String phone;
 
-    @Column(name = "lastlogined")
-    private Date lastLogined;
+    @Column(name = "lastlogined", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Timestamp lastLogined;
 
     @Column(name = "is_enable", length = 2)
     private Integer isEnable;
