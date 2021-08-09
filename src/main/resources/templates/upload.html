@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>UploadFile</title>
+</head>
+<body>
+    <div align="center">
+        <h1>Thông tin File</h1>
+    </div>
+
+    <div class="wrapper content">
+        <form action="#" th:action="@{/user/product/save/upload}" th:object="${productImage}" method="POST" enctype="multipart/form-data">
+            <div class="clearfix">
+                <div class="info_student">
+                    <div class="col col-3">
+                        <div class="text">
+                            <p>Img1:</p>
+                            <input type="file" name="image1"/>
+                        </div>
+                    </div>
+                    <div class="col col-3">
+                        <div class="text">
+                            <p>Img2:</p>
+                            <input type="file" name="image2"/>
+                        </div>
+                    </div>
+                    <div class="col col-3">
+                        <div class="text">
+                            <p>Img3:</p>
+                            <input type="file" name="image3"/>
+                        </div>
+                    </div>
+                    <div class="col col-3">
+                        <div class="text">
+                            <p>Img4:</p>
+                            <input type="file" name="image4"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="save">
+                    <button type="submit">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
