@@ -22,7 +22,7 @@ import java.util.UUID;
 
 @Service
 @PropertySource("classpath:application.properties")
-public class FirebaseStorageStrategy {
+public class FirebaseStorageStrategy implements StorageStrategy{
 
     private static final Logger logger = LoggerFactory.getLogger(FirebaseStorageStrategy.class);
 
@@ -44,6 +44,7 @@ public class FirebaseStorageStrategy {
     }
 
     //upload file to firebase
+    @Override
     public String saveImage(MultipartFile file, String path) {
         try {
             if ("jpg,png,jpeg".contains(Objects.requireNonNull(getExtension(file.getOriginalFilename())))) {
