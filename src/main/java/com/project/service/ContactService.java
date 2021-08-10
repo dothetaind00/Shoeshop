@@ -9,7 +9,7 @@ public interface ContactService {
 
     Contact findById(Integer id);
 
-    Contact findByEmailOrPhone(String email, String phone);
+    Contact findByPhone(String phone);
 
     Boolean existByEmailAndPhone(String email, String phone);
 

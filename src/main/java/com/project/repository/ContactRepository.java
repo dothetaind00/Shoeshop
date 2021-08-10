@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface ContactRepository extends JpaRepository<Contact, Integer> {
 
-    Optional<Contact> findContactByEmailLikeOrPhoneLike(String email, String phone);
+    Optional<Contact> findContactByPhoneLike(String phone);
 
     Boolean existsByEmailAndPhone(String email, String phone);
 }

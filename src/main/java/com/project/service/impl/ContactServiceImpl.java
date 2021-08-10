@@ -21,7 +21,7 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public Contact findByEmailOrPhone(String email, String phone) {
+    public Contact findByPhone(String phone) {
         return null;
     }
 
@@ -48,5 +48,6 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public void delete(Integer id) {
+
     }
 }
