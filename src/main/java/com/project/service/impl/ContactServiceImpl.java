@@ -1,0 +1,46 @@
+package com.project.service.impl;
+
+import com.project.entity.Contact;
+import com.project.repository.ContactRepository;
+import com.project.service.ContactService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class ContactServiceImpl implements ContactService {
+
+    @Autowired
+    private ContactRepository contactRepository;
+
+    @Override
+    public Contact findByEmailOrPhone(String email, String phone) {
+        return null;
+    }
+
+    @Override
+    public Boolean existByEmailAndPhone(String email, String phone) {
+        return contactRepository.existsByEmailAndPhone(email, phone);
+    }
+
+    @Override
+    public List<Contact> findAll() {
+        return contactRepository.findAll();
+    }
+
+    @Override
+    public Contact save(Contact contact) {
+        if (contact.getId() == null) {
+            if (contactRepository.existsByEmailAndPhone(contact.getEmail(), contact.getPhone())) {
+                return null;
+            }
+            return contactRepository.save(contact);
+        }
+        return contactRepository.save(contact);
+    }
+
+    @Override
+    public void delete(Integer id) {
+    }
+}
