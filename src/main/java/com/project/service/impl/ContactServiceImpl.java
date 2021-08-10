@@ -4,6 +4,8 @@ import com.project.entity.Contact;
 import com.project.repository.ContactRepository;
 import com.project.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,6 +38,11 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
+    public Page<Contact> findAllPaging(Pageable pageable) {
+        return contactRepository.findAll(pageable);
+    }
+
+    @Override
     public Contact save(Contact contact) {
         if (contact.getId() == null) {
             if (contactRepository.existsByEmailAndPhone(contact.getEmail(), contact.getPhone())) {
@@ -43,11 +50,14 @@ public class ContactServiceImpl implements ContactService {
             }
             return contactRepository.save(contact);
         }
+        if (contactRepository.existsByEmailAndPhone(contact.getEmail(), contact.getPhone())) {
+            return null;
+        }
         return contactRepository.save(contact);
     }
 
     @Override
     public void delete(Integer id) {
-
+        contactRepository.deleteById(id);
     }
 }
