@@ -23,12 +23,12 @@ public class ContactController {
     private ContactService contactService;
 
     @GetMapping("")
-    public String getContact(@RequestParam(value = "page",defaultValue = "1",required = false) Integer pageNo,
+    public String getContact(@RequestParam(value = "page", defaultValue = "1", required = false) Integer pageNo,
                              @RequestParam(value = "limit", defaultValue = "10", required = false) Integer limit,
                              @RequestParam(value = "sortField", defaultValue = "name", required = false) String sortField,
                              @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir,
                              Model model) {
-        Pageable pageable = PageRequest.of(pageNo - 1,limit, ("asc".equals(sortDir) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending()));
+        Pageable pageable = PageRequest.of(pageNo - 1, limit, ("asc".equals(sortDir) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending()));
         Page<Contact> page = contactService.findAllPaging(pageable);
 
         GenericModel<Contact> contactModel = new GenericModel<>();
@@ -47,7 +47,7 @@ public class ContactController {
     @GetMapping("/edit/{id}")
     public String getUpdateContact(@PathVariable Integer id, Model model) {
         Contact contact = contactService.findById(id);
-        if (contact != null){
+        if (contact != null) {
             model.addAttribute("contact", contact);
             return "admin/editcontact";
         }
@@ -57,14 +57,17 @@ public class ContactController {
     @PostMapping("/update")
     public String updateContact(@ModelAttribute @Valid Contact contact, BindingResult result) {
         if (result.hasErrors()) {
-            return "redirect:/admin/contact/edit/{" + contact.getId() + "}?invalid";
+            return "redirect:/admin/contact/edit/" + contact.getId() + "?invalid";
         }
-        contactService.save(contact);
+
+        if (contactService.save(contact) == null)
+            return "redirect:/admin/contact/edit/" + contact.getId() + "?existed";
+
         return "redirect:/admin/contact/edit/" + contact.getId();
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteContact(@PathVariable Integer id){
+    public String deleteContact(@PathVariable Integer id) {
         contactService.delete(id);
         return "redirect:/admin/contact";
     }

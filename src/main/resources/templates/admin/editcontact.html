@@ -31,6 +31,15 @@
                     <section class="panel">
                         <div class="panel-body">
                             <div class="form">
+                                <th:block th:if="${param.existed != null}">
+                                    <br>
+                                    <h5 style="text-align: center;">Contact Existed !</h5>
+                                </th:block>
+
+                                <th:block th:if="${param.invalid != null}">
+                                    <br>
+                                    <h5 style="text-align: center;">Field Not Empty !</h5>
+                                </th:block>
                                 <form class="form-validate form-horizontal" action="#"
                                       th:action="@{/admin/contact/update}" th:object="${contact}" method="post">
                                     <div class="form-group ">
