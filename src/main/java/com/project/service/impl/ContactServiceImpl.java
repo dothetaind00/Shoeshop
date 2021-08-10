@@ -3,6 +3,7 @@ package com.project.service.impl;
 import com.project.entity.Contact;
 import com.project.repository.ContactRepository;
 import com.project.service.ContactService;
+import com.project.service.sendmail.SendMail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +17,9 @@ public class ContactServiceImpl implements ContactService {
 
     @Autowired
     private ContactRepository contactRepository;
+
+    @Autowired
+    private SendMail sendMail;
 
     @Override
     public Contact findById(Integer id) {
@@ -48,6 +52,15 @@ public class ContactServiceImpl implements ContactService {
             if (contactRepository.existsByEmailAndPhone(contact.getEmail(), contact.getPhone())) {
                 return null;
             }
+
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    sendMail.sendMail(contact.getEmail(), "Web Shoe", contact.getName());
+                }
+            });
+            thread.start();
+
             return contactRepository.save(contact);
         }
         if (contactRepository.existsByEmailAndPhone(contact.getEmail(), contact.getPhone())) {

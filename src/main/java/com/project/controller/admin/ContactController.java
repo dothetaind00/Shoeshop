@@ -2,7 +2,7 @@ package com.project.controller.admin;
 
 import com.project.entity.Contact;
 import com.project.service.ContactService;
-import com.project.utils.GenericModel;
+import com.project.domain.PaginationResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,16 +31,16 @@ public class ContactController {
         Pageable pageable = PageRequest.of(pageNo - 1, limit, ("asc".equals(sortDir) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending()));
         Page<Contact> page = contactService.findAllPaging(pageable);
 
-        GenericModel<Contact> contactModel = new GenericModel<>();
-        contactModel.setPageNo(pageNo);
-        contactModel.setLimit(limit);
-        contactModel.setTotalPage(page.getTotalPages());
-        contactModel.setTotalItem(page.getTotalElements());
-        contactModel.setSortField(sortField);
-        contactModel.setSortDir(sortDir);
-        contactModel.setList(page.toList());
+        PaginationResult<Contact> pagination = new PaginationResult<>();
+        pagination.setPageNo(pageNo);
+        pagination.setLimit(limit);
+        pagination.setTotalPage(page.getTotalPages());
+        pagination.setTotalItem(page.getTotalElements());
+        pagination.setSortField(sortField);
+        pagination.setSortDir(sortDir);
+        pagination.setList(page.toList());
 
-        model.addAttribute("contacts", contactModel);
+        model.addAttribute("contacts", pagination);
         return "admin/contact";
     }
 

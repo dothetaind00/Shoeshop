@@ -1,4 +1,4 @@
-package com.project.utils;
+package com.project.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class GenericModel<T> {
+public class PaginationResult<T> {
+
     private Integer pageNo;
     private Integer limit;
     private Integer totalPage;
