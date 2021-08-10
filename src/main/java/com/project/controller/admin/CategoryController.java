@@ -75,10 +75,10 @@ public class CategoryController {
 			// Not Exist
 			// Error Page
 			return "redirect:/admin/category";
-		}
-		
-		
+		}		
 	}
+	
+	
 			
 
 }

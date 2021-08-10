@@ -31,7 +31,7 @@
                                 <a class="btn btn-success" th:href="@{/admin/product/addproduct}">Thêm mới</a>
                             </div>
                             <div class="col-lg-6">
-                                <form class="navbar-form" th:action="@{/page/1}" style="margin-left: 264px;">
+                                <form class="navbar-form" th:action="@{/admin/product/page/1}" style="margin-left: 264px;">
                                     <input class="form-control" placeholder="Tìm kiếm" name="keyword" th:value="${keyword}" type="text" required/>
                                     <input class="btn btn-warning" type="submit" value="Tìm kiếm"/>
                                 </form>
@@ -47,38 +47,29 @@
 										<th style="text-align: center;">ID</th>
 										<th style="text-align: center;">Tên sản phẩm</th>
 										<th style="text-align: center;">Ảnh</th>
-										<th style="text-align: center;">Ảnh 2</th>
-										<th style="text-align: center;">Ảnh 3</th>
-										<th style="text-align: center;">Ảnh 4</th>
 										<th style="text-align: center;">Giá</th>
 										<th style="text-align: center;">Sale</th>
 										<th style="text-align: center;">Hãng</th>
 										<th style="text-align: center;">Thể loại</th>
-										<th style="text-align: center;">Chi tiết</th>
 										<th style="text-align: center;">Ngày lập</th>
 										<th style="text-align: center;">Ngày chỉnh sửa</th>										
 										<th style="text-align: center;">Tình Trạng</th>
-										<th style="text-align: center;">Lượt xem</th>
 										<th style="text-align: center;">Chi tiết</th>
 									</tr>
 									<tbody id="productTable">
 									<tr  th:each="sp : ${list}" style="text-align: center;">
 										<td th:text="${sp.id}"></td>
 										<td th:text="${sp.name}"></td>
-										<td> Ảnh 1</td>
-										<td>Ảnh 2</td>
-										<td>Ảnh 3</td>
-										<td>Ảnh 4</td>
+										<td><img th:src="@{${sp.image1}}"
+											alt="" style="height: 40px; width: 40px;"></td>											
 										<td th:text="${sp.price}"></td>
 										<td th:text="${sp.sale}"></td>
 										<td th:text="${sp.brand.name}"></td>
-										<td th:text="${sp.category.name}"></td>
-										<td th:text="${sp.description}"></td>									
+										<td th:text="${sp.category.name}"></td>								
 										<td th:text="${sp.onCreate}"></td>
 										<td th:text="${sp.onUpdate}"></td>									
 										<td th:text="${sp.status}"></td>
-										<td th:text="${sp.view}"></td>
-	
+											
 										<td>
 											<div class="btn-group">
 												<a class="btn btn-primary"
@@ -94,15 +85,30 @@
 								</tbody>
 							</table>
 						</section>
-	<!--  				<div class = "col-lg-6">
-                            <h4 style="font-family: arial;">Tổng sản phẩm: [[${totalItems}]] - Trang [[${currentPage}]]/[[${totalPages}]]</h4>
-                        &nbsp;
-                        </div>
-                        <div class = "col-lg-6">
-                            <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-                            <a  th:href="@{'/admin/product/page/' + ${i}} + ${keyword != null ? '?keyword=' + keyword : ''}" style="font-family: arial; font-size: 18px;">[[${i}]]</a>&nbsp;&nbsp;
-                        </span>
-                        </div>  -->
+						<div th:if = "${totalPages > 1}">
+	  						<div class = "col-lg-6">
+                            	<h4 style="font-family: arial;">Tổng sản phẩm: [[${totalItems}]] - Trang [[${currentPage}]]/[[${totalPages}]]</h4>
+                        		&nbsp;
+                        	</div>
+                        	
+                        	<div class = "col-lg-1">
+                            	<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                            	 <a th:if="${currentPage != i}" th:href="@{'/admin/product/page/' + ${i}} + ${keyword != null ? '?keyword=' + keyword : ''}" style="font-family: arial; font-size: 18px;">[[${i}]]</a>&nbsp;&nbsp;								
+   						 		<span th:unless="${currentPage !=i}" style="font-family: arial; font-size: 18px;">[[${i}]]</span> &nbsp; &nbsp; 
+                        	</span>
+                        </div>  
+                        
+  <!--                   <div class = "col-lg-1">
+   								<a th:if="${currentPage < totalPages}" th:href="@{'/admin/product/page/' + ${currentPage + 1}}">Next</a>
+   								<span th:unless="${currentPage < totalPages}">Next</span> &nbsp; &nbsp;                    
+                        </div>  
+                        
+                        <div class = "col-lg-1">
+   								<a th:if="${currentPage < totalPages}" th:href="@{'/admin/product/page/' + ${totalPages}}">Last</a>
+   								<span th:unless="${currentPage < totalPages}">Last</span> &nbsp; &nbsp;                    
+                        </div>   -->     
+                         
+                       </div>
 					</div>
 				</div>
 				<!-- page end-->
@@ -111,15 +117,7 @@
 		<!--main content end-->
 		
 	</section>
-	
-	<!-- <td><img th:src="@{${sp.img}}"
-											alt="" style="height: 40px; width: 40px;"></td>
-											<td><img th:src="@{${sp.img2}}"
-											alt="" style="height: 40px; width: 40px;"></td>
-											<td><img th:src="@{${sp.img3}}"
-											alt="" style="height: 40px; width: 40px;"></td>
-											<td><img th:src="@{${sp.img4}}"
-											alt="" style="height: 40px; width: 40px;"></td> -->
+
 
 	
 </body>

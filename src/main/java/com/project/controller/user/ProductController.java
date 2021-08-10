@@ -26,19 +26,24 @@ public class ProductController {
 
     @PostMapping("/product/save/upload")
     public String saveUploadFile(@ModelAttribute ProductImageBean productImage){
+
         try {
             String fileName = storageStrategy.saveImage(productImage.getImage1(), "product");
-
+            System.out.println(fileName+ " file name");
+            
             StringBuilder imageUrl = new StringBuilder();
 
             if (fileName != null || fileName.trim().length() != 0) {
                 String tokens = StringUtils.substringBeforeLast(fileName, ".");
-                imageUrl.append("https://firebasestorage.googleapis.com/v0/b/shoes-project-8adf8.appspot.com/o/");
+                imageUrl.append("https://firebasestorage.googleapis.com/v0/b/shoe-mock-project.appspot.com/o/");
                 imageUrl.append("product%2F");
                 imageUrl.append(fileName);
                 imageUrl.append("?alt=media&token=");
                 imageUrl.append(tokens);
             }
+            
+            System.out.println(imageUrl);
+
 
         } catch (Exception ex) {
             ex.printStackTrace();
