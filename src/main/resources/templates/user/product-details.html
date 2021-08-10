@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head th:replace="fragments_user :: html_head(title = 'Chi tiết sản phẩm')"></head>
 
@@ -35,67 +34,47 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="product__details__pic">
-                        <div class="product__details__pic__left product__thumb nice-scroll"
-                             style="overflow-y: hidden; outline: none; cursor: grab; touch-action: none;">
+                        <div class="product__details__pic__left product__thumb nice-scroll" style="overflow-y: hidden; outline: none; cursor: grab; touch-action: none;">
                             <a class="pt active" href="#product-1">
-                                <img data-cfsrc="user/img/product/details/thumb-1.jpg" alt=""
-                                     src="/user/img/product/details/thumb-1.jpg">
+                                <img data-cfsrc="../user/img/product/details/thumb-1.jpg" alt="" src="../user/img/product/details/thumb-1.jpg">
                             </a>
                             <a class="pt" href="#product-2">
-                                <img data-cfsrc="user/img/product/details/thumb-2.jpg" alt=""
-                                     src="/user/img/product/details/thumb-2.jpg">
+                                <img data-cfsrc="../user/img/product/details/thumb-2.jpg" alt="" src="../user/img/product/details/thumb-2.jpg">
                             </a>
                             <a class="pt" href="#product-3">
-                                <img data-cfsrc="user/mg/product/details/thumb-3.jpg" alt=""
-                                     src="/user/img/product/details/thumb-3.jpg">
+                                <img data-cfsrc="../user/mg/product/details/thumb-3.jpg" alt="" src="../user/img/product/details/thumb-3.jpg">
                             </a>
                             <a class="pt" href="#product-4">
-                                <img data-cfsrc="user/img/product/details/thumb-4.jpg" alt=""
-                                     src="/user/img/product/details/thumb-4.jpg">
+                                <img data-cfsrc="../user/img/product/details/thumb-4.jpg" alt="" src="../user/img/product/details/thumb-4.jpg">
                             </a>
                         </div>
                         <div class="product__details__slider__content">
                             <div class="product__details__pic__slider owl-carousel owl-loaded">
                                 <div class="owl-stage-outer">
-                                    <div class="owl-stage"
-                                         style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 3304px;">
-                                        <div class="owl-item active" style="width: 412.891px;"><img
-                                                data-hash="product-1" class="product__big__img"
-                                                data-cfsrc="user/img/product/details/thumb-1.jpg" alt=""
-                                                src="/user/img/product/details/thumb-1.jpg">
+                                    <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 3304px;">
+                                        <div class="owl-item active" style="width: 412.891px;"><img data-hash="product-1" class="product__big__img" data-cfsrc="../ser/img/product/details/thumb-1.jpg" alt="" src="../user/img/product/details/thumb-1.jpg">
                                         </div>
                                         <div class="owl-item" style="width: 412.891px;"><noscript><img
                                                 data-hash="product-1" class="product__big__img"
-                                                src="user/img/product/details/thumb-1.jpg" alt=""></noscript></div>
-                                        <div class="owl-item" style="width: 412.891px;"><img data-hash="product-2"
-                                                                                             class="product__big__img" data-cfsrc="user/img/product/details/thumb-3.jpg"
-                                                                                             alt=""
-                                                                                             src="/user/img/product/details/thumb-3.jpg">
+                                                src="../user/img/product/details/thumb-1.jpg" alt=""></noscript></div>
+                                        <div class="owl-item" style="width: 412.891px;"><img data-hash="product-2" class="product__big__img" data-cfsrc="../user/img/product/details/thumb-3.jpg" alt="" src="../user/img/product/details/thumb-3.jpg">
                                         </div>
                                         <div class="owl-item" style="width: 412.891px;"><noscript><img
                                                 data-hash="product-2" class="product__big__img"
-                                                src="/user/img/product/details/product-3.jpg" alt=""></noscript></div>
-                                        <div class="owl-item" style="width: 412.891px;"><img data-hash="product-3"
-                                                                                             class="product__big__img" data-cfsrc="usre/img/product/details/product-2.jpg"
-                                                                                             alt=""
-                                                                                             src="https://preview.colorlib.com/theme/ashion/img/product/details/product-2.jpg">
+                                                src="../user/img/product/details/product-3.jpg" alt=""></noscript></div>
+                                        <div class="owl-item" style="width: 412.891px;"><img data-hash="product-3" class="product__big__img" data-cfsrc="../usre/img/product/details/product-2.jpg" alt="" src="https://preview.colorlib.com/theme/ashion/img/product/details/product-2.jpg">
                                         </div>
                                         <div class="owl-item" style="width: 412.891px;"><noscript><img
                                                 data-hash="product-3" class="product__big__img"
-                                                src="/user/img/product/details/product-2.jpg" alt=""></noscript></div>
-                                        <div class="owl-item" style="width: 412.891px;"><img data-hash="product-4"
-                                                                                             class="product__big__img" data-cfsrc="user/img/product/details/product-4.jpg"
-                                                                                             alt=""
-                                                                                             src="https://preview.colorlib.com/theme/ashion/img/product/details/product-4.jpg">
+                                                src="../user/img/product/details/product-2.jpg" alt=""></noscript></div>
+                                        <div class="owl-item" style="width: 412.891px;"><img data-hash="product-4" class="product__big__img" data-cfsrc="../user/img/product/details/product-4.jpg" alt="" src="https://preview.colorlib.com/theme/ashion/img/product/details/product-4.jpg">
                                         </div>
                                         <div class="owl-item" style="width: 412.891px;"><noscript><img
                                                 data-hash="product-4" class="product__big__img"
-                                                src="/user/img/product/details/product-4.jpg" alt=""></noscript></div>
+                                                src="../user/img/product/details/product-4.jpg" alt=""></noscript></div>
                                     </div>
                                 </div>
-                                <div class="owl-nav"><button type="button" role="presentation"
-                                                             class="owl-prev disabled"><i class="arrow_carrot-left"></i></button><button
-                                        type="button" role="presentation" class="owl-next"><i
+                                <div class="owl-nav"><button type="button" role="presentation" class="owl-prev disabled"><i class="arrow_carrot-left"></i></button><button type="button" role="presentation" class="owl-next"><i
                                         class="arrow_carrot-right"></i></button></div>
                                 <div class="owl-dots disabled"></div>
                             </div>
@@ -114,8 +93,7 @@
                             <span>( 138 reviews )</span>
                         </div>
                         <div class="product__details__price">1300000 đ<span>1600000 đ</span></div>
-                        <p>Nemo enim ipsam voluptatem quia aspernatur aut odit aut loret fugit, sed quia consequuntur
-                            magni lores eos qui ratione voluptatem sequi nesciunt.</p>
+                        <p>Nemo enim ipsam voluptatem quia aspernatur aut odit aut loret fugit, sed quia consequuntur magni lores eos qui ratione voluptatem sequi nesciunt.</p>
                         <div class="product__details__button">
                             <div class="quantity">
                                 <span>Số lượng:</span>
@@ -204,42 +182,24 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="tabs-1" role="tabpanel">
                                 <h6>Mô tả</h6>
-                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-                                    quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-                                    Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-                                    voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-                                    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-                                    consequat massa quis enim.</p>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                    dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                                    nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                                    quis, sem.</p>
+                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret. Neque porro lorem quisquam est, qui dolorem ipsum quia
+                                    dolor si. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla consequat massa quis enim.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
+                                    nec, pellentesque eu, pretium quis, sem.</p>
                             </div>
                             <div class="tab-pane" id="tabs-2" role="tabpanel">
                                 <h6>Đặc biệt</h6>
-                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-                                    quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-                                    Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-                                    voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-                                    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-                                    consequat massa quis enim.</p>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                    dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                                    nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                                    quis, sem.</p>
+                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret. Neque porro lorem quisquam est, qui dolorem ipsum quia
+                                    dolor si. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla consequat massa quis enim.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
+                                    nec, pellentesque eu, pretium quis, sem.</p>
                             </div>
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
                                 <h6>Đánh giág( 2 )</h6>
-                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-                                    quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-                                    Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-                                    voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-                                    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-                                    consequat massa quis enim.</p>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                    dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                                    nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                                    quis, sem.</p>
+                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret. Neque porro lorem quisquam est, qui dolorem ipsum quia
+                                    dolor si. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla consequat massa quis enim.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
+                                    nec, pellentesque eu, pretium quis, sem.</p>
                             </div>
                         </div>
                     </div>
@@ -253,11 +213,10 @@
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="user/img/product/related/con5.jpg"
-                             style="background-image: url(&quot;img/product/related/con5.jpg&quot;);">
+                        <div class="product__item__pic set-bg" data-setbg="../user/img/product/related/con5.jpg" style="background-image: url(&quot;../user/img/product/related/con5.jpg&quot;);">
                             <div class="label new">New</div>
                             <ul class="product__hover">
-                                <li><a href="/user/img/product/related/con1.jpg" class="image-popup"><span
+                                <li><a href="../user/img/product/related/con1.jpg" class="image-popup"><span
                                         class="arrow_expand"></span></a></li>
                                 <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                                 <li><a href="#"><span class="icon_bag_alt"></span></a></li>
@@ -278,10 +237,9 @@
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="user/img/product/related/con6.jpg"
-                             style="background-image: url(&quot;img/product/related/con6.jpg&quot;);">
+                        <div class="product__item__pic set-bg" data-setbg="../user/img/product/related/con6.jpg" style="background-image: url(&quot;../user/img/product/related/con6.jpg&quot;);">
                             <ul class="product__hover">
-                                <li><a href="/user/img/product/related/con2.jpg" class="image-popup"><span
+                                <li><a href="../user/img/product/related/con2.jpg" class="image-popup"><span
                                         class="arrow_expand"></span></a></li>
                                 <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                                 <li><a href="#"><span class="icon_bag_alt"></span></a></li>
@@ -302,11 +260,10 @@
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="user/img/product/related/con7.jpg"
-                             style="background-image: url(&quot;img/product/related/con7.jpg&quot;);">
+                        <div class="product__item__pic set-bg" data-setbg="../user/img/product/related/con7.jpg" style="background-image: url(&quot;../user/img/product/related/con7.jpg&quot;);">
                             <div class="label stockout">out of stock</div>
                             <ul class="product__hover">
-                                <li><a href="/user/img/product/related/con3.jpg" class="image-popup"><span
+                                <li><a href="../user/img/product/related/con3.jpg" class="image-popup"><span
                                         class="arrow_expand"></span></a></li>
                                 <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                                 <li><a href="#"><span class="icon_bag_alt"></span></a></li>
@@ -327,10 +284,9 @@
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="user/img/product/related/con8.jpg"
-                             style="background-image: url(&quot;img/product/related/con8.jpg&quot;);">
+                        <div class="product__item__pic set-bg" data-setbg="../user/img/product/related/con8.jpg" style="background-image: url(&quot;../user/img/product/related/con8.jpg&quot;);">
                             <ul class="product__hover">
-                                <li><a href="/user/img/product/related/con4.jpg" class="image-popup"><span
+                                <li><a href="../user/img/product/related/con4.jpg" class="image-popup"><span
                                         class="arrow_expand"></span></a></li>
                                 <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                                 <li><a href="#"><span class="icon_bag_alt"></span></a></li>
@@ -377,4 +333,5 @@
     <div th:replace="fragments_user :: script"></div>
     <!-- Js Plugins -->
 </body>
+
 </html>
