@@ -25,17 +25,24 @@
                     <div class="contact__content">
                         <div class="contact__form">
                             <h5>Đăng kí</h5>
-                            <form action="#">
-                                <input type="text" placeholder="Username">
-                                <input type="password" placeholder="Password">
-                                <input type="text" placeholder="Tên đầy đủ">
-                                <input type="text" placeholder="Email">
-                                <input type="text" placeholder="Điện thoại">
-                                <input type="text" placeholder="Tỉnh/Thành phố">
-                                <input type="text" placeholder="Quận/Huyện">
-                                <input type="text" placeholder="Địa chỉ">
+                            <form action="#" th:action="@{/create-user}" th:object="${user}" method="post">
+                                <input type="text" name="userName" placeholder="Username" required>
+                                <input type="password" name="psw" placeholder="Password" required>
+                                <input type="text" name="fullName" placeholder="Tên đầy đủ" required>
+                                <input type="email" name="email" placeholder="Email" required>
+                                <input type="text" name="phone" placeholder="Điện thoại">
+                                <input type="text" name="address" placeholder="Địa chỉ">
                                 <button type="submit" class="site-btn">Đăng kí </button>
                             </form>
+                            <th:block th:if="${param.existed != null}">
+                                <br>
+                                <h5>User Existed !</h5>
+                            </th:block>
+
+                            <th:block th:if="${param.invalid != null}">
+                                <br>
+                                <h5>Field Not Empty !</h5>
+                            </th:block>
                         </div>
                     </div>
                 </div>
