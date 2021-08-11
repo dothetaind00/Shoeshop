@@ -3,13 +3,13 @@ package com.project.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.project.entity.Product;
-import com.project.repository.ProductRepository;
 
 public interface ProductService {
-
 
 
 	void deleteAll();
@@ -27,6 +27,14 @@ public interface ProductService {
 	List<Product> findAll();
 
 	Product save(Product entity);
+	
+	String saveImageUrl(MultipartFile file);
+	
+	List<Product> findAllProductByName(String name);
+	
+	Page<Product> findPaginated(int pageNo, int pageSize);
+	
+	Page<Product> findAllByName(String name, int pageNo, int pageSize);
 
 
 
