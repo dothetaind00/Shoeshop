@@ -4,12 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.criterion.Order;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -24,15 +23,21 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotEmpty
     @Column(name = "username", unique = true, nullable = false)
     private String userName;
 
     @Column
     private String password;
 
+    @NotEmpty
+    @Transient
+    private String psw;
+
     @Column(name = "fullname")
     private String fullName;
 
+    @NotEmpty
     @Column
     private String email;
 
@@ -48,10 +53,10 @@ public class User {
     @Column(name = "lastlogined", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp lastLogined;
 
-    @Column(name = "is_enable", length = 2)
-    private Integer isEnable;
+    @Column(name = "is_enable", columnDefinition = "BIT")
+    private Boolean isEnable;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id")
             ,inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<>();
@@ -61,4 +66,9 @@ public class User {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Wishlist> wishlists = new ArrayList<>();
+
+    @Transient
+    public void addRole(Role role){
+        this.roles.add(role);
+    }
 }
