@@ -42,7 +42,7 @@
                                     <tr th:each="c : ${list}" style="text-align: center;">
                                         <td th:text="${c.id}"></td>
                                         <td th:text="${c.name}"></td>
-                                        <td th:text="${c.isdisplay}? 'Được hiển thị' : 'Không hiển thị'"></td>
+                                        <td th:text="${c.isDisplay}? 'Được hiển thị' : 'Không hiển thị'"></td>
                                         <td th:text="${c.position}"></td>
 
                                         <td>
@@ -63,7 +63,6 @@
         <!--main content end-->
 
     </section>
-
 
 </body>
 

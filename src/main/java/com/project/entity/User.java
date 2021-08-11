@@ -49,7 +49,7 @@ public class User {
     private Timestamp lastLogined;
 
     @Column(name = "is_enable", length = 2)
-    private Integer isEnable;
+    private Boolean isEnable;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id")
