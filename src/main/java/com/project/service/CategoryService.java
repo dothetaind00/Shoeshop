@@ -32,7 +32,7 @@ public interface CategoryService {
 	
 	Optional<Category> findByName(String name);
 
-	
+	List<Category> findByIsDisplay(Boolean isDisplay);
 	
 
 }

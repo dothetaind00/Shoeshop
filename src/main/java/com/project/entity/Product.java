@@ -61,8 +61,8 @@ public class Product {
     @Column
     private String status;
 
-    @Column(name = "is_enable", length = 2)
-    private Integer isEnable;
+    @Column(name = "is_enable", columnDefinition = "BIT")
+    private Boolean isEnable;
 
     @Column(name = "oncreate", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp onCreate;
