@@ -1,8 +1,6 @@
 package com.project.service.impl;
 
-import com.project.entity.Role;
 import com.project.entity.User;
-import com.project.repository.RoleRepository;
 import com.project.repository.UserRepository;
 import com.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +8,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -30,16 +28,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<User> findUserByTokenAndIsEnable(String token, Boolean isEnable) {
+        return userRepository.findUserByTokenAndIsEnable(token,isEnable);
+    }
+
+    @Override
     public User save(User user) {
         if (user.getId() == null){
             if (userRepository.existsUserByUserName(user.getUserName())){
                 return null;
             }
+
+            String token = UUID.randomUUID().toString();
+            user.setToken(token);
+
             user.setPassword(passwordEncoder.encode(user.getPsw()));
-            user.setIsEnable(true);
-            //add role for user
-            Role role = roleRepository.findRoleByRole("USER").orElseThrow(() -> new NullPointerException("Cannot find Role"));
-            user.addRole(role);
+            user.setIsEnable(false);
+//            //add role for user
+//            Role role = roleRepository.findRoleByRole("USER").orElseThrow(() -> new NullPointerException("Cannot find Role"));
+//            user.addRole(role);
             return userRepository.save(user);
         }
 
@@ -58,5 +65,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean existUserByUserName(String username) {
         return userRepository.existsUserByUserName(username);
+    }
+
+    @Override
+    public Boolean existUserByTokenAndIsEnable(String token, Boolean isEnable) {
+        return userRepository.existsUserByTokenAndIsEnable(token, isEnable);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        userRepository.deleteById(id);
     }
 }

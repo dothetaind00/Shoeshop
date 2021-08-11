@@ -12,4 +12,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findUserByUserNameAndIsEnable(String userName, Boolean isEnable);
 
     Boolean existsUserByUserName(String username);
+
+    Boolean existsUserByTokenAndIsEnable(String token, Boolean isEnable);
+
+    Optional<User> findUserByTokenAndIsEnable(String token, Boolean isEnable);
 }
