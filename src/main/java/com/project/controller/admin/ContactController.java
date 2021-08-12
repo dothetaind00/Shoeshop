@@ -22,7 +22,7 @@ public class ContactController {
     @Autowired
     private ContactService contactService;
 
-    @GetMapping("")
+    @GetMapping
     public String getContact(@RequestParam(value = "page", defaultValue = "1", required = false) Integer pageNo,
                              @RequestParam(value = "limit", defaultValue = "10", required = false) Integer limit,
                              @RequestParam(value = "sortField", defaultValue = "name", required = false) String sortField,
@@ -44,7 +44,7 @@ public class ContactController {
         return "admin/contact";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/{id}")
     public String getUpdateContact(@PathVariable Integer id, Model model) {
         Contact contact = contactService.findById(id);
         if (contact != null) {
@@ -54,16 +54,16 @@ public class ContactController {
         return "redirect:/admin/contact";
     }
 
-    @PostMapping("/update")
+    @PostMapping
     public String updateContact(@ModelAttribute @Valid Contact contact, BindingResult result) {
         if (result.hasErrors()) {
-            return "redirect:/admin/contact/edit/" + contact.getId() + "?invalid";
+            return "redirect:/admin/contact/" + contact.getId() + "?invalid";
         }
 
         if (contactService.save(contact) == null)
-            return "redirect:/admin/contact/edit/" + contact.getId() + "?existed";
+            return "redirect:/admin/contact/" + contact.getId() + "?existed";
 
-        return "redirect:/admin/contact/edit/" + contact.getId();
+        return "redirect:/admin/contact/" + contact.getId();
     }
 
     @GetMapping("/delete/{id}")

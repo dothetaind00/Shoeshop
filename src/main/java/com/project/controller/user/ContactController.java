@@ -21,13 +21,13 @@ public class ContactController {
     @Autowired
     private ContactService contactService;
 
-    @GetMapping("")
-    public String getFormContact(Model model) {
+    @GetMapping
+    public String getPageContact(Model model) {
         model.addAttribute("contact", new Contact());
         return "user/contact";
     }
 
-    @PostMapping("/save")
+    @PostMapping
     public String addContact(@ModelAttribute @Valid Contact contact, BindingResult result) {
         if (result.hasErrors()) {
             return "redirect:/user/contact?invalid";

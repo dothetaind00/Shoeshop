@@ -47,7 +47,7 @@
                                     <td th:text="${c.address}"></td>
                                     <td>
                                         <div class="btn-group">
-                                            <a class="btn btn-primary" th:href="@{'/admin/contact/edit/' +${c.id}}">Update</a>
+                                            <a class="btn btn-primary" th:href="@{'/admin/contact/' +${c.id}}">Update</a>
                                             <a class="btn btn-danger" onclick="if(!confirm('Bạn có chắc muốn xóa liên hệ?')) return false;" th:href="@{'/admin/contact/delete/' +${c.id}}">Delete</a>
                                         </div>
                                     </td>
