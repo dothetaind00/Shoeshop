@@ -34,7 +34,7 @@ public class CategoryController {
 	@GetMapping("/category/addcategory")
 	public String addOrEdit(Model model) {
 		Category category = new Category();
-		category.setIsDisplay(1);
+		category.setIsDisplay(true);
 		model.addAttribute("category", category);
 		return "admin/addcategory";
 	}
