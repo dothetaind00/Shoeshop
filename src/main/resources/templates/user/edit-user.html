@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="fragments_user :: html_head(title = 'Đăng kí')"></head>
+<head th:replace="fragments_user :: html_head(title = 'Cập nhật tài khoản')"></head>
 
 <body>
     <!-- Offcanvas Menu Begin -->
@@ -24,15 +24,15 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="contact__content">
                         <div class="contact__form">
-                            <h5>Đăng kí</h5>
+                            <h5>Cập nhật thông tin</h5>
                             <form action="#" th:action="@{/user}" th:object="${user}" method="post">
-                                <input type="text" name="userName" placeholder="Username" required>
-                                <input type="password" name="psw" placeholder="Password" required>
-                                <input type="text" name="fullName" placeholder="Tên đầy đủ" required>
-                                <input type="email" name="email" placeholder="Email" required>
-                                <input type="text" name="phone" placeholder="Điện thoại">
-                                <input type="text" name="address" placeholder="Địa chỉ">
-                                <button type="submit" class="site-btn">Đăng kí </button>
+                                <input type="hidden" th:field="*{id}" name="id">
+                                <input type="text" th:field="*{userName}" name="userName" placeholder="Username" required readonly>
+                                <input type="text" th:field="*{fullName}" name="fullName" placeholder="Tên đầy đủ" required>
+                                <input type="email" th:field="*{email}" name="email" placeholder="Email" required>
+                                <input type="text" th:field="*{phone}" name="phone" placeholder="Điện thoại" required>
+                                <input type="text" th:field="*{address}" name="address" placeholder="Địa chỉ" required>
+                                <button type="submit" class="site-btn">Cập nhật</button>
                             </form>
                             <th:block th:if="${param.existed != null}">
                                 <br>

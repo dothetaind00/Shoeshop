@@ -23,8 +23,12 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public User findUserByUserNameAndIsEnable(String userName, Boolean isEnable) {
-
         return userRepository.findUserByUserNameAndIsEnable(userName, isEnable).orElse(null);
+    }
+
+    @Override
+    public Boolean existUserByTokenAndIsEnable(String token, Boolean isEnable) {
+        return userRepository.existsUserByTokenAndIsEnable(token, isEnable);
     }
 
     @Override
@@ -44,22 +48,24 @@ public class UserServiceImpl implements UserService {
 
             user.setPassword(passwordEncoder.encode(user.getPsw()));
             user.setIsEnable(false);
-//            //add role for user
-//            Role role = roleRepository.findRoleByRole("USER").orElseThrow(() -> new NullPointerException("Cannot find Role"));
-//            user.addRole(role);
+
             return userRepository.save(user);
         }
 
-        User u = userRepository.findById(user.getId()).orElse(null);
+        User u = userRepository.findUserByUserNameAndIsEnable(user.getUserName(), true).orElse(null);
         if (u != null){
             u.setFullName(user.getFullName());
             u.setEmail(user.getEmail());
-            u.setAddress(user.getAddress());
             u.setPhone(user.getPhone());
-            u.setToken(user.getToken());
-            return userRepository.save(user);
+            u.setAddress(user.getAddress());
+            return userRepository.save(u);
         }
         return null;
+    }
+
+    @Override
+    public User activeUser(User user) {
+        return userRepository.save(user);
     }
 
     @Override
@@ -68,9 +74,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean existUserByTokenAndIsEnable(String token, Boolean isEnable) {
-        return userRepository.existsUserByTokenAndIsEnable(token, isEnable);
+    public Optional<User> findUserByUserName(String username) {
+        return userRepository.findUserByUserName(username);
     }
+
 
     @Override
     public void delete(Integer id) {
