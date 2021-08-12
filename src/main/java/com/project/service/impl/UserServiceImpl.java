@@ -31,6 +31,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Page<User> findByUserName(String username, Pageable pageable) {
+        return userRepository.findByUserNameLike(username, pageable);
+    }
+
+    @Override
     public User findById(Integer id) {
         return userRepository.findById(id).orElseThrow(() -> new NullPointerException("Cannot find user"));
     }

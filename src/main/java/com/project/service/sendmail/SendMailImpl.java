@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.io.UnsupportedEncodingException;
 
 @Service
 public class SendMailImpl implements SendMail {
@@ -32,43 +33,49 @@ public class SendMailImpl implements SendMail {
 
         StringBuilder mailContent = new StringBuilder();
         mailContent.append("Sender Name : " + fullname + "\n");
-        mailContent.append("Sender Email : "+ toEmail + "\n");
-        mailContent.append("Subject : "+ subject + "\n");
+        mailContent.append("Sender Email : " + toEmail + "\n");
+        mailContent.append("Subject : " + subject + "\n");
         mailContent.append("Content : Xin chào quý khách hàng thân thiện :>");
 
         mailMessage.setTo(toEmail);
         mailMessage.setSubject(subject);
         mailMessage.setText(mailContent.toString());
 
-        try{
+        try {
             javaMailSender.send(mailMessage);
-        }catch (MailException ex){
+        } catch (MailException ex) {
             ex.printStackTrace();
-            logger.error("Cannot send email ",ex.getMessage());
+            logger.error("Cannot send email ", ex.getMessage());
         }
     }
 
     @Override
-    public void confirmMail(String toEmail, String url) {
-        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+    public void confirmMail(String toEmail, String url, String username) {
+        MimeMessage message = javaMailSender.createMimeMessage();
 
         try {
-            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "utf-8");
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
 
-            StringBuilder htmlMsg = new StringBuilder();
-            htmlMsg.append("<meta charset=\"UTF-8\">");
-            htmlMsg.append("<h3>Chao mung ban den boi website</h3>");
-            htmlMsg.append("<p>Click vao duong dan de kick hoat tai khoan</p>");
-            htmlMsg.append(url);
+            helper.setFrom("contact@shoestore.com", "Shoe Store");
+            helper.setTo(toEmail);
 
-            mimeMessage.setContent(htmlMsg.toString(),"text/html");
+            String subject = "Here's the link to active your account";
 
-            mimeMessageHelper.setSubject("Active account");
-            mimeMessageHelper.setTo(toEmail);
+            String content = "<p>Hello, " + username + "</p>"
+                    + "<p>You have requested to active your account.</p>"
+                    + "<p>Click the link below to active your account:</p>"
+                    + "<p>" + url + "</p>"
+                    + "<br>"
+                    + "<p>Ignore this email if you do not register user, "
+                    + "or you have not made the request.</p>";
 
-            this.javaMailSender.send(mimeMessage);
+            //message.setContent(content,"text/html");
+            helper.setSubject(subject);
+            helper.setText(content, true);
 
-        } catch (MessagingException e) {
+            this.javaMailSender.send(message);
+
+        } catch (MessagingException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }

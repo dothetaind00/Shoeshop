@@ -10,6 +10,8 @@ import java.util.Optional;
 public interface UserService {
     Page<User> findByIsEnable(Boolean isEnable, Pageable pageable);
 
+    Page<User> findByUserName(String username, Pageable pageable);
+
     User findById(Integer id);
 
     User findUserByUserNameAndIsEnable(String userName, Boolean isEnable);

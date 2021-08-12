@@ -19,6 +19,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     Page<User> findByIsEnable(Boolean isEnable, Pageable pageable);
 
+    Page<User> findByUserNameLike(String username, Pageable pageable);
+
     Optional<User> findUserByUserNameAndIsEnable(String userName, Boolean isEnable);
 
     Boolean existsUserByTokenAndIsEnable(String token, Boolean isEnable);

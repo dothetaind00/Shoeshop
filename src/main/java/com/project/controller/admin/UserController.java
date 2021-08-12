@@ -47,6 +47,12 @@ public class UserController {
         return "admin/user";
     }
 
+    @PostMapping("/user/search")
+    public String searchUser(@RequestParam String username, Model model){
+
+        return "admin/user";
+    }
+
     @GetMapping("/user/{id}")
     public String getUser(@PathVariable Integer id, Model model){
         model.addAttribute("user", userService.findById(id));

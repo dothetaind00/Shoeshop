@@ -54,7 +54,7 @@ public class UserController {
                     try{
                         String url = "<a href=\"http://localhost:8080/user/actived/" + u.getToken() +
                                 "\">Actice account !</a>";
-                        sendMail.confirmMail(u.getEmail(),url);
+                        sendMail.confirmMail(u.getEmail(),url,user.getUserName());
                         Thread.sleep(10*60*1000);
                         if (userService.existUserByTokenAndIsEnable(u.getToken(), false)){
                             userService.delete(u.getId());
