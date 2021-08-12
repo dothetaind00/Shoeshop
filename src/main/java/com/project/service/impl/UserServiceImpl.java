@@ -24,9 +24,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
     @Override
-    public Page<User> findAllPaging(Pageable pageable) {
-        return userRepository.findAll(pageable);
+    public Page<User> findByIsEnable(Boolean isEnable, Pageable pageable) {
+        return userRepository.findByIsEnable(isEnable, pageable);
     }
 
     @Override
@@ -96,5 +97,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Integer id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public void enableUser(Boolean isEnable, Integer id) {
+        userRepository.enableUser(isEnable, id);
     }
 }

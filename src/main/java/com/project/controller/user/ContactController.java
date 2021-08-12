@@ -2,7 +2,6 @@ package com.project.controller.user;
 
 import com.project.entity.Contact;
 import com.project.service.ContactService;
-import com.project.service.sendmail.SendMail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

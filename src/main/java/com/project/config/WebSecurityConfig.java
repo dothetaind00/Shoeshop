@@ -58,7 +58,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/contact").hasAuthority("USER")
+                .antMatchers("/admin/**","/user/**").authenticated()
+                .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .antMatchers("/user/**").hasAuthority("USER")
+                .antMatchers("/login","/register").permitAll()
             .and()
             .formLogin()
                 .loginPage("/login")
@@ -80,6 +83,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/template/**");
+        web.ignoring().antMatchers("/product/**");
     }
 }

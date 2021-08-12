@@ -32,7 +32,7 @@ public class UserController {
                               Model model){
 
         Pageable pageable = PageRequest.of(pageNo - 1, limit, ("asc".equals(sortDir) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending()));
-        Page<User> page = userService.findAllPaging(pageable);
+        Page<User> page = userService.findByIsEnable(true, pageable);
 
         PaginationResult<User> pagination = new PaginationResult<>();
         pagination.setPageNo(pageNo);
@@ -72,7 +72,8 @@ public class UserController {
     }
 
     @GetMapping("/user/delete/{id}")
-    public String deleteUser(){
-        return "";
+    public String deleteUser(@PathVariable Integer id){
+        userService.enableUser(false, id);
+        return "redirect:/admin/user";
     }
 }

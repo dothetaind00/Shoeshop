@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-    Page<User> findAllPaging(Pageable pageable);
+    Page<User> findByIsEnable(Boolean isEnable, Pageable pageable);
 
     User findById(Integer id);
 
@@ -27,4 +27,6 @@ public interface UserService {
     User postUser(User user);
 
     void delete(Integer id);
+
+    void enableUser(Boolean isEnable, Integer id);
 }

@@ -52,10 +52,10 @@
                                     <td>
                                         <div class="btn-group">
                                             <a class="btn btn-primary"
-                                               th:href="@{'/admin/user/' +${u.id}}">Update</a>
+                                               th:href="@{/admin/user/{id}(id=${u.id})}">Update</a>
                                             <a class="btn btn-danger"
                                                onclick="if(!confirm('Bạn có chắc muốn xóa tài khoản?')) return false;"
-                                               th:href="@{'/admin/contact/delete/' +${u.id}}">Delete</a>
+                                               th:href="@{/admin/user/delete/{id}(id=${u.id})}">Delete</a>
                                         </div>
                                     </td>
                                 </tr>
