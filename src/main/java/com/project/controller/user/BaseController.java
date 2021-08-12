@@ -2,6 +2,7 @@ package com.project.controller.user;
 
 import com.project.entity.Role;
 import com.project.entity.User;
+import com.project.service.CategoryService;
 import com.project.service.RoleService;
 import com.project.service.UserService;
 import com.project.service.sendmail.SendMail;
@@ -27,9 +28,14 @@ public class BaseController {
 
     @Autowired
     private SendMail sendMail;
+    
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping("/login")
-    public String getPageLogin(){
+    public String getPageLogin(Model model){
+   	
+//    	model.addAttribute("menu",categoryService.findByIsDisplay(true));
         return "user/login";
     }
 
@@ -93,5 +99,6 @@ public class BaseController {
     public String accessDenied(){
         return "403";
     }
+    
 
 }

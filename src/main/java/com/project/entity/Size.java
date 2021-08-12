@@ -23,6 +23,9 @@ public class Size {
 
     @Column
     private String size;
+    
+    @Column
+    private Integer amount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")

@@ -48,7 +48,7 @@ public class ProductController {
 		Product product = new Product();
 
 		// set enable
-		product.setIsEnable(1);
+		product.setIsEnable(true);
 
 		// set time stamp
 		Date date = new Date();
