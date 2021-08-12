@@ -1,13 +1,17 @@
 package com.project.service.impl;
 
+import com.google.api.gax.rpc.NotFoundException;
 import com.project.entity.User;
 import com.project.repository.UserRepository;
 import com.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -19,6 +23,16 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Override
+    public Page<User> findAllPaging(Pageable pageable) {
+        return userRepository.findAll(pageable);
+    }
+
+    @Override
+    public User findById(Integer id) {
+        return userRepository.findById(id).orElseThrow(() -> new NullPointerException("Cannot find user"));
+    }
 
     @Transactional
     @Override
@@ -64,7 +78,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User activeUser(User user) {
+    public User postUser(User user) {
         return userRepository.save(user);
     }
 

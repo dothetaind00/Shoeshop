@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@Controller
+@Controller(value = "userOfUser")
 @RequestMapping("/user")
 public class UserController {
 
@@ -85,7 +85,7 @@ public class UserController {
             Role role = roleService.findRoleByRole("USER");
             user.addRole(role);
             user.setIsEnable(true);
-            userService.activeUser(user);
+            userService.postUser(user);
             return "redirect:/login?actived";
         }
         return "redirect:/login?expiredToken";
