@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class BaseController {
 
     @GetMapping("/login")
-    public String getPageLogin(){
+    public String getPageLogin(Model model){
+   	
+//    	model.addAttribute("menu",categoryService.findByIsDisplay(true));
         return "user/login";
     }
 
@@ -28,5 +30,6 @@ public class BaseController {
     public String accessDenied(){
         return "403";
     }
+    
 
 }

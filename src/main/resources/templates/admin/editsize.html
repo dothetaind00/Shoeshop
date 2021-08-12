@@ -1,0 +1,83 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: html_head"/>
+
+<body>
+  <!-- container section start -->
+  <section id="container" class="">
+    <!--header start-->
+    <!--header start-->
+		<header th:replace="fragments :: bar" ></header>
+		<aside th:replace="fragments :: menu"></aside>
+
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+        <div class="row">
+          <div class="col-lg-12">
+            <h3 class="page-header" style="font-family: arial;"><i class="fa fa-files-o"></i> Sửa Size</h3>
+            <ol class="breadcrumb" style="font-family: arial;">
+              <li><a th:href="@{/admin}">Trang chủ</a></li>
+              <li>[[${size.product.name}]]</li>
+              <li>Sửa size</li>
+            </ol>
+          </div>
+        </div>
+        <!-- Form validations -->
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+              
+              <div class="panel-body">
+                <div class="form">
+                   <form class="form-validate form-horizontal" action="#"  th:action="@{/admin/product/savesize}" th:object="${size}" method="post"  >   
+                      
+                     <div class="form-group ">
+                      <label for="id" class="control-label col-lg-2">Mã Size<span class="required">*</span></label>
+                      <div class="col-lg-10">
+                        <input th:field="*{id}" class="form-control" id="id" name="id" type="text" readonly />
+                      </div>
+                    </div>                                               
+                                                               
+                    <div class="form-group ">
+                      <label for="size" class="control-label col-lg-2">Số size<span class="required">*</span></label>
+                      <div class="col-lg-10">
+                        <input th:field="*{size}" class="form-control" id="size" name="size" type="text" required />
+                      </div>
+                    </div>    
+                                                                        	
+                    <div class="form-group ">
+                      <label for="amount" class="control-label col-lg-2">Số lượng<span class="required">*</span></label>
+                      <div class="col-lg-10">
+                        <input th:field="*{amount}" class="form-control" id="amount" name="amount" type="number" min="0" required />
+                      </div>
+                    </div>
+                    
+                    <input th:field="*{product}" class="form-control" id="product" name="product" type="hidden" th:value="${size.product}" />   
+                                                             
+ 	                 <div class="form-group">
+                      <div class="col-lg-offset-2 col-lg-10">
+                        <button class="btn btn-primary" type="submit">Cập nhật</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+              </div>
+            </section>
+          </div>
+        </div>
+        <!-- page end-->
+      </section>
+    </section>
+    <!--main content end-->
+   
+  </section>
+  <!-- container section end -->
+
+ 
+
+</body>
+
+</html>

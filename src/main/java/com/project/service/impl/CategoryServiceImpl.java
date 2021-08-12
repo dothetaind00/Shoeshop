@@ -75,6 +75,11 @@ public class CategoryServiceImpl implements CategoryService {
 	public Optional<Category> findByName(String name){
 		return categoryRepository.findByName(name);
 	}
+
+	@Override
+	public List<Category> findByIsDisplay(Boolean isDisplay) {
+		return categoryRepository.findByIsDisplay(isDisplay);
+	}
 	
 	
 	

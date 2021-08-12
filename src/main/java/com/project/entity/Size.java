@@ -23,6 +23,9 @@ public class Size {
 
     @Column
     private String size;
+    
+    @Column
+    private Integer amount;
 
     @Column
     private Integer amount;

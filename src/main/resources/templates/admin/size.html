@@ -14,11 +14,11 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h3 class="page-header" style="font-family: arial;">
-                            <i class="fa fa-gift"></i> Danh mục sản phẩm
+                            <i class="fa fa-gift"></i> Số size sản phẩm
                         </h3>
                         <ol class="breadcrumb" style="font-family: arial;">
                             <li><a th:href="@{/admin}">Trang chủ</a></li>
-                            <li>Danh mục sản phẩm</li>
+                            <li>Số size [[${product.name}]]</li>
                         </ol>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="btn-group" style="margin-bottom: 20px;">
-                            <a class="btn btn-success" th:href="@{/admin/category/addcategory}">Thêm mới</a>
+                            <a class="btn btn-success" th:href="@{'/admin/product/addsize/' + ${product.id}}">Thêm mới</a>
                         </div>
 
                         <section class="panel">
@@ -34,21 +34,18 @@
                                 <tbody>
                                     <tr>
                                         <th style="text-align: center;">ID</th>
-                                        <th style="text-align: center;">Tên</th>
-                                        <th style="text-align: center;">Trạng thái sản phẩm</th>
-                                        <th style="text-align: center;">Vị trí hiển thị</th>
+                                        <th style="text-align: center;">Size</th>
+                                        <th style="text-align: center;">Số lượng</th>
                                         <th style="text-align: center;">Chi Tiết</th>
                                     </tr>
                                     <tr th:each="c : ${list}" style="text-align: center;">
                                         <td th:text="${c.id}"></td>
-                                        <td th:text="${c.name}"></td>
-                                        <td th:text="${c.isDisplay}? 'Được hiển thị' : 'Không hiển thị'"></td>
-                                        <td th:text="${c.position}"></td>
-
+                                        <td th:text="${c.size}"></td>
+                                        <td th:text="${c.amount}"></td>
                                         <td>
                                             <div class="btn-group">
-                                                <a class="btn btn-primary" th:href="@{'/admin/category/edit/' +${c.id}}">Sửa</a>
-                                                <a class="btn btn-danger" onclick="if(!confirm('Bạn có chắc muốn xóa sản phẩm?')) return false;" th:href="@{'/admin/deletecategory/' +${c.id}}">Xóa</a>
+                                                <a class="btn btn-primary" th:href="@{'/admin/product/editsize/' +${c.id}}">Sửa</a>
+                                                <a class="btn btn-danger" onclick="if(!confirm('Bạn có chắc muốn xóa sản phẩm?')) return false;" th:href="@{'/admin/product/deletesize/' +${c.id}}">Xóa</a>
                                             </div>
                                         </td>
                                     </tr>
