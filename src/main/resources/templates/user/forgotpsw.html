@@ -24,20 +24,22 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="contact__content">
                         <div class="contact__form">
-                            <h5>Đăng nhập</h5>
-                            <form action="#" th:action="@{/perform_login}" method="post">
-                                <input type="text" name="username" placeholder="Username" required>
-                                <input type="text" name="password" placeholder="Password" required>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <button type="submit" class="site-btn">Đăng nhập </button>
-                                    <a th:href="@{/user/forgot-password}">Forgot Password</a>
-                                </div>
+                            <h5>Vui lòng nhập mail vào ô trống, chúng tôi sẽ gửi đường dẫn thay đổi mật khẩu đến bạn !</h5>
+                            <form action="#" th:action="@{forgot-password}" method="post">
+                                <input type="email" name="email" placeholder="Email" required>
+                                <button type="submit" class="site-btn">Gửi</button>
                             </form>
 
-                            <th:block th:if="${param.incorrect != null}">
+                            <th:block th:if="${error != null}">
                                 <br>
-                                <h3>Username Or Password Invalid !</h3>
+                                <h3>[[${error}]]</h3>
                             </th:block>
+
+                            <th:block th:if="${param.expired != null}">
+                                <br>
+                                <h3>Token Of Your Expired !</h3>
+                            </th:block>
+
                         </div>
                     </div>
                 </div>

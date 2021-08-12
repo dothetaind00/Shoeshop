@@ -46,6 +46,7 @@ public class User {
     @Column(columnDefinition = "TEXT")
     private String token;
 
+    @NotEmpty
     @Column(length = 11)
     private String phone;
 

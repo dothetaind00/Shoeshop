@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="fragments_user :: html_head(title = 'Đăng nhập')"></head>
+<head th:replace="fragments_user :: html_head(title = 'Reset Password')"></head>
 
 <body>
     <!-- Offcanvas Menu Begin -->
@@ -14,7 +14,7 @@
     <!-- Header Section End -->
 
     <!-- Breadcrumb Begin -->
-    <div th:replace="fragments_user :: breadcrumb(href = './index.html', content = 'Login')"></div>
+    <div th:replace="fragments_user :: breadcrumb(href = './index.html', content = 'Reset Password')"></div>
     <!-- Breadcrumb End -->
 
     <!-- Contact Section Begin -->
@@ -24,19 +24,18 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="contact__content">
                         <div class="contact__form">
-                            <h5>Đăng nhập</h5>
-                            <form action="#" th:action="@{/perform_login}" method="post">
-                                <input type="text" name="username" placeholder="Username" required>
-                                <input type="text" name="password" placeholder="Password" required>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <button type="submit" class="site-btn">Đăng nhập </button>
-                                    <a th:href="@{/user/forgot-password}">Forgot Password</a>
-                                </div>
+                            <h5>Reset Your Password !</h5>
+                            <form action="#" th:action="@{/user/reset-password}" method="post">
+                                <input type="hidden" th:value="${token}" name="token" required>
+                                <input type="password" id="psw" name="psw" placeholder="New Password" required autofocus>
+                                <input type="password" name="confirm" placeholder="Confirm Password" required
+                                       oninput="checkPasswordMatch(this);">
+                                <button type="submit" class="site-btn">Submit</button>
                             </form>
 
-                            <th:block th:if="${param.incorrect != null}">
+                            <th:block th:if="${param.expired != null}">
                                 <br>
-                                <h3>Username Or Password Invalid !</h3>
+                                <h3>[[${error}]]</h3>
                             </th:block>
                         </div>
                     </div>
@@ -71,5 +70,14 @@
 
     <div th:replace="fragments_user :: script"></div>
 
+    <script>
+        function checkPasswordMatch(fieldConfirmPassword) {
+            if (fieldConfirmPassword.value != $("#psw").val()) {
+                fieldConfirmPassword.setCustomValidity("Passwords do not match!");
+            } else {
+                fieldConfirmPassword.setCustomValidity("");
+            }
+        }
+    </script>
 </body>
 </html>
