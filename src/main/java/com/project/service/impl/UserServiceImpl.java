@@ -1,7 +1,7 @@
 package com.project.service.impl;
 
-import com.google.api.gax.rpc.NotFoundException;
 import com.project.entity.User;
+import com.project.exception.CustomNotFoundException;
 import com.project.repository.UserRepository;
 import com.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -42,13 +41,9 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public User findUserByUserNameAndIsEnable(String userName, Boolean isEnable) {
-        return userRepository.findUserByUserNameAndIsEnable(userName, isEnable).orElse(null);
-    }
-
-    @Override
-    public Boolean existUserByTokenAndIsEnable(String token, Boolean isEnable) {
-        return userRepository.existsUserByTokenAndIsEnable(token, isEnable);
+    public User findUserByUserNameAndIsEnable(String userName, Boolean isEnable) throws CustomNotFoundException {
+        return userRepository.findUserByUserNameAndIsEnable(userName, isEnable)
+                .orElseThrow(() -> new CustomNotFoundException("Could not find any user with " + userName));
     }
 
     @Override
@@ -59,7 +54,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(User user) {
         if (user.getId() == null){
-            if (userRepository.existsUserByUserName(user.getUserName())){
+            if (userRepository.findUserByUserName(user.getUserName()).isPresent()
+                    || userRepository.findUserByEmail(user.getEmail()).isPresent()){
                 return null;
             }
 
@@ -89,15 +85,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean existUserByUserName(String username) {
-        return userRepository.existsUserByUserName(username);
-    }
-
-    @Override
     public Optional<User> findUserByUserName(String username) {
         return userRepository.findUserByUserName(username);
     }
 
+    @Override
+    public User findByEmail(String email) throws CustomNotFoundException{
+        return userRepository.findUserByEmail(email)
+                .orElseThrow(() -> new CustomNotFoundException("Could not find any user with email "+email));
+    }
 
     @Override
     public void delete(Integer id) {
@@ -107,5 +103,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void enableUser(Boolean isEnable, Integer id) {
         userRepository.enableUser(isEnable, id);
+    }
+
+    @Override
+    public void updateToken(String token, String email) {
+        userRepository.updateToken(token, email);
     }
 }

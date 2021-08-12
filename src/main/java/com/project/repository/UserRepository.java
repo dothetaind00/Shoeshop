@@ -23,13 +23,11 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     Optional<User> findUserByUserNameAndIsEnable(String userName, Boolean isEnable);
 
-    Boolean existsUserByTokenAndIsEnable(String token, Boolean isEnable);
-
     Optional<User> findUserByTokenAndIsEnable(String token, Boolean isEnable);
 
-    Boolean existsUserByUserName(String username);
-
     Optional<User> findUserByUserName(String username);
+
+    Optional<User> findUserByEmail(String email);
 
     @Query("UPDATE User u set u.isEnable = :isEnable where u.id= :id")
     @Modifying
@@ -38,4 +36,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("UPDATE User u set u.lastLogined = :lastLogined where u.userName= :username")
     @Modifying
     void setTimeLogin(@Param("lastLogined") Timestamp lastLogined, @Param("username") String username);
+
+    @Query("UPDATE User u set u.token = :token where u.email= :email")
+    @Modifying
+    void updateToken(@Param("token") String token, @Param("email") String email);
 }

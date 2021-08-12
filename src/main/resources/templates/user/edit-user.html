@@ -13,7 +13,7 @@
     <!-- Header Section End -->
 
     <!-- Breadcrumb Begin -->
-    <div th:replace="fragments_user :: breadcrumb(href = './index.html', content = 'Signup')"></div>
+    <div th:replace="fragments_user :: breadcrumb(href = './index.html', content = 'Cập nhật tài khoản')"></div>
     <!-- Breadcrumb End -->
 
     <!-- Contact Section Begin -->
@@ -31,16 +31,12 @@
                                 <input type="email" th:field="*{email}" name="email" placeholder="Email" required>
                                 <input type="text" th:field="*{phone}" name="phone" placeholder="Điện thoại" required>
                                 <input type="text" th:field="*{address}" name="address" placeholder="Địa chỉ" required>
-                                <button type="submit" class="site-btn">Cập nhật</button>
+                                <button type="submit" class="site-btn" th:disabled="${error != null}">Cập nhật</button>
                             </form>
-                            <th:block th:if="${param.existed != null}">
-                                <br>
-                                <h5>User Existed !</h5>
-                            </th:block>
 
-                            <th:block th:if="${param.invalid != null}">
+                            <th:block th:if="${error != null}">
                                 <br>
-                                <h5>Field Not Empty !</h5>
+                                <h5>[[${error}]]</h5>
                             </th:block>
                         </div>
                     </div>

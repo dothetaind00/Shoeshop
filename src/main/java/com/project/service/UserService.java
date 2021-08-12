@@ -1,6 +1,7 @@
 package com.project.service;
 
 import com.project.entity.User;
+import com.project.exception.CustomNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,15 +15,13 @@ public interface UserService {
 
     User findById(Integer id);
 
-    User findUserByUserNameAndIsEnable(String userName, Boolean isEnable);
-
-    Boolean existUserByTokenAndIsEnable(String token, Boolean isEnable);
+    User findUserByUserNameAndIsEnable(String userName, Boolean isEnable) throws CustomNotFoundException;
 
     Optional<User> findUserByTokenAndIsEnable(String token, Boolean isEnable);
 
-    Boolean existUserByUserName(String username);
-
     Optional<User> findUserByUserName(String username);
+
+    User findByEmail(String email) throws CustomNotFoundException;
 
     User save(User user);
 
@@ -31,4 +30,6 @@ public interface UserService {
     void delete(Integer id);
 
     void enableUser(Boolean isEnable, Integer id);
+
+    void updateToken(String token, String email);
 }
