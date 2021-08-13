@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="fragments_user :: html_head(title = 'Chi tiết sản phẩm')"></head>
+<head th:replace="fragments_user :: html_head(title = 'Chi tiáº¿t sáº£n pháº©m')"></head>
 
 <body>
     <!-- Offcanvas Menu Begin -->
@@ -19,8 +19,8 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
                         <a href="./index.html"><i class="fa fa-home"></i> Home</a>
-                        <a href="#">Converse</a>
-                        <span>CONVERSE CHUCK TAYLOR ALL STAR GAMER LOW-TOP</span>
+                        <a href="#">[[${product.brand.name}]]</a>
+                        <span>[[${product.name}]]</span>
                     </div>
                 </div>
             </div>
@@ -28,7 +28,7 @@
     </div>
     <!-- Breadcrumb End -->
 
-    <!-- Product Details Section Begin -->
+ <!-- Product Details Section Begin -->
     <section class="product-details spad">
         <div class="container">
             <div class="row">
@@ -36,42 +36,42 @@
                     <div class="product__details__pic">
                         <div class="product__details__pic__left product__thumb nice-scroll" style="overflow-y: hidden; outline: none; cursor: grab; touch-action: none;">
                             <a class="pt active" href="#product-1">
-                                <img data-cfsrc="../web/img/product/details/thumb-1.jpg" alt="" src="../web/img/product/details/thumb-1.jpg">
+                                <img th:data-cfsrc="${product.image1}" alt="" th:src="${product.image1}">
                             </a>
                             <a class="pt" href="#product-2">
-                                <img data-cfsrc="../web/img/product/details/thumb-2.jpg" alt="" src="../web/img/product/details/thumb-2.jpg">
+                                <img th:data-cfsrc="${product.image2}" alt="" th:src="${product.image2}">
                             </a>
                             <a class="pt" href="#product-3">
-                                <img data-cfsrc="../web/mg/product/details/thumb-3.jpg" alt="" src="../web/img/product/details/thumb-3.jpg">
+                                <img th:data-cfsrc="${product.image3}" alt="" th:src="${product.image3}">
                             </a>
                             <a class="pt" href="#product-4">
-                                <img data-cfsrc="../web/img/product/details/thumb-4.jpg" alt="" src="../web/img/product/details/thumb-4.jpg">
+                                <img th:data-cfsrc="${product.image4}" alt="" th:src="${product.image4}">
                             </a>
                         </div>
                         <div class="product__details__slider__content">
                             <div class="product__details__pic__slider owl-carousel owl-loaded">
                                 <div class="owl-stage-outer">
                                     <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 3304px;">
-                                        <div class="owl-item active" style="width: 412.891px;"><img data-hash="product-1" class="product__big__img" data-cfsrc="../ser/img/product/details/thumb-1.jpg" alt="" src="../web/img/product/details/thumb-1.jpg">
+                                        <div class="owl-item active" style="width: 412.891px;"><img data-hash="product-1" class="product__big__img" th:data-cfsrc="${product.image1}" alt="" th:src="${product.image1}">
                                         </div>
                                         <div class="owl-item" style="width: 412.891px;"><noscript><img
                                                 data-hash="product-1" class="product__big__img"
-                                                src="../web/img/product/details/thumb-1.jpg" alt=""></noscript></div>
-                                        <div class="owl-item" style="width: 412.891px;"><img data-hash="product-2" class="product__big__img" data-cfsrc="../web/img/product/details/thumb-3.jpg" alt="" src="../web/img/product/details/thumb-3.jpg">
+                                                src="../user/img/product/details/thumb-1.jpg" alt=""></noscript></div>
+                                        <div class="owl-item" style="width: 412.891px;"><img data-hash="product-2" class="product__big__img" th:data-cfsrc="${product.image2}" alt="" th:src="${product.image2}">
                                         </div>
                                         <div class="owl-item" style="width: 412.891px;"><noscript><img
                                                 data-hash="product-2" class="product__big__img"
-                                                src="../web/img/product/details/product-3.jpg" alt=""></noscript></div>
-                                        <div class="owl-item" style="width: 412.891px;"><img data-hash="product-3" class="product__big__img" data-cfsrc="../usre/img/product/details/product-2.jpg" alt="" src="https://preview.colorlib.com/theme/ashion/img/product/details/product-2.jpg">
+                                                src="../user/img/product/details/product-3.jpg" alt=""></noscript></div>
+                                        <div class="owl-item" style="width: 412.891px;"><img data-hash="product-3" class="product__big__img" th:data-cfsrc="${product.image3}" alt="" th:src="${product.image3}">
                                         </div>
                                         <div class="owl-item" style="width: 412.891px;"><noscript><img
                                                 data-hash="product-3" class="product__big__img"
-                                                src="../web/img/product/details/product-2.jpg" alt=""></noscript></div>
-                                        <div class="owl-item" style="width: 412.891px;"><img data-hash="product-4" class="product__big__img" data-cfsrc="../web/img/product/details/product-4.jpg" alt="" src="https://preview.colorlib.com/theme/ashion/img/product/details/product-4.jpg">
+                                                src="../user/img/product/details/product-2.jpg" alt=""></noscript></div>
+                                        <div class="owl-item" style="width: 412.891px;"><img data-hash="product-4" class="product__big__img" th:data-cfsrc="${product.image4}" alt="" th:src="${product.image4}">
                                         </div>
                                         <div class="owl-item" style="width: 412.891px;"><noscript><img
                                                 data-hash="product-4" class="product__big__img"
-                                                src="../web/img/product/details/product-4.jpg" alt=""></noscript></div>
+                                                src="../user/img/product/details/product-4.jpg" alt=""></noscript></div>
                                     </div>
                                 </div>
                                 <div class="owl-nav"><button type="button" role="presentation" class="owl-prev disabled"><i class="arrow_carrot-left"></i></button><button type="button" role="presentation" class="owl-next"><i
@@ -83,23 +83,25 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="product__details__text">
-                        <h3>CONVERSE CHUCK TAYLOR ALL STAR GAMER LOW-TOP<span>Brand: Converse</span></h3>
+                        <h3>[[${product.name}]]<span>Brand: [[${product.brand.name}]]</span></h3>
                         <div class="rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
-                            <span>( 138 reviews )</span>
+                            <span>[[${product.view}]]</span>
                         </div>
-                        <div class="product__details__price">1300000 đ<span>1600000 đ</span></div>
-                        <p>Nemo enim ipsam voluptatem quia aspernatur aut odit aut loret fugit, sed quia consequuntur magni lores eos qui ratione voluptatem sequi nesciunt.</p>
+                        <div class="product__details__price" th:if= "${product.sale == 0}" >[[${product.price}]]đ</div>
+                        <div class="product__details__price" th:unless= "${product.sale == 0}" >[[${product.sale}]]đ<span>[[${product.price}]]đ</span></div>
+                        <p>[[${product.description}]]</p>
                         <div class="product__details__button">
                             <div class="quantity">
-                                <span>Số lượng:</span>
-                                <div class="pro-qty"><span class="dec qtybtn">-</span>
-                                    <input type="text" value="1">
-                                    <span class="inc qtybtn">+</span>
+                                <span>Số lượng :</span>
+                                <div class="pro-qty">
+                                	<span class="dec qtybtn"></span>
+                                    <input type="number" value="1">
+                                    <span class="inc qtybtn"></span>
                                 </div>
                             </div>
                             <a href="#" class="cart-btn"><span class="icon_bag_alt"></span> Thêm vào giỏ hàng</a>
@@ -111,55 +113,26 @@
                         <div class="product__details__widget">
                             <ul>
                                 <li>
-                                    <span>Tình trạng:</span>
+                                    <span>Tình Trạng:</span>
                                     <div class="stock__checkbox">
                                         <label for="stockin">
-                                            In Stock
+                                            [[${status}]]
                                             <input type="checkbox" id="stockin">
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
                                 </li>
                                 <li>
-                                    <span>Màu:</span>
-                                    <div class="color__checkbox">
-                                        <label for="red">
-                                            <input type="radio" name="color__radio" id="red" checked="">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label for="black">
-                                            <input type="radio" name="color__radio" id="black">
-                                            <span class="checkmark black-bg"></span>
-                                        </label>
-                                        <label for="grey">
-                                            <input type="radio" name="color__radio" id="grey">
-                                            <span class="checkmark grey-bg"></span>
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
                                     <span>Available size:</span>
                                     <div class="size__btn">
-                                        <label for="xs-btn" class="active">
-                                            <input type="radio" id="xs-btn">
-                                            36
-                                        </label>
-                                        <label for="s-btn">
-                                            <input type="radio" id="s-btn">
-                                            3737
-                                        </label>
-                                        <label for="m-btn">
-                                            <input type="radio" id="m-btn">
-                                            3838
-                                        </label>
-                                        <label for="l-btn">
-                                            <input type="radio" id="l-btn">
-                                            3939
+                                        <label for="xs-btn" class="active" th:each = "s : ${listSize}">
+                                            <input type="radio" id="xs-btn" th:value="${s.id}">
+                                            [[${s.size}]]
                                         </label>
                                     </div>
                                 </li>
                                 <li>
-                                    <span>Ưu đãi:</span>
+                                    <span>Khuyễn mãi:</span>
                                     <p>Free shipping</p>
                                 </li>
                             </ul>
@@ -182,20 +155,18 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="tabs-1" role="tabpanel">
                                 <h6>Mô tả</h6>
-                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret. Neque porro lorem quisquam est, qui dolorem ipsum quia
-                                    dolor si. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla consequat massa quis enim.</p>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
-                                    nec, pellentesque eu, pretium quis, sem.</p>
+                                <p>[[${product.description}]]</p>
+                               
                             </div>
                             <div class="tab-pane" id="tabs-2" role="tabpanel">
-                                <h6>Đặc biệt</h6>
+                                <h6>Ä�áº·c biá»‡t</h6>
                                 <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret. Neque porro lorem quisquam est, qui dolorem ipsum quia
                                     dolor si. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla consequat massa quis enim.</p>
                                 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
                                     nec, pellentesque eu, pretium quis, sem.</p>
                             </div>
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
-                                <h6>Đánh giág( 2 )</h6>
+                                <h6>Đánh giá( 2 )</h6>
                                 <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret. Neque porro lorem quisquam est, qui dolorem ipsum quia
                                     dolor si. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla consequat massa quis enim.</p>
                                 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
@@ -208,22 +179,26 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="related__title">
-                        <h5>Có thể bạn sẽ thích</h5>
+                        <h5>Có thể bạn thích</h5>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
+                
+                            
+                <div class="col-lg-3 col-md-4 col-sm-6" th:each="p : ${listShoes}">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="../web/img/product/related/con5.jpg" style="background-image: url(&quot;../web/img/product/related/con5.jpg&quot;);">
-                            <div class="label new">New</div>
+                        <div class="product__item__pic set-bg" th:data-setbg="${p.image1}"  th:style="'background-image: url(' + ${p.image1} + ');'">
+                            <div class="label new" th:if= "${p.sale == 0}">New</div>
+                            <div class="label sale" th:unless= "${p.sale == 0}">Sale</div>
                             <ul class="product__hover">
-                                <li><a href="../web/img/product/related/con1.jpg" class="image-popup"><span
+                                 <li><a th:href="${p.image1}" class="image-popup"><span
                                         class="arrow_expand"></span></a></li>
                                 <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                                 <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                             </ul>
                         </div>
+                        
                         <div class="product__item__text">
-                            <h6><a href="#">Buttons tweed blazer</a></h6>
+                           <h6><a th:href="@{'/product/' +${p.id}}">[[${p.name}]]</a></h6>
                             <div class="rating">
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
@@ -231,84 +206,19 @@
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
                             </div>
-                            <div class="product__price">1300000 đ</div>
+                            <div class="product__price" th:if= "${p.sale == 0}">[[${p.price}]]đ</div>
+                            <div class="product__price" th:unless= "${p.sale == 0}">[[${p.sale}]]đ  <span>[[${p.price}]]đ</span></div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="../web/img/product/related/con6.jpg" style="background-image: url(&quot;../web/img/product/related/con6.jpg&quot;);">
-                            <ul class="product__hover">
-                                <li><a href="../web/img/product/related/con2.jpg" class="image-popup"><span
-                                        class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Flowy striped skirt</a></h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">1300000 đ</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="../web/img/product/related/con7.jpg" style="background-image: url(&quot;../web/img/product/related/con7.jpg&quot;);">
-                            <div class="label stockout">out of stock</div>
-                            <ul class="product__hover">
-                                <li><a href="../web/img/product/related/con3.jpg" class="image-popup"><span
-                                        class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Cotton T-Shirt</a></h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">1300000 đ</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="../web/img/product/related/con8.jpg" style="background-image: url(&quot;../web/img/product/related/con8.jpg&quot;);">
-                            <ul class="product__hover">
-                                <li><a href="../web/img/product/related/con4.jpg" class="image-popup"><span
-                                        class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Slim striped pocket shirt</a></h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price">1300000 đ</div>
-                        </div>
-                    </div>
-                </div>
+                
+              
+    
             </div>
         </div>
     </section>
     <!-- Product Details Section End -->
+
 
     <!-- Instagram Begin -->
     <div th:replace="fragments_user :: instagram"></div>

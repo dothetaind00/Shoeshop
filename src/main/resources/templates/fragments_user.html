@@ -72,8 +72,11 @@
                         <ul>
                             <li class="active"><a href="../user/index.html">Home</a></li>    
                             <li th:each="m : ${menu}">
-                            <a href="#">[[${m.name}]]</a>
+                            <a th:href="@{'/category/' + ${m.id}}">[[${m.name}]]</a>
                             </li>
+
+                            <li><a href="/category/0">Shop</a>
+
                             <li><a href="#">Pages</a>
                             
                                 <ul class="dropdown">

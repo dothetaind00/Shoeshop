@@ -3,7 +3,6 @@ package com.project.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.project.entity.Product;
 import com.project.entity.Size;
 
 public interface SizeService{
@@ -26,4 +25,6 @@ public interface SizeService{
 	List<Size> findByProductId(Integer id);
 	
 	Optional<Size> findBySizeAndProductId(String size, Integer id);
+	
+	List<Size> findByProductAvailable(Integer id);
 }

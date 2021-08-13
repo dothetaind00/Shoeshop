@@ -10,7 +10,7 @@ public class BaseController {
 
     @GetMapping("/login")
     public String getPageLogin(Model model){
-   	
+
 //    	model.addAttribute("menu",categoryService.findByIsDisplay(true));
         return "user/login";
     }
@@ -29,7 +29,5 @@ public class BaseController {
     @GetMapping("/403")
     public String accessDenied(){
         return "403";
-    }
-    
-
+    }  
 }
