@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<User> findByUserName(String username, Pageable pageable) {
+    public Page<User> findByUserNameLike(String username, Pageable pageable) {
         return userRepository.findByUserNameLike(username, pageable);
     }
 
