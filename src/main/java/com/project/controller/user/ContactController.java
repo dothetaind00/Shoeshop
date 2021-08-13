@@ -2,7 +2,6 @@ package com.project.controller.user;
 
 import com.project.entity.Contact;
 import com.project.service.ContactService;
-import com.project.service.sendmail.SendMail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,13 +20,13 @@ public class ContactController {
     @Autowired
     private ContactService contactService;
 
-    @GetMapping("")
-    public String getFormContact(Model model) {
+    @GetMapping
+    public String getPageContact(Model model) {
         model.addAttribute("contact", new Contact());
         return "user/contact";
     }
 
-    @PostMapping("/save")
+    @PostMapping
     public String addContact(@ModelAttribute @Valid Contact contact, BindingResult result) {
         if (result.hasErrors()) {
             return "redirect:/user/contact?invalid";

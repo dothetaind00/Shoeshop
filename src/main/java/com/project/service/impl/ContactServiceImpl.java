@@ -52,7 +52,6 @@ public class ContactServiceImpl implements ContactService {
             if (contactRepository.existsByEmailAndPhone(contact.getEmail(), contact.getPhone())) {
                 return null;
             }
-
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -63,9 +62,7 @@ public class ContactServiceImpl implements ContactService {
 
             return contactRepository.save(contact);
         }
-        if (contactRepository.existsByEmailAndPhone(contact.getEmail(), contact.getPhone())) {
-            return null;
-        }
+
         return contactRepository.save(contact);
     }
 
