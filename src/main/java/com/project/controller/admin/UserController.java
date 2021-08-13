@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -28,26 +29,35 @@ public class UserController {
 
     @GetMapping("/user")
     public String getListUser(@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo,
-                              @RequestParam(value = "limit", defaultValue = "10", required = false) Integer limit,
+                              @RequestParam(value = "limit", defaultValue = "2", required = false) Integer limit,
                               @RequestParam(value = "sortField", defaultValue = "userName", required = false) String sortField,
                               @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir,
+                              @RequestParam(value = "keysearch", required = false) String keysearch,
                               Model model){
 
         Pageable pageable = PageRequest.of(pageNo - 1, limit,
                 ("asc".equals(sortDir) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending()));
+        Page<User> page = null;
 
-        Page<User> page = userService.findByIsEnable(true, pageable);
+        if (model.asMap().get("search") != null || keysearch != null) {
+            String search = model.asMap().get("search") != null ? model.asMap().get("search").toString() : keysearch.trim() ;
+            model.addAttribute("search", search);
+
+            page = userService.findByUserNameLike("%" + search + "%", pageable);
+        }else{
+            page = userService.findByIsEnable(true, pageable);
+        }
 
         PaginationResult<User> paginationResult = genericPagination.pagination(page, pageNo, limit, sortField, sortDir);
-
         model.addAttribute("users", paginationResult);
+
         return "admin/user";
     }
 
     @PostMapping("/user/search")
-    public String searchUser(@RequestParam String username, Model model){
-
-        return "admin/user";
+    public String searchUser(@RequestParam String search, RedirectAttributes redirect) {
+        redirect.addFlashAttribute("search", search);
+        return "redirect:/admin/user";
     }
 
     @GetMapping("/user/{id}")
