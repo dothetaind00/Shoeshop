@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +16,7 @@ import com.project.entity.Category;
 import com.project.service.CategoryService;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/category")
 public class CategoryController {
 	
 	@Autowired
@@ -25,13 +24,13 @@ public class CategoryController {
 	
 	
 	
-	@GetMapping("/category")
+	@GetMapping("")
 	public String categoryHome(Model model) {
 		model.addAttribute("list", categoryService.findAll());	
 		return "admin/category";
 	}
 	
-	@GetMapping("/category/addcategory")
+	@GetMapping("/addcategory")
 	public String addOrEdit(Model model) {
 		Category category = new Category();
 		category.setIsDisplay(true);
@@ -39,7 +38,7 @@ public class CategoryController {
 		return "admin/addcategory";
 	}
 	// Save or Update Category
-	@PostMapping("/category/savecategory")
+	@PostMapping("/savecategory")
 	public String addOrUpdate(Model model, @ModelAttribute("category") Category category) {	
 
 		if(category.getId() == null) {
@@ -57,13 +56,13 @@ public class CategoryController {
 	}
 	
 	// Delete Category
-	@RequestMapping("/deletecategory/{id}")
+	@GetMapping("/delete/{id}")
 	public String delete(Model model, @PathVariable Integer id) {
 		categoryService.deleteById(id);
 		return "redirect:/admin/category";
 	}
 	
-	@RequestMapping("/category/edit/{id}")
+	@GetMapping("/edit/{id}")
 	public String edit(Model model, @PathVariable Integer id) {
 		Optional<Category> cate = categoryService.findById(id);
 		// Check Category Exit or not
@@ -74,7 +73,8 @@ public class CategoryController {
 		}else {
 			// Not Exist
 			// Error Page
-			return "redirect:/admin/category";
+			model.addAttribute("mess", "Không tồn tại thương hiệu này");
+			return "error";
 		}		
 	}
 	

@@ -15,26 +15,27 @@ import com.project.service.BrandService;
 
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/brand")
 public class BrandController {
 	@Autowired
 	BrandService brandService;
 	
 	
-	@GetMapping("/brand")
+	@GetMapping("")
 	public String brandHome(ModelMap model) {
 		model.addAttribute("list", brandService.findAll());
-		return "brand";
+		return "admin/brand";
 	}
 	
-	@GetMapping("/brand/addbrand")
+	@GetMapping("/addbrand")
 	public String addOrEdit(ModelMap model) {
 		Brand brand = new Brand();
+		brand.setIsDisplay(true);
 		model.addAttribute("brand", brand);
-		return "addbrand";
+		return "admin/addbrand";
 	}
 	// Save or Update Brand
-	@PostMapping("/brand/savebrand")
+	@PostMapping("/savebrand")
 	public String addOrUpdate(ModelMap model, @ModelAttribute("brand") Brand brand) {	
 		if(brand.getId() == null) {
 			
@@ -50,24 +51,25 @@ public class BrandController {
 		return "redirect:/admin/brand";
 	}
 	// Delete brand
-	@RequestMapping("/deletebrand/{id}")
+	@RequestMapping("/delete/{id}")
 	public String delete(ModelMap model, @PathVariable Integer id) {
 		brandService.deleteById(id);
 		return "redirect:/admin/brand";
 	}
 	
-	@RequestMapping("/brand/edit/{id}")
+	@RequestMapping("/edit/{id}")
 	public String edit(ModelMap model, @PathVariable Integer id) {
 		Optional<Brand> brand = brandService.findById(id);
 		// Check brand Exit or not
 		if(brand.isPresent()) {
 			// Exist
 			model.addAttribute("brand", brand.get());
-			return "addbrand";
+			return "admin/addbrand";
 		}else {
 			// Not Exist
 			// Error Page
-			return "redirect:/admin/brand";
+			model.addAttribute("mess", "Không tồn tại thương hiệu này");
+			return "error";
 		}
 		
 		
