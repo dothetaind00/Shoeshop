@@ -42,7 +42,12 @@
                         </div>
                         <div class="contact__form">
                             <h5>GỬI LIÊN HỆ</h5>
-                            <form action="#" th:action="@{contact/save}" th:object="${contact}" method="post">
+
+                            <th:block sec:authorize="isAuthenticated()">
+                                <a th:href="@{/user/{username}(username = ${#authentication.getPrincipal().getUsername()})}">Click vao day</a>
+                            </th:block>
+
+                            <form action="#" th:action="@{contact}" th:object="${contact}" method="post">
                                 <input type="hidden" th:field="*{id}">
                                 <input type="text" th:field="*{name}" placeholder="Name">
                                 <input type="text" th:field="*{email}" placeholder="Email">

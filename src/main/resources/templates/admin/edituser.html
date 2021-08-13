@@ -1,7 +1,7 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments :: html_head"/>
+<head th:replace="fragments :: html_head(pageTitle='Cập nhật tài khoản')"/>
 
 <body>
 <!-- container section start -->
@@ -33,7 +33,7 @@
                             <div class="form">
                                 <th:block th:if="${param.existed != null}">
                                     <br>
-                                    <h5 style="text-align: center;">Contact Existed !</h5>
+                                    <h5 style="text-align: center;">User Existed !</h5>
                                 </th:block>
 
                                 <th:block th:if="${param.invalid != null}">
@@ -41,7 +41,7 @@
                                     <h5 style="text-align: center;">Field Not Empty !</h5>
                                 </th:block>
                                 <form class="form-validate form-horizontal" action="#"
-                                      th:action="@{/admin/contact}" th:object="${contact}" method="post">
+                                      th:action="@{/admin/user}" th:object="${user}" method="post">
                                     <div class="form-group ">
                                         <label for="id" class="control-label col-lg-2">ID<span class="required">*</span></label>
                                         <div class="col-lg-10">
@@ -50,10 +50,18 @@
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="name" class="control-label col-lg-2">Name<span
+                                        <label for="userName" class="control-label col-lg-2">UserName<span
                                                 class="required">*</span></label>
                                         <div class="col-lg-10">
-                                            <input th:field="*{name}" class="form-control" id="name" name="name"
+                                            <input th:field="*{userName}" class="form-control" id="userName" name="userName"
+                                                   type="text" readonly/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="userName" class="control-label col-lg-2">FullName<span
+                                                class="required">*</span></label>
+                                        <div class="col-lg-10">
+                                            <input th:field="*{fullName}" class="form-control" id="fullName" name="fullName"
                                                    type="text" required/>
                                         </div>
                                     </div>
@@ -83,6 +91,16 @@
                                                    name="address" type="text" required/>
                                         </div>
                                     </div>
+
+                                    <div class="form-group ">
+                                        <label class="control-label col-lg-2">Enable<span
+                                                class="required">*</span></label>
+                                        <div class="col-lg-10">
+                                            <input type="radio" name="isEnable" value="true" th:checked="${user.isEnable == true} ? ${true}"/> Hoạt động
+                                            <input type="radio" name="isEnable" value="false" th:checked="${user.isEnable == false} ? ${true}"/> Không hoạt động
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
                                         <div class="col-lg-offset-2 col-lg-10">
                                             <button class="btn btn-primary" type="submit">Update</button>

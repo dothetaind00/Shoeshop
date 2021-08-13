@@ -1,7 +1,9 @@
 package com.project.security;
 
+import com.project.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.*;
 
 @Component
@@ -24,18 +27,16 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
+    @Autowired
+    private UserRepository userRepository;
+
+    public CustomAuthSuccessHandler() {
+    }
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         handle(request, response, authentication);
         clearAuthenticationAttributes(request);
-    }
-
-    public RedirectStrategy getRedirectStrategy() {
-        return redirectStrategy;
-    }
-
-    public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
-        this.redirectStrategy = redirectStrategy;
     }
 
     protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
@@ -46,6 +47,9 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
             return;
         }
         redirectStrategy.sendRedirect(request, response, targetURL);
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
+        userRepository.setTimeLogin(timestamp, authentication.getName());
     }
 
     protected String determineTargetUrl(Authentication authentication) {

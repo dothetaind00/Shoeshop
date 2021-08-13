@@ -1,9 +1,12 @@
 package com.project.service.impl;
 
 import com.project.entity.User;
+import com.project.exception.CustomNotFoundException;
 import com.project.repository.UserRepository;
 import com.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,11 +23,27 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
+    @Override
+    public Page<User> findByIsEnable(Boolean isEnable, Pageable pageable) {
+        return userRepository.findByIsEnable(isEnable, pageable);
+    }
+
+    @Override
+    public Page<User> findByUserName(String username, Pageable pageable) {
+        return userRepository.findByUserNameLike(username, pageable);
+    }
+
+    @Override
+    public User findById(Integer id) {
+        return userRepository.findById(id).orElseThrow(() -> new NullPointerException("Cannot find user"));
+    }
+
     @Transactional
     @Override
-    public User findUserByUserNameAndIsEnable(String userName, Boolean isEnable) {
-
-        return userRepository.findUserByUserNameAndIsEnable(userName, isEnable).orElse(null);
+    public User findUserByUserNameAndIsEnable(String userName, Boolean isEnable) throws CustomNotFoundException {
+        return userRepository.findUserByUserNameAndIsEnable(userName, isEnable)
+                .orElseThrow(() -> new CustomNotFoundException("Could not find any user with " + userName));
     }
 
     @Override
@@ -35,7 +54,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(User user) {
         if (user.getId() == null){
-            if (userRepository.existsUserByUserName(user.getUserName())){
+            if (userRepository.findUserByUserName(user.getUserName()).isPresent()
+                    || userRepository.findUserByEmail(user.getEmail()).isPresent()){
                 return null;
             }
 
@@ -44,36 +64,49 @@ public class UserServiceImpl implements UserService {
 
             user.setPassword(passwordEncoder.encode(user.getPsw()));
             user.setIsEnable(false);
-//            //add role for user
-//            Role role = roleRepository.findRoleByRole("USER").orElseThrow(() -> new NullPointerException("Cannot find Role"));
-//            user.addRole(role);
+
             return userRepository.save(user);
         }
 
-        User u = userRepository.findById(user.getId()).orElse(null);
+        User u = userRepository.findUserByUserNameAndIsEnable(user.getUserName(), true).orElse(null);
         if (u != null){
             u.setFullName(user.getFullName());
             u.setEmail(user.getEmail());
-            u.setAddress(user.getAddress());
             u.setPhone(user.getPhone());
-            u.setToken(user.getToken());
-            return userRepository.save(user);
+            u.setAddress(user.getAddress());
+            return userRepository.save(u);
         }
         return null;
     }
 
     @Override
-    public Boolean existUserByUserName(String username) {
-        return userRepository.existsUserByUserName(username);
+    public User postUser(User user) {
+        return userRepository.save(user);
     }
 
     @Override
-    public Boolean existUserByTokenAndIsEnable(String token, Boolean isEnable) {
-        return userRepository.existsUserByTokenAndIsEnable(token, isEnable);
+    public Optional<User> findUserByUserName(String username) {
+        return userRepository.findUserByUserName(username);
+    }
+
+    @Override
+    public User findByEmail(String email) throws CustomNotFoundException{
+        return userRepository.findUserByEmail(email)
+                .orElseThrow(() -> new CustomNotFoundException("Could not find any user with email "+email));
     }
 
     @Override
     public void delete(Integer id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public void enableUser(Boolean isEnable, Integer id) {
+        userRepository.enableUser(isEnable, id);
+    }
+
+    @Override
+    public void updateToken(String token, String email) {
+        userRepository.updateToken(token, email);
     }
 }
