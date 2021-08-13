@@ -86,10 +86,7 @@ public class ProductServiceImpl implements ProductService {
 		return imageUrl.toString();
 	}
 
-	@Override
-	public List<Product> findAllProductByName(String name) {
-		return productRepository.findAllProductByName(name);
-	}
+
 
 
 	@Override
@@ -103,6 +100,23 @@ public class ProductServiceImpl implements ProductService {
 		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
 		return this.productRepository.findAllByName(name, pageable);
 	}
+
+	@Override
+	public List<Product> findNewProductByDate() {	
+		return productRepository.findNewProductByDate();
+	}
+
+	@Override
+	public List<Product> findByBrand(Integer id, int number) {
+		return productRepository.findByBrand(id,number);
+	}
+
+	@Override
+	public Page<Product> findByCategory(Integer id, int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
+		return productRepository.findByCategory(id, pageable);
+	}
+
 
 
 	

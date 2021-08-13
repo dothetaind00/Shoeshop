@@ -138,7 +138,7 @@ public class ProductController {
 	@GetMapping("product/page/{pageNo}")
 	public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
 			@RequestParam(name = "keyword", required = false) String keyword , Model model) {	
-		int pageSize = 2;
+		int pageSize = 8;
 		
 		Page<Product> page;
 		

@@ -30,12 +30,16 @@ public interface ProductService {
 	
 	String saveImageUrl(MultipartFile file);
 	
-	List<Product> findAllProductByName(String name);
 	
 	Page<Product> findPaginated(int pageNo, int pageSize);
 	
 	Page<Product> findAllByName(String name, int pageNo, int pageSize);
 
-
+	List<Product> findNewProductByDate();
+	
+	List<Product> findByBrand(Integer id,int number);
+	
+	Page<Product> findByCategory(Integer id, int pageNo, int pageSize);
+	
 
 }
