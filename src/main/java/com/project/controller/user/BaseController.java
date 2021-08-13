@@ -145,22 +145,22 @@ public class BaseController {
 
 	@GetMapping("/category/{id}")
 	public String showProduct(Model model, @PathVariable Integer id) {
-		int pageSize = 8;
-
-		Page<Product> page;	
-		
-		if (id == null || id == 0) {
-			page = productService.findPaginated(pageNo, pageSize);
-			model.addAttribute("listShoes", productService.findAll());
-		} else {
-			page = productService.findByCategory(id, pageNo, pageSize);
-		}
-		List<Product> listProducts = page.getContent();
-		model.addAttribute("category_id", id);
-		model.addAttribute("currentPage", pageNo);
-		model.addAttribute("totalPages", page.getTotalPages());
-		model.addAttribute("totalItems", page.getTotalElements());
-		model.addAttribute("list", listProducts);
+//		int pageSize = 8;
+//
+//		Page<Product> page;	
+//		
+//		if (id == null || id == 0) {
+//			page = productService.findPaginated(pageNo, pageSize);
+//			model.addAttribute("listShoes", productService.findAll());
+//		} else {
+//			page = productService.findByCategory(id, pageNo, pageSize);
+//		}
+//		List<Product> listProducts = page.getContent();
+//		model.addAttribute("category_id", id);
+//		model.addAttribute("currentPage", pageNo);
+//		model.addAttribute("totalPages", page.getTotalPages());
+//		model.addAttribute("totalItems", page.getTotalElements());
+//		model.addAttribute("list", listProducts);
 		return "user/show-product";
 	}
 
