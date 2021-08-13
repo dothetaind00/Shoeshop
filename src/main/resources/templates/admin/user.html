@@ -64,7 +64,7 @@
                             <br>
                         </section>
                         <ul class="pagination" id="pagination"></ul>
-                        <input type="hidden" id="page" name="page" value=""/>
+                        <input type="hidden" id="pageNo" name="pageNo" value=""/>
                         <input type="hidden" id="limit" name="limit" value=""/>
                         <input type="hidden" id="sortField" name="sortField" value=""/>
                         <input type="hidden" id="sortDir" name="sortDir" value=""/>
@@ -89,9 +89,9 @@
             totalPages: totalPages,
             visiblePages: 3,
             startPage: currentPage,
-            onPageClick: function (event, page) {
-                if (currentPage !== page) {
-                    $('#page').val(page);
+            onPageClick: function (event, pageNo) {
+                if (currentPage !== pageNo) {
+                    $('#page').val(pageNo);
                     $('#limit').val(10);
                     $('#sortField').val('userName');
                     $('#sortDir').val('asc');

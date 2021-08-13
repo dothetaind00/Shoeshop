@@ -1,7 +1,7 @@
 package com.project.controller.admin;
 
+import com.project.domain.GenericPagination;
 import com.project.domain.PaginationResult;
-import com.project.entity.Contact;
 import com.project.entity.User;
 import com.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller(value = "userOfAdmin")
 @RequestMapping("/admin")
@@ -24,26 +23,24 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private GenericPagination<User> genericPagination;
+
     @GetMapping("/user")
-    public String getListUser(@RequestParam(value = "page", defaultValue = "1", required = false) Integer pageNo,
+    public String getListUser(@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo,
                               @RequestParam(value = "limit", defaultValue = "10", required = false) Integer limit,
                               @RequestParam(value = "sortField", defaultValue = "userName", required = false) String sortField,
                               @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir,
                               Model model){
 
-        Pageable pageable = PageRequest.of(pageNo - 1, limit, ("asc".equals(sortDir) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending()));
+        Pageable pageable = PageRequest.of(pageNo - 1, limit,
+                ("asc".equals(sortDir) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending()));
+
         Page<User> page = userService.findByIsEnable(true, pageable);
 
-        PaginationResult<User> pagination = new PaginationResult<>();
-        pagination.setPageNo(pageNo);
-        pagination.setLimit(limit);
-        pagination.setTotalPage(page.getTotalPages());
-        pagination.setTotalItem(page.getTotalElements());
-        pagination.setSortField(sortField);
-        pagination.setSortDir(sortDir);
-        pagination.setList(page.toList());
+        PaginationResult<User> paginationResult = genericPagination.pagination(page, pageNo, limit, sortField, sortDir);
 
-        model.addAttribute("users", pagination);
+        model.addAttribute("users", paginationResult);
         return "admin/user";
     }
 
