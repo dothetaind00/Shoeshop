@@ -1,54 +1,67 @@
 package com.project.controller.user;
 
-import com.project.firebase.StorageStrategy;
-import com.project.utils.ProductImageBean;
-import org.apache.commons.lang3.StringUtils;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.project.entity.Product;
+import com.project.entity.Size;
+import com.project.service.ProductService;
+import com.project.service.SizeService;
 
 @Controller(value = "productOfUser")
-@RequestMapping("user")
 public class ProductController {
 
-    @Autowired
-    private StorageStrategy storageStrategy;
+	@Autowired
+	private ProductService productService;
 
-    @GetMapping("/product/upload")
-    public String getUploadFile(Model model){
-        model.addAttribute("productImage",new ProductImageBean());
-        return "upload";
-    }
+	@Autowired
+	private SizeService sizeService;
 
-    @PostMapping("/product/save/upload")
-    public String saveUploadFile(@ModelAttribute ProductImageBean productImage){
+	@GetMapping("/product/{id}")
+	public String productDetail(Model model, @PathVariable Integer id) {
+		Optional<Product> product = productService.findById(id);
 
-        try {
-            String fileName = storageStrategy.saveImage(productImage.getImage1(), "product");
-            System.out.println(fileName+ " file name");
-            
-            StringBuilder imageUrl = new StringBuilder();
+		if (product.isPresent()) {
 
-            if (fileName != null || fileName.trim().length() != 0) {
-                String tokens = StringUtils.substringBeforeLast(fileName, ".");
-                imageUrl.append("https://firebasestorage.googleapis.com/v0/b/shoe-mock-project.appspot.com/o/");
-                imageUrl.append("product%2F");
-                imageUrl.append(fileName);
-                imageUrl.append("?alt=media&token=");
-                imageUrl.append(tokens);
-            }
-            
-            System.out.println(imageUrl);
+			// get list size of shoes
+			List<Size> listSize = sizeService.findByProductAvailable(id);
+			if (listSize.isEmpty()) {
 
+				model.addAttribute("status", "Hết hàng");
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return "redirect:/product/upload";
-    }
+			} else {
+
+				model.addAttribute("status", "Còn hàng");
+				model.addAttribute("listSize", listSize);
+
+			}
+
+			model.addAttribute("listShoes", productService.findByBrand(product.get().getBrand().getId(), 4));
+			model.addAttribute("product", product.get());
+			return "user/product-details";
+		} else {
+			return "403";
+		}
+	}
+
+	@GetMapping("/cart/{id}")
+	public String addCart(Model model, @PathVariable Integer id, @RequestParam(name = "size", required = false) Integer size_id,
+			@RequestParam(name = "amount", required = false) Integer amount) {
+		System.out.println("product " + id);
+		System.out.println("Amount" + amount);
+		if(StringUtils.hasText(size_id + "")) {
+			System.out.println("Size "+ size_id);
+		}
+
+		return "user/shop-cart";
+	}
 
 }

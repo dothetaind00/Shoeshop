@@ -17,37 +17,35 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class BaseController {
-	
+
 	@Autowired
 	private ProductService productService;
-	
-	@Autowired
-	private SizeService sizeService;
 
-    @GetMapping("/login")
-    public String getPageLogin(Model model){
+
+
+	@GetMapping("/login")
+	public String getPageLogin(Model model) {
 
 //    	model.addAttribute("menu",categoryService.findByIsDisplay(true));
-        return "user/login";
-    }
+		return "user/login";
+	}
 
-    @GetMapping("/register")
-    public String getPageRegister(Model model){
-        model.addAttribute("user", new User());
-        return "user/register";
-    }
+	@GetMapping("/register")
+	public String getPageRegister(Model model) {
+		model.addAttribute("user", new User());
+		return "user/register";
+	}
 
-    @GetMapping("/contact")
-    public String getContact(){
-        return "redirect:/user/contact";
-    }
+//	@GetMapping("/contact")
+//	public String getContact() {
+//		return "redirect:/user/contact";
+//	}
 
+	@GetMapping("/403")
+	public String accessDenied() {
+		return "403";
+	}
 
-    @GetMapping("/403")
-    public String accessDenied(){
-        return "403";
-    }  
-    
 	@GetMapping("/")
 	public String homePage(Model model) {
 		model.addAttribute("listNews", productService.findNewProductByDate());
@@ -55,32 +53,7 @@ public class BaseController {
 		return "user/index";
 	}
 
-	@GetMapping("/product/{id}")
-	public String productDetail(Model model, @PathVariable Integer id) {
-		Optional<Product> product = productService.findById(id);
-
-		if (product.isPresent()) {
-
-			// get list size of shoes
-			List<Size> listSize = sizeService.findByProductAvailable(id);
-			if (listSize.isEmpty()) {
-
-				model.addAttribute("status", "Hết hàng");
-
-			} else {
-
-				model.addAttribute("status", "Còn hàng");
-				model.addAttribute("listSize", listSize);
-
-			}
-
-			model.addAttribute("listShoes", productService.findByBrand(product.get().getBrand().getId(), 4));
-			model.addAttribute("product", product.get());
-			return "user/product-details";
-		} else {
-			return "403";
-		}
-	}
+	
 
 	@GetMapping("/category/{id}")
 	public String showProduct(Model model, @PathVariable Integer id) {
@@ -102,5 +75,5 @@ public class BaseController {
 //		model.addAttribute("list", listProducts);
 		return "user/show-product";
 	}
-    
+
 }
