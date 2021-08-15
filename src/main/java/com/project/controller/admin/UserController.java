@@ -1,7 +1,7 @@
 package com.project.controller.admin;
 
+import com.project.domain.GenericPagination;
 import com.project.domain.PaginationResult;
-import com.project.entity.Contact;
 import com.project.entity.User;
 import com.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller(value = "userOfAdmin")
 @RequestMapping("/admin")
@@ -24,33 +24,40 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private GenericPagination<User> genericPagination;
+
     @GetMapping("/user")
-    public String getListUser(@RequestParam(value = "page", defaultValue = "1", required = false) Integer pageNo,
-                              @RequestParam(value = "limit", defaultValue = "10", required = false) Integer limit,
+    public String getListUser(@RequestParam(value = "pageNo", defaultValue = "1", required = false) Integer pageNo,
+                              @RequestParam(value = "limit", defaultValue = "2", required = false) Integer limit,
                               @RequestParam(value = "sortField", defaultValue = "userName", required = false) String sortField,
                               @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir,
+                              @RequestParam(value = "keysearch", required = false) String keysearch,
                               Model model){
 
-        Pageable pageable = PageRequest.of(pageNo - 1, limit, ("asc".equals(sortDir) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending()));
-        Page<User> page = userService.findByIsEnable(true, pageable);
+        Pageable pageable = PageRequest.of(pageNo - 1, limit,
+                ("asc".equals(sortDir) ? Sort.by(sortField).ascending() : Sort.by(sortField).descending()));
+        Page<User> page = null;
 
-        PaginationResult<User> pagination = new PaginationResult<>();
-        pagination.setPageNo(pageNo);
-        pagination.setLimit(limit);
-        pagination.setTotalPage(page.getTotalPages());
-        pagination.setTotalItem(page.getTotalElements());
-        pagination.setSortField(sortField);
-        pagination.setSortDir(sortDir);
-        pagination.setList(page.toList());
+        if (model.asMap().get("search") != null || keysearch != null) {
+            String search = model.asMap().get("search") != null ? model.asMap().get("search").toString() : keysearch.trim() ;
+            model.addAttribute("search", search);
 
-        model.addAttribute("users", pagination);
+            page = userService.findByUserNameLike("%" + search + "%", pageable);
+        }else{
+            page = userService.findByIsEnable(true, pageable);
+        }
+
+        PaginationResult<User> paginationResult = genericPagination.pagination(page, pageNo, limit, sortField, sortDir);
+        model.addAttribute("users", paginationResult);
+
         return "admin/user";
     }
 
     @PostMapping("/user/search")
-    public String searchUser(@RequestParam String username, Model model){
-
-        return "admin/user";
+    public String searchUser(@RequestParam String search, RedirectAttributes redirect) {
+        redirect.addFlashAttribute("search", search);
+        return "redirect:/admin/user";
     }
 
     @GetMapping("/user/{id}")
