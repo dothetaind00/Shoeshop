@@ -35,7 +35,6 @@
                                     <input class="form-control" placeholder="Tìm kiếm" name="keyword" th:value="${keyword}" type="text" required/>
                                     <input class="btn btn-warning" type="submit" value="Tìm kiếm"/>
                                 </form>
-
                             </div>
                         </div> 
 						<section class="panel">
@@ -96,6 +95,7 @@
                             	 <a th:if="${currentPage != i}" th:href="@{'/admin/product/page/' + ${i}} + ${keyword != null ? '?keyword=' + keyword : ''}" style="font-family: arial; font-size: 18px;">[[${i}]]</a>&nbsp;&nbsp;								
    						 		<span th:unless="${currentPage !=i}" style="font-family: arial; font-size: 18px;">[[${i}]]</span> &nbsp; &nbsp; 
                         	</span>
+                        	
                         </div>  
                         
   <!--                   <div class = "col-lg-1">

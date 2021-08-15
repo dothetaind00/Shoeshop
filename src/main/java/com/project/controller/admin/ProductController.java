@@ -23,8 +23,6 @@ import com.project.service.BrandService;
 import com.project.service.CategoryService;
 import com.project.service.ProductService;
 
-
-
 @Controller
 @RequestMapping("/admin")
 public class ProductController {
@@ -39,8 +37,8 @@ public class ProductController {
 	BrandService brandService;
 
 	@GetMapping("/product")
-	public String productHome(Model model , @RequestParam(name = "keyword", required = false) String keyword) {
-		return findPaginated(1,keyword, model);
+	public String productHome(Model model, @RequestParam(name = "keyword", required = false) String keyword) {
+		return findPaginated(1, keyword, model);
 	}
 
 	@GetMapping("/product/addproduct")
@@ -108,13 +106,13 @@ public class ProductController {
 		// Check Category Exit or not
 		if (product.isPresent()) {
 			// Exist
-			// get Product 
+			// get Product
 			Product pd = product.get();
 			// set time update
 			Date date = new Date();
 			Timestamp timestamp = new Timestamp(date.getTime());
 			pd.setOnUpdate(timestamp);
-			
+
 			model.addAttribute("category", categoryService.findAll());
 			model.addAttribute("brand", brandService.findAll());
 			model.addAttribute("product", pd);
@@ -132,37 +130,34 @@ public class ProductController {
 		productService.deleteById(id);
 		return "redirect:/admin/product";
 	}
-	
-	
+
 	// paginated
 	@GetMapping("product/page/{pageNo}")
 	public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
-			@RequestParam(name = "keyword", required = false) String keyword , Model model) {	
+			@RequestParam(name = "keyword", required = false) String keyword, Model model) {
 		int pageSize = 8;
-		
+
 		Page<Product> page;
-		
-		if(StringUtils.hasText(keyword)) {
-			 page = productService.findAllByName(keyword, pageNo, pageSize);
-			 keyword.trim();
-		}else {
-			 page = productService.findPaginated(pageNo, pageSize);
-		}
+
+		if (StringUtils.hasText(keyword)) {
 			
+			keyword.trim();
+			page = productService.findAllByName(keyword, pageNo, pageSize);
+
+		} else {
+			page = productService.findPaginated(pageNo, pageSize);
+		}
+
 		List<Product> listProducts = page.getContent();
-		
-		model.addAttribute("keyword",keyword);
-		model.addAttribute("currentPage",pageNo);
-		model.addAttribute("totalPages",page.getTotalPages());
+
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("currentPage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
-		model.addAttribute("list",listProducts);
-		
+		model.addAttribute("list", listProducts);
+
 		return "admin/product";
-		
-		
-		
+
 	}
-	
-	
 
 }

@@ -117,6 +117,39 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.findByCategory(id, pageable);
 	}
 
+	@Override
+	public Page<Product> filterProduct(String category_id, String brand_id, String keyword, String min, String max,int pageNo, int pageSize) {
+		
+
+		category_id = checkNumber(category_id, "%%");
+		brand_id = checkNumber(brand_id,"%%");
+		keyword = checkName(keyword);	
+		min = checkNumber(min, "0");
+		max = checkNumber(max, "50000000");
+		
+		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
+		return productRepository.filterProduct(category_id, brand_id, keyword, min, max,pageable);
+	}
+	
+	
+	public String checkName(String str) {
+		if(org.springframework.util.StringUtils.hasText(str)) {
+			 return "%"+str+"%";
+		}else {
+			return "%%";
+		}
+	}
+	
+	public String checkNumber(String str, String result) {
+		if(org.springframework.util.StringUtils.hasText(str)) {
+			 return str;
+		}else {
+			return result;
+		}
+	}
+	
+
+
 
 
 	
