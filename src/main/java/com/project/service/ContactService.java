@@ -9,11 +9,17 @@ import java.util.Optional;
 
 public interface ContactService {
 
+    Page<Contact> findAllContact(Pageable pageable);
+
+    Page<Contact> findAllByName(String name, Pageable pageable);
+
     Contact findById(Integer id);
 
     Contact findByPhone(String phone);
 
     Boolean existByEmailAndPhone(String email, String phone);
+
+    Long totalRecord();
 
     List<Contact> findAll();
 

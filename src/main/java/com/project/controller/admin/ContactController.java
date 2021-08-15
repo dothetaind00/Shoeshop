@@ -14,6 +14,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @Controller(value = "contactOfAdmin")
 @RequestMapping("admin/contact")
@@ -71,4 +73,29 @@ public class ContactController {
         contactService.delete(id);
         return "redirect:/admin/contact";
     }
+
+    @GetMapping("/page-contact")
+    public String getPage(Model model){
+        model.addAttribute("totalItem", contactService.totalRecord());
+        return "admin/test_contact";
+    }
+
+    @GetMapping("/api-getall/{pageNo}")
+    @ResponseBody
+    public Page<Contact> getAllContact(@PathVariable(value = "pageNo") Integer pageNo){
+        Pageable pageable = PageRequest.of(pageNo - 1,5, Sort.by("name").ascending());
+        Page<Contact> listContact = contactService.findAllContact(pageable);
+        return listContact;
+    }
+
+    @GetMapping("/api-getname/{pageNo}/{name}")
+    @ResponseBody
+    public Page<Contact> getAllContactName(@PathVariable(value = "pageNo") Optional<Integer> pageNo,
+                                            @PathVariable(value = "name") String name){
+        int page = pageNo.orElse(1);
+        Pageable pageable = PageRequest.of(page - 1,5, Sort.by("name").ascending());
+        Page<Contact> listContact = contactService.findAllByName(name, pageable);
+        return listContact;
+    }
+
 }

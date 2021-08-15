@@ -22,6 +22,16 @@ public class ContactServiceImpl implements ContactService {
     private SendMail sendMail;
 
     @Override
+    public Page<Contact> findAllContact(Pageable pageable) {
+        return contactRepository.findAllContact(pageable);
+    }
+
+    @Override
+    public Page<Contact> findAllByName(String name, Pageable pageable) {
+        return contactRepository.findAllByName(name, pageable);
+    }
+
+    @Override
     public Contact findById(Integer id) {
         return contactRepository.findById(id).orElse(null);
     }
@@ -34,6 +44,11 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public Boolean existByEmailAndPhone(String email, String phone) {
         return contactRepository.existsByEmailAndPhone(email, phone);
+    }
+
+    @Override
+    public Long totalRecord() {
+        return contactRepository.count();
     }
 
     @Override
