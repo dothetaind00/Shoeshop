@@ -9,7 +9,11 @@ import com.project.service.SizeService;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,9 +51,13 @@ public class BaseController {
 	}
 
 	@GetMapping("/")
-	public String homePage(Model model) {
+	public String homePage(Model model, HttpSession session) {
 		model.addAttribute("listNews", productService.findNewProductByDate());
 		model.addAttribute("listNikeShoes", productService.findByBrand(2, 8));
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (!auth.getPrincipal().equals("anonymousUser")) {
+			session.removeAttribute("listCart");
+		}
 		return "user/index";
 	}
 

@@ -5,5 +5,7 @@ import java.util.List;
 import com.project.entity.CartDetail;
 
 public interface CartService {
-	float totalAmount(List<CartDetail> listCart);
+	//tinh tong so tien
+	double totalAmount(List<CartDetail> listCart);
+
 }

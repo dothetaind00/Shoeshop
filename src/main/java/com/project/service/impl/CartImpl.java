@@ -12,7 +12,7 @@ import com.project.service.CartService;
 public class CartImpl implements CartService{
 
 	@Override
-	public float totalAmount(List<CartDetail> listCart) {
+	public double totalAmount(List<CartDetail> listCart) {
 		// TODO Auto-generated method stub
 		float totalAmount = 0;
 		for (CartDetail cartDetail : listCart) {
