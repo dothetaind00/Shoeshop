@@ -33,11 +33,11 @@ public class CartDetail {
     @JoinColumn(name = "product_id")
     private Product product;
 
-
 	public CartDetail(Integer amount, Product product, Double price) {
 		this.amount = amount;
 		this.product = product;
 		this.price = price;
+
 	}
     
     @ManyToOne(fetch = FetchType.LAZY)
@@ -45,4 +45,4 @@ public class CartDetail {
     private Size size;
 
     
-}
+	}    

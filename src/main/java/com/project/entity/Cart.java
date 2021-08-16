@@ -25,11 +25,10 @@ public class Cart {
     @Column(name = "total_cost")
     private Double totalCost;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column(name = "user_id")
+    private Integer user;
 
-	public Cart(Integer totalAmount, Double totalCost, User user) {
+	public Cart(Integer totalAmount, Double totalCost, Integer user) {
 		super();
 		this.totalAmount = totalAmount;
 		this.totalCost = totalCost;
