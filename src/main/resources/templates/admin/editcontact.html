@@ -1,7 +1,7 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments :: html_head"/>
+<head th:replace="fragments :: html_head(pageTitle='Cập nhật liên hệ')"/>
 
 <body>
 <!-- container section start -->
@@ -20,7 +20,7 @@
                     </h3>
                     <ol class="breadcrumb" style="font-family: arial;">
                         <li><a th:href="@{/admin}">Trang chủ</a></li>
-                        <li>Liên hệ</li>
+                        <li><a th:href="@{/admin/contact}">Liên hệ</a></li>
                         <li>Cập nhật Liên hệ</li>
                     </ol>
                 </div>
@@ -85,7 +85,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-lg-offset-2 col-lg-10">
-                                            <button id="btnUpdate" class="btn btn-primary" type="button">Update</button>
+                                            <button id="btnUpdate" class="btn btn-primary" type="button">Cập nhật</button>
                                         </div>
                                     </div>
                                 </form>
@@ -119,15 +119,14 @@
         $.ajax({
             type: "PUT",
             contentType: "application/json",
-            url: "http://localhost:8080/admin/contact/api-editcontact/"+data.id,
+            url: "http://localhost:8080/api/contact/"+data.id,
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result) {
                 alert("Cập nhật thành công liên hệ "+result.name);
             },
             error: function (e){
-                alert("Error: ", e);
-                console.log("Error", e);
+                alert("Cập nhật không thành công ");
             }
         });
     }

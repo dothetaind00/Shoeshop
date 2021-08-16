@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,34 +38,19 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public Contact findByPhone(String phone) {
-        return null;
+    public Optional<Contact> findContactByPhone(String phone) {
+        return contactRepository.findContactByPhone(phone);
     }
 
     @Override
-    public Boolean existByEmailAndPhone(String email, String phone) {
-        return contactRepository.existsByEmailAndPhone(email, phone);
-    }
-
-    @Override
-    public Long totalRecord() {
-        return contactRepository.count();
-    }
-
-    @Override
-    public List<Contact> findAll() {
-        return contactRepository.findAll();
-    }
-
-    @Override
-    public Page<Contact> findAllPaging(Pageable pageable) {
-        return contactRepository.findAll(pageable);
+    public Boolean existByPhone(String phone) {
+        return contactRepository.existsByPhone(phone);
     }
 
     @Override
     public Contact save(Contact contact) {
         if (contact.getId() == null) {
-            if (contactRepository.existsByEmailAndPhone(contact.getEmail(), contact.getPhone())) {
+            if (contactRepository.existsByPhone(contact.getPhone())) {
                 return null;
             }
             Thread thread = new Thread(new Runnable() {
@@ -76,9 +62,17 @@ public class ContactServiceImpl implements ContactService {
             thread.start();
 
             return contactRepository.save(contact);
+        }else{
+            Optional<Contact> c = contactRepository.findContactByPhone(contact.getPhone());
+            if (c.isPresent()){
+                if (c.get().getId() == contact.getId()){
+                    return contactRepository.save(contact);
+                }else{
+                    return null;
+                }
+            }
+            return contactRepository.save(contact);
         }
-
-        return contactRepository.save(contact);
     }
 
     @Override

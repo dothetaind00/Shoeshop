@@ -15,15 +15,9 @@ public interface ContactService {
 
     Optional<Contact> findById(Integer id);
 
-    Contact findByPhone(String phone);
+    Optional<Contact> findContactByPhone(String phone);
 
-    Boolean existByEmailAndPhone(String email, String phone);
-
-    Long totalRecord();
-
-    List<Contact> findAll();
-
-    Page<Contact> findAllPaging(Pageable pageable);
+    Boolean existByPhone(String phone);
 
     Contact save(Contact contact);
 
