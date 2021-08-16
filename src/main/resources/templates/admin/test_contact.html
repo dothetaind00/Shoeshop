@@ -68,8 +68,7 @@
 <script src="/paging/jquery.twbsPagination.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-
-        $('#viewAll').click(function (){
+        $('#viewAll').click(function () {
             ajaxGet(1);
             $('#addPagi').children("#paginationSearch").remove();
             $('#searchByName').val('');
@@ -77,6 +76,7 @@
 
         ajaxGet(1);
 
+        //get contact all
         function ajaxGet(pageNo) {
             $.ajax({
                 type: "GET",
@@ -96,9 +96,10 @@
                                        <td>${contact.phone}</td>
                                        <td>${contact.address}</td>
                                        <td>
+                                           <input type="hidden" id="Id" value="${contact.id}">
                                            <div class="btn-group">
                                                <a class="btn btn-primary" href="/admin/contact/${contact.id}">Update</a>
-                                               <a class="btn btn-danger" onclick="if(!confirm('Bạn có chắc muốn xóa liên hệ?')) return false;" href="/admin/contact/delete/${contact.id}">Delete</a>
+                                               <a class="btn btn-danger btnxoasp">Delete</a>
                                            </div>
                                        </td>
                                    </tr>`;
@@ -116,30 +117,32 @@
         };
 
         function pagination(totalPages, currentPage, ajaxGet) {
+            $('#paginationGet').twbsPagination('destroy');
             $('#paginationGet').twbsPagination({
                 totalPages: totalPages,
                 visiblePages: 3,
                 startPage: currentPage,
                 onPageClick: function (event, page) {
                     var now = $('#page').val();
-                    if (now !== page) {
+                    if (currentPage !== page) {
                         ajaxGet(page);
                     }
                 }
             });
         };
 
-        $(document).on('click','#btnSearch', function(){
+        $(document).on('click', '#btnSearch', function () {
             var key = $('#searchByName').val();
-            if (key.trim() != ''){
+            if (key.trim() != '') {
                 $('#addPagi').children("#paginationGet").remove();
                 var searchByName = $('#searchByName').val();
                 ajaxGetName(1, searchByName);
-            }else{
+            } else {
                 alert('Khong duoc de trong');
             }
         });
 
+        //search name
         function ajaxGetName(pageNo, searchByName) {
             console.log(searchByName);
             if (searchByName.trim() != '') {
@@ -197,6 +200,30 @@
                 }
             });
         };
+
+        //delete contact
+        $(document).on("click", ".btnxoasp", function () {
+            var id = $(this).parent().prev().val();
+            var confirmation = confirm("Bạn chắc chắn xóa liên hệ này ?");
+            if (confirmation) {
+                $.ajax({
+                    type: "DELETE",
+                    async: false,
+                    contentType: "application/json",
+                    url: "http://localhost:8080/admin/contact/api-deletecontact/" + id,
+                    success: function (result) {
+                        if (result.deleted == true) {
+                            alert("Xóa thành công liên hệ");
+                            ajaxGet(1);
+                        }
+                    },
+                    error: function (e) {
+                        alert("Error: ", e);
+                        console.log("Error", e);
+                    }
+                });
+            }
+        });
     });
 
 </script>

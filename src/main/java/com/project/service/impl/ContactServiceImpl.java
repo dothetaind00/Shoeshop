@@ -82,7 +82,7 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public void delete(Integer id) {
-        contactRepository.deleteById(id);
+    public void delete(Contact contact) {
+        contactRepository.delete(contact);
     }
 }

@@ -18,7 +18,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller(value = "contactOfAdmin")
@@ -73,11 +75,13 @@ public class ContactController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteContact(@PathVariable Integer id) {
-        contactService.delete(id);
+    public String delete(@PathVariable Integer id) {
+        Contact contact = contactService.findById(id).orElse(null);
+        contactService.delete(contact);
         return "redirect:/admin/contact";
     }
 
+    //dung api
     @GetMapping("/page-contact")
     public String getPage(Model model){
         model.addAttribute("totalItem", contactService.totalRecord());
@@ -123,6 +127,17 @@ public class ContactController {
 
         Contact updateContact = contactService.save(contac);
         return ResponseEntity.ok(updateContact);
+    }
+
+    @DeleteMapping("/api-deletecontact/{id}")
+    @ResponseBody
+    public ResponseEntity<Map<String, Boolean>> deleteContact(@PathVariable Integer id){
+        Contact contact = contactService.findById(id)
+                .orElseThrow(() -> new RuntimeException("Not found Contact with " + id));
+        contactService.delete(contact);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return ResponseEntity.ok(response);
     }
 
 }

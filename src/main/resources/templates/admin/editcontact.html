@@ -40,7 +40,7 @@
                                     <br>
                                     <h5 style="text-align: center;">Field Not Empty !</h5>
                                 </th:block>
-                                <form class="form-validate form-horizontal" action="#"
+                                <form id="formSubmit" class="form-validate form-horizontal" action="#"
                                       th:action="@{/admin/contact}" th:object="${contact}" method="post">
                                     <div class="form-group ">
                                         <label for="id" class="control-label col-lg-2">ID<span class="required">*</span></label>
@@ -85,7 +85,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-lg-offset-2 col-lg-10">
-                                            <button class="btn btn-primary" type="submit">Update</button>
+                                            <button id="btnUpdate" class="btn btn-primary" type="button">Update</button>
                                         </div>
                                     </div>
                                 </form>
@@ -104,9 +104,31 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+
+    $('#btnUpdate').click(function (e) {
+        e.preventDefault();
+        var data = {};
+        var formData = $('#formSubmit').serializeArray();
+        $.each(formData, function (i, v) {
+            data["" + v.name + ""] = v.value;
+        });
+        updateContact(data);
+    });
+
     function updateContact(data){
         $.ajax({
-            url: "",
+            type: "PUT",
+            contentType: "application/json",
+            url: "http://localhost:8080/admin/contact/api-editcontact/"+data.id,
+            data: JSON.stringify(data),
+            dataType: 'json',
+            success: function (result) {
+                alert("Cập nhật thành công liên hệ "+result.name);
+            },
+            error: function (e){
+                alert("Error: ", e);
+                console.log("Error", e);
+            }
         });
     }
 </script>

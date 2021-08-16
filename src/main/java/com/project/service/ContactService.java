@@ -27,5 +27,5 @@ public interface ContactService {
 
     Contact save(Contact contact);
 
-    void delete(Integer id);
+    void delete(Contact contact);
 }
