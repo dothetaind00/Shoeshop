@@ -31,10 +31,10 @@ public class SendMailImpl implements SendMail {
         var mailMessage = new SimpleMailMessage();
 
         StringBuilder mailContent = new StringBuilder();
-        mailContent.append("Sender Name : " + fullname + "\n");
-        mailContent.append("Sender Email : " + toEmail + "\n");
-        mailContent.append("Subject : " + subject + "\n");
-        mailContent.append("Content : Xin chào quý khách hàng thân thiện :>");
+        mailContent.append("Xin chào, " + fullname + "\n");
+        mailContent.append("Người nhận: " + toEmail + "\n");
+        mailContent.append("Xin chào quý khách hàng thân thiện đã quan tâm đến Shoe Store \n");
+        mailContent.append("Chúc quý khách một ngày tốt lành !");
 
         mailMessage.setTo(toEmail);
         mailMessage.setSubject(subject);
@@ -58,15 +58,15 @@ public class SendMailImpl implements SendMail {
             helper.setFrom("contact@shoestore.com", "Shoe Store");
             helper.setTo(toEmail);
 
-            String subject = "Here's the link to active your account";
+            String subject = "Kích hoạt tài khoản đăng kí";
 
-            String content = "<p>Hello, " + username + "</p>"
-                    + "<p>You have requested to active your account.</p>"
-                    + "<p>Click the link below to active your account:</p>"
+            String content = "<p>Xin chào, " + username + "</p>"
+                    + "<p>Bạn có yêu cầu kích hoạt tài khoản của bạn.</p>"
+                    + "<p>Click vào đường dẫn bên dưới để kích hoạt tài khoản tài khoản: </p>"
                     + "<p>" + url + "</p>"
                     + "<br>"
-                    + "<p>Ignore this email if you do not register user, "
-                    + "or you have not made the request.</p>";
+                    + "<p>Bỏ qua mail này nếu bạn không muốn đăng kí tài khoản, "
+                    + "và đường dẫn này sẽ hết hiệu trong 15 phút.</p>";
 
             //message.setContent(content,"text/html");
             helper.setSubject(subject);

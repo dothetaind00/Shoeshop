@@ -10,8 +10,6 @@ public class BaseController {
 
     @GetMapping("/login")
     public String getPageLogin(Model model){
-   	
-//    	model.addAttribute("menu",categoryService.findByIsDisplay(true));
         return "user/login";
     }
 
@@ -21,7 +19,7 @@ public class BaseController {
         return "user/register";
     }
 
-    @GetMapping("/contact")
+    @GetMapping("/test/contact")
     public String getContact(){
         return "redirect:/user/contact";
     }

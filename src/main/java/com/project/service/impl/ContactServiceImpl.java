@@ -56,7 +56,7 @@ public class ContactServiceImpl implements ContactService {
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    sendMail.sendMail(contact.getEmail(), "Web Shoe", contact.getName());
+                    sendMail.sendMail(contact.getEmail(), "Shoe Store", contact.getName());
                 }
             });
             thread.start();

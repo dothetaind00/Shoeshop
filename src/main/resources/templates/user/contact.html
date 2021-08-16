@@ -57,12 +57,17 @@
                             </form>
                             <th:block th:if="${param.existed != null}">
                                 <br>
-                                <h5>Contact Existed !</h5>
+                                <h5>Liên hệ đã tồn tại !</h5>
                             </th:block>
 
                             <th:block th:if="${param.invalid != null}">
                                 <br>
-                                <h5>Field Not Empty !</h5>
+                                <h5>Các trường không được để trống !</h5>
+                            </th:block>
+
+                            <th:block th:if="${param.success != null}">
+                                <br>
+                                <h5>Tạo liên hệ thành công !</h5>
                             </th:block>
 
                         </div>
