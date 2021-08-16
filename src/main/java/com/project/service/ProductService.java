@@ -41,5 +41,7 @@ public interface ProductService {
 	
 	Page<Product> findByCategory(Integer id, int pageNo, int pageSize);
 	
+	Page<Product> filterProduct(String category_id, String brand_id, String keyword, String min, String max,int pageNo, int pageSize);
+
 
 }

@@ -28,6 +28,7 @@
                             </div>
                             <div class="categories__accordion">
                                 <div class="accordion" id="accordionExample">
+                                
                                     <div class="card">
                                         <div class="card-heading active">
                                             <a data-toggle="collapse" data-target="#collapseOne">Hãng</a>
@@ -35,14 +36,16 @@
                                         <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
                                             <div class="card-body">
                                                 <ul>
-                                                    <li><a href="#">Van</a></li>
-                                                    <li><a href="#">Converse</a></li>
-                                                    <li><a href="#">Adidas</a></li>
-                                                    <li><a href="#">Nike</a></li>
+                                                    <li th:each="b : ${listBrand}">
+                                                    <a th:href="@{'/product/page/1' + '?brand='+${b.id} + ${category != null ? '&category=' + category : ''} + ${keyword != null ? '&keyword=' + keyword : ''} + ${minAmount != null ? '&minAmount=' + minAmount : ''} + ${maxAmount != null ? '&maxAmount=' + maxAmount : ''}}">
+                                                    [[${b.name}]]
+                                                    </a>
+                                                    </li>                                                 
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
+                                    
                                     <div class="card">
                                         <div class="card-heading">
                                             <a data-toggle="collapse" data-target="#collapseTwo">Loại</a>
@@ -50,33 +53,39 @@
                                         <div id="collapseTwo" class="collapse" data-parent="#accordionExample">
                                             <div class="card-body">
                                                 <ul>
-                                                    <li><a href="#">Rượu vang</a></li>
-                                                    <li><a href="#">Rượu có ga</a></li>
-                                                    <li><a href="#">Bia</a></li>
+                                                    <li th:each="c : ${listCategory}">
+                                                    <a th:href="@{'/product/page/1' + '?category=' + ${c.id} + ${brand != null ? '&brand=' + brand : ''} + ${keyword != null ? '&keyword=' + keyword : ''} + ${minAmount != null ? '&minAmount=' + minAmount : ''} + ${maxAmount != null ? '&maxAmount=' + maxAmount : ''}}">
+                                                    [[${c.name}]]
+                                                    </a>
+                                                    </li>   
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                         <div class="sidebar__filter">
                             <div class="section-title">
-                                <h4>Tìm theo giá(1-20Tr)</h4>
-                            </div>
+                                <h4>Tìm theo giá(1-50Tr)</h4>
+                            </div> 
+                            <form th:action="@{/product/page/1}">                       
                             <div class="filter-range-wrap">
-                                <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content" data-min="50" data-max="500"></div>
+                                <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content" data-min="0" data-max="50000000"></div>                               
                                 <div class="range-slider">
                                     <div class="price-input">
                                         <p>Giá:</p>
-                                        <input type="text" id="minamount">
-                                        <input type="text" id="maxamount">
+                                        <input type="text" th:value="${minAmount}" id="minamount" name="minAmount" style="max-width: 40%" > 
+                                        <input type="text" th:value="${maxAmount}" id="maxamount" name="maxAmount" style="max-width: 40%">
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">Lọc</a>
+                           <input class="btn btn-danger" type="submit" value="Lọc"/>
+                            </form>  
                         </div>
-                        <div class="sidebar__sizes">
+                        
+          <!--     <div class="sidebar__sizes">
                             <div class="section-title">
                                 <h4>Shop by size</h4>
                             </div>
@@ -122,173 +131,54 @@
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
-                        </div>
+                        </div>  -->
 
 
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-9">
+                
+                 <form class="navbar-form" th:action="@{/product/page/1}">
+                     <span> <input class="form-control" placeholder="Tìm kiếm" name="keyword" th:value="${keyword}" type="text" style="width : 85%; display: inline-block; margin-bottom: 20px;" required/>
+                      		<input class="btn btn-warning" type="submit" value="Tìm kiếm"/>
+                     </span>
+              	</form>
+                        
                     <div class="row">
-                        <div class="col-lg-4 col-md-6">
+                                                          
+                        <div class="col-lg-4 col-md-6" th:each = "p : ${listProduct}">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="../web/img/product/index/con1.jpg">
-                                    <div class="label new">Mới</div>
+                                <div class="product__item__pic set-bg" th:data-setbg="${p.image1}"  th:style="'background-image: url(' + ${p.image1} + ');'">
+                                    <div class="label new" th:if= "${p.sale == 0}">New</div>
+                            		<div class="label sale" th:unless= "${p.sale == 0}">Sale</div>
                                     <ul class="product__hover">
-                                        <li><a href="../web/img/product/index/con1.jpg" class="image-popup"><span
-                                                class="arrow_expand"></span></a></li>
-
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="#">16 Edizione limited - 750ml</a></h6>
-
-                                    <div class="product__price">1,800,000 VNĐ</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="../web/img/product/index/con2.jpg">
-                                    <ul class="product__hover">
-                                        <li><a href="../web/img/product/index/con2.jpg" class="image-popup"><span
-                                                class="arrow_expand"></span></a></li>
-
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="#">50 Aniversario - 750ml</a></h6>
-
-                                    <div class="product__price">2,000,000 VNĐ</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="../web/img/product/index/con3.jpg">
-                                    <ul class="product__hover">
-                                        <li><a href="../web/img/product/index/con3.jpg" class="image-popup"><span
+                                        <li><a th:href="${p.image1}" class="image-popup"><span
                                                 class="arrow_expand"></span></a></li>
                                         <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                        <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6><a href="#">60 Sessantanni Limited Edition - 1.5L</a></h6>
-
-                                    <div class="product__price">3,000,000 VNĐ</div>
+                                    <h6><a href="#">[[${p.name}]]</a></h6>
+                                     <div class="product__price" th:if= "${p.sale == 0}">[[${p.price}]]VNĐ</div>
+                            		<div class="product__price" th:unless= "${p.sale == 0}">[[${p.sale}]]VNĐ  <span>[[${p.price}]]VNĐ</span></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="../web/img/product/index/con3.jpg">
-                                    <ul class="product__hover">
-                                        <li><a href="../web/img/product/index/con4.jpg" class="image-popup"><span
-                                                class="arrow_expand"></span></a></li>
-                                        <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                        <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="#">60 Sessantanni Limited Edition - 750ml</a></h6>
-
-                                    <div class="product__price">1,700,000 VNĐ</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="product__item sale">
-                                <div class="product__item__pic set-bg" data-setbg="../web/img/product/index/con5.jpg">
-                                    <div class="label">Sale</div>
-                                    <ul class="product__hover">
-                                        <li><a href="../web/img/product/index/con5.jpg" class="image-popup"><span
-                                                class="arrow_expand"></span></a></li>
-
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="#">Ad Hoc Cruel Mistress Pinot Noir - 750ml</a></h6>
-
-                                    <div class="product__price">825,000 VNĐ </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="../web/img/product/index/con6.jpg">
-                                    <ul class="product__hover">
-                                        <li><a href="../web/img/product/index/con6.jpg" class="image-popup"><span
-                                                class="arrow_expand"></span></a></li>
-
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="#">Adobe Cabernet Sauvignon - 750ml</a></h6>
-
-                                    <div class="product__price">350,000 VNĐ</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="../web/img/product/index/con7.jpg">
-                                    <ul class="product__hover">
-                                        <li><a href="../web/img/product/index/con7.jpg" class="image-popup"><span
-                                                class="arrow_expand"></span></a></li>
-
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="#">Alabaster - 750ml</a></h6>
-
-                                    <div class="product__price">6,000,000 VNĐ</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="../web/img/product/index/con8.jpg">
-                                    <div class="label stockout stockblue">Out Of Stock</div>
-                                    <ul class="product__hover">
-                                        <li><a href="../web/img/product/index/con8.jpg" class="image-popup"><span
-                                                class="arrow_expand"></span></a></li>
-
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="#">Alain Chabanon, Petit Merle Aux Alouettes, IGP d'Oc - 750ml</a></h6>
-
-                                    <div class="product__price">1,221,000 VNĐ</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="product__item sale">
-                                <div class="product__item__pic set-bg" data-setbg="../web/img/product/index/con5.jpg">
-                                    <div class="label">Sale</div>
-                                    <ul class="product__hover">
-                                        <li><a href="../web/img/product/index/con5.jpg" class="image-popup"><span
-                                                class="arrow_expand"></span></a></li>
-
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="#">
-                                        Alain Chabanon, Petit Merle Aux Alourettes, IGP d'Oc - 750ml</a></h6>
-
-                                    <div class="product__price">1,100,000 VNĐ </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 text-center">
+                                              
+                        <div class="col-lg-12 text-center" th:if="${totalPages > 1}">
                             <div class="pagination__option">
-                                <a href="#">1</a>
-                                <a href="#">2</a>
-                                <a href="#">3</a>
-                                <a href="#"><i class="fa fa-angle-right"></i></a>
+                             <a th:if="${currentPage > 1}" th:href="@{'/product/page/' + ${currentPage - 1}} + '?keyword=' + ${keyword != null ?  keyword : ''} + ${category != null ? '&category=' + category : ''} + ${brand != null ? '&brand=' + brand : ''} + ${minAmount != null ? '&minAmount=' + minAmount : ''} + ${maxAmount != null ? '&maxAmount=' + maxAmount : ''}" ><i class="fa fa-angle-left"></i></a>
+                             
+                            	<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                            	 	<a th:if="${currentPage != i}" th:href="@{'/product/page/' + ${i}} + '?keyword=' + ${keyword != null ?  keyword : ''} + ${category != null ? '&category=' + category : ''} + ${brand != null ? '&brand=' + brand : ''} + ${minAmount != null ? '&minAmount=' + minAmount : ''} + ${maxAmount != null ? '&maxAmount=' + maxAmount : ''}">[[${i}]]</a>							
+   						 			<span th:unless="${currentPage !=i}" style="font-family: arial; font-size: 18px;">[[${i}]]</span> &nbsp; &nbsp; 
+                        		</span>
+                        		
+                                <a th:if="${currentPage < totalPages}" th:href="@{'/product/page/' + ${currentPage + 1}} + '?keyword=' + ${keyword != null ?  keyword : ''} + ${category != null ? '&category=' + category : ''} + ${brand != null ? '&brand=' + brand : ''} + ${minAmount != null ? '&minAmount=' + minAmount : ''} + ${maxAmount != null ? '&maxAmount=' + maxAmount : ''}"><i class="fa fa-angle-right"></i></a>
                             </div>
                         </div>
-                    </div>
+                        
+                    </div>                
                 </div>
             </div>
         </div>
@@ -311,6 +201,10 @@
     <!-- Search End -->`
 
     <div th:replace="fragments_user :: script"></div>
+    
+    <script type="text/javascript">
+    	var minAmount
+    </script>
 </body>
 
 </html>

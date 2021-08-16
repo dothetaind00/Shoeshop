@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="fragments_user :: html_head (title='Trang chủ')"></head>
+<head th:replace="fragments_user :: html_head (title='Trang chá»§')"></head>
 
 <body>
     <!-- Offcanvas Menu Begin -->
@@ -19,9 +19,11 @@
                 <div class="col-lg-6 p-0" th:with="firstBanner = ${listBanner[0]}">
                     <div class="categories__item categories__large__item set-bg" th:data-setbg="${firstBanner.image}" style="background-image: url(&quot;../web/img/banner/con2.jpg&quot;);">
                         <div class="categories__text">
+
                             <h1 th:text="${firstBanner.title}"></h1>
                             <p th:text="${firstBanner.desciption}"></p>
                             <a th:href="${firstBanner.url}">Shop now</a>
+
                         </div>
                     </div>
                 </div>
@@ -69,7 +71,6 @@
                                 <li><a th:href="${p.image1}" class="image-popup"><span
                                         class="arrow_expand"></span></a></li>
                                 <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                             </ul>
                         </div>
                         <div class="product__item__text">
@@ -81,8 +82,8 @@
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
                             </div>
-                             <div class="product__price" th:if= "${p.sale == 0}">[[${p.price}]]đ</div>
-                            <div class="product__price" th:unless= "${p.sale == 0}">[[${p.sale}]]đ  <span>[[${p.price}]]đ</span></div>
+                             <div class="product__price" th:if= "${p.sale == 0}">[[${p.price}]]Ä‘</div>
+                            <div class="product__price" th:unless= "${p.sale == 0}">[[${p.sale}]]Ä‘  <span>[[${p.price}]]Ä‘</span></div>
                         </div>
                     </div>
                 </div>
@@ -115,7 +116,7 @@
                                  <li><a th:href="${p.image1}" class="image-popup"><span
                                         class="arrow_expand"></span></a></li>
                                 <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                                
                             </ul>
                         </div>
                         
@@ -128,8 +129,10 @@
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
                             </div>
-                            <div class="product__price" th:if= "${p.sale == 0}">[[${p.price}]]đ</div>
-                            <div class="product__price" th:unless= "${p.sale == 0}">[[${p.sale}]]đ  <span>[[${p.price}]]đ</span></div>
+
+                            <div class="product__price" th:if= "${p.sale == 0}">[[${p.price}]]VNĐ</div>
+                            <div class="product__price" th:unless= "${p.sale == 0}">[[${p.sale}]]VNĐ  <span>[[${p.price}]]VNĐ</span></div>
+
                         </div>
                     </div>
                 </div>
@@ -150,17 +153,21 @@
                                 <div style="display: none; width: 652.5px;" class="owl-item cloned">
                                     <div class="banner__item">
                                         <div class="banner__text">
+
                                             <span th:text="${listBanner[5].desciption}"></span>
                                             <h1 th:text="${listBanner[5].title}"></h1>
                                             <a th:href="${listBanner[5].url}">Shop now</a>
+
                                         </div>
                                     </div>
                                 </div>
                                 
                                 <div class="owl-nav disabled">
                                     <button type="button" role="presentation" class="owl-prev"><span
-                                            aria-label="Previous">â€¹</span></button>
-                                    <button type="button" role="presentation" class="owl-next"><span aria-label="Next">â€º</span></button>
+
+                                            aria-label="Previous"></span></button>
+                                    <button type="button" role="presentation" class="owl-next"><span aria-label="Next"></span></button>
+
                                 </div>
                                 
                                 <div class="owl-dots">
@@ -186,29 +193,37 @@
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="services__item">
                         <i class="fa fa-car"></i>
-                        <h6>Miá»…n phÃ­ giao hÃ ng</h6>
-                        <p>Cho cÃ¡c sáº£n pháº§m trÃªn 2 triá»‡u vnÄ‘</p>
+
+                        <h6>Miễn phí giao hàng</h6>
+                        <p>Cho các sản phầm trên 2 triệu vnđ</p>
+
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="services__item">
                         <i class="fa fa-money"></i>
-                        <h6>HoÃ n tiá»�n</h6>
-                        <p>Náº¿u sáº£n pháº©m cÃ³ váº¥n Ä‘á»�</p>
+
+                        <h6>Hoàn tiền</h6>
+                        <p>Nếu sản phẩm có vấn đề</p>
+
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="services__item">
                         <i class="fa fa-support"></i>
-                        <h6>Há»— trá»£ 24/7</h6>
-                        <p>Dá»‹ch vá»¥ há»— trá»£ nhiá»‡t tÃ¬nh</p>
+
+                        <h6>Hỗ trợ 24/7</h6>
+                        <p>Dịch vụ hỗ trợ nhiệt tình</p>
+
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="services__item">
                         <i class="fa fa-headphones"></i>
-                        <h6>Giao dá»‹ch báº£o máº­t</h6>
-                        <p>100% giao dá»‹ch Ä‘Æ°á»£c báº£o Ä‘áº£m</p>
+
+                        <h6>Giao dịch bảo mật</h6>
+                        <p>100% giao dịch được bảo đảm</p>
+
                     </div>
                 </div>
             </div>
