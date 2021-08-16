@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="fragments_user :: html_head(title = 'Chi tiết sản phẩm')"></head>
+<head th:replace="fragments_user :: html_head(title = 'Chi tiáº¿t sáº£n pháº©m')"></head>
 
 <body>
     <!-- Offcanvas Menu Begin -->
@@ -80,10 +80,8 @@
                                 <div class="owl-nav"><button type="button" role="presentation" class="owl-prev disabled"><i class="arrow_carrot-left"></i></button><button type="button" role="presentation" class="owl-next"><i
                                         class="arrow_carrot-right"></i></button></div>
                                 <div class="owl-dots disabled"></div>
-                                
                             </div>
                         </div>
-                        
                     </div>
                 </div>
                 
@@ -98,29 +96,35 @@
                             <i class="fa fa-star"></i>
                             <span>[[${product.view}]]</span>
                         </div>
-                        <div class="product__details__price" th:if= "${product.sale == 0}" >[[${product.price}]]đ</div>
-                        <div class="product__details__price" th:unless= "${product.sale == 0}" >[[${product.sale}]]đ<span>[[${product.price}]]đ</span></div>
+                        <div class="product__details__price" th:if= "${product.sale == 0}" >[[${product.price}]]</div>
+                        <div class="product__details__price" th:unless= "${product.sale == 0}" >[[${product.sale}]]Ä‘<span>[[${product.price}]]Ä‘</span></div>
                         <p>[[${product.description}]]</p>
-                        <form th:action="@{'/cart/' + ${product.id}}" method="GET">
-                        <div class="product__details__button">
-                            <div class="quantity">
-                                <span>Số lượng :</span>
-                                <div class="pro-qty">
-                                	<span class="dec qtybtn"></span>
-                                    <input type="number" name="amount" value="1">
-                                    <span class="inc qtybtn"></span>
-                                </div>
-                            </div>
-                            <button type="submit" class="cart-btn"><span class="icon_bag_alt"></span> Thêm vào giỏ hàng</button>
+                       
+                        	
+                       	<div class="product__details__button">
+                        	<form action="#" th:action="@{/cart/add}" method="get">
+                        		<input type="hidden" name="productId" th:value="${product.id}"/>
+	                            <div class="quantity">
+	                                <span>Số lượng :</span>
+	                                <div class="pro-qty">
+	                                	<span class="dec qtybtn"></span>
+	                                    <input type="number" name="amount" value="1">
+	                                    <span class="inc qtybtn"></span>
+	                                </div>
+	                            </div>
+	                            <button type="submit" class="cart-btn"><span class="icon_bag_alt"></span>Thêm vào giỏ hàng</button>
+                            </form>
                             <ul>
                                 <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                                 <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
                             </ul>
                         </div>
-                        <div class="product__details__widget">
+                        
+                        
+                         <div class="product__details__widget">
                             <ul>
                                 <li>
-                                    <span>Tình Trạng:</span>
+                                    <span>Tình trạng:</span>
                                     <div class="stock__checkbox">
                                         <label for="stockin">
                                             [[${status}]]
@@ -132,18 +136,62 @@
                                 <li>
                                     <span>Available size:</span>
                                     <div class="size__btn">
-                                        <label th:for="${s.id}" class="active" th:each = "s : ${listSize}">
-                                            <input type="radio" th:id="${s.id}" name="size" th:value="${s.id}">[[${s.size}]]
-                                        </label>
+                                       
                                     </div>
                                 </li>
                                 <li>
-                                    <span>Khuyễn mãi:</span>
+                                    <span>Khuyến mãi:</span>
                                     <p>Free shipping</p>
                                 </li>
                             </ul>
                         </div>
+                        
+                        <!-- 
+                        
+                        <form th:action="@{'/cart/add'}" th:object = "${cartDetail}" method="POST">
+	                        <input type="hidden" name="id" value="">
+	                        <div class="product__details__button">
+	                            <div class="quantity">
+	                                <span>Số lượng :</span>
+	                                <div class="pro-qty">
+	                                	<span class="dec qtybtn"></span>
+	                                    <input type="number" th:field="*{amount}" th:value="1">
+	                                    <span class="inc qtybtn"></span>
+	                                </div>
+	                            </div>
+	                            <button type="submit" class="cart-btn"><span class="icon_bag_alt"></span>Thêm vào giỏ hàng</button>
+	                            <ul>
+	                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+	                                <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
+	                            </ul>
+	                        </div>
+	                        <div class="product__details__widget">
+	                            <ul>
+	                                <li>
+	                                    <span>Tình trạng:</span>
+	                                    <div class="stock__checkbox">
+	                                        <label for="stockin">
+	                                            [[${status}]]
+	                                            <input type="checkbox" id="stockin">
+	                                            <span class="checkmark"></span>
+	                                        </label>
+	                                    </div>
+	                                </li>
+	                                <li>
+	                                    <span>Available size:</span>
+	                                    <div class="size__btn">
+	                                       
+	                                    </div>
+	                                </li>
+	                                <li>
+	                                    <span>Khuyến mãi:</span>
+	                                    <p>Free shipping</p>
+	                                </li>
+	                            </ul>
+	                        </div>
                         </form>
+                        
+                        -->
                         
                     </div>
                 </div>
@@ -151,7 +199,7 @@
                     <div class="product__details__tab">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Mô tả</a>
+                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Miêu tả</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Đặc biệt</a>
@@ -162,12 +210,12 @@
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                                <h6>Mô tả</h6>
+                                <h6>MÃ´ táº£</h6>
                                 <p>[[${product.description}]]</p>
                                
                             </div>
                             <div class="tab-pane" id="tabs-2" role="tabpanel">
-                                <h6>Đặt biệt</h6>
+                                <h6>Ä�áº·t biá»‡t</h6>
                                 <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret. Neque porro lorem quisquam est, qui dolorem ipsum quia
                                     dolor si. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla consequat massa quis enim.</p>
                                 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
@@ -214,8 +262,8 @@
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
                             </div>
-                            <div class="product__price" th:if= "${p.sale == 0}">[[${p.price}]]đ</div>
-                            <div class="product__price" th:unless= "${p.sale == 0}">[[${p.sale}]]đ  <span>[[${p.price}]]đ</span></div>
+                            <div class="product__price" th:if= "${p.sale == 0}">[[${p.price}]]Ä‘</div>
+                            <div class="product__price" th:unless= "${p.sale == 0}">[[${p.sale}]]Ä‘  <span>[[${p.price}]]Ä‘</span></div>
                         </div>
                     </div>
                 </div>
@@ -245,14 +293,10 @@
             </form>
         </div>
     </div>
-    <!-- Search End -->`
+    <!-- Search End -->
     
     <script type="text/javascript">
-    if (typeof $("input[name='size']:checked").val() === "undefined") {
-    	alert('is not selected');
-	}else{
-    	alert('is selected');
-	}
+   	
     </script>
 
     <!-- Js Plugins -->

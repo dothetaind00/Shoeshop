@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="fragments_user :: html_head (title='Trang chủ')"></head>
+<head th:replace="fragments_user :: html_head (title='Trang chá»§')"></head>
 
 <body>
     <!-- Offcanvas Menu Begin -->
@@ -20,8 +20,8 @@
                     <div class="categories__item categories__large__item set-bg" data-setbg="../web/img/banner/con2.jpg" style="background-image: url(&quot;../web/img/banner/con2.jpg&quot;);">
                         <div class="categories__text">
                             <h1>Converse</h1>
-                            <p>Chào mừng bạn đến với ngôi nhà Converse! Tại đây, mỗi một dòng chữ, mỗi chi tiết và hình ảnh đều là những bằng chứng mang dấu ấn lịch sử Converse 100 năm, và đang không ngừng phát triển lớn mạnh.
-                             Tất cả các thành tựu đáng tự hào của Converse đều không thể tách rời bởi 4 dòng sản phẩm kinh điển.</p>
+                            <p>ChÃ o má»«ng báº¡n Ä‘áº¿n vá»›i ngÃ´i nhÃ  Converse! Táº¡i Ä‘Ã¢y, má»—i má»™t dÃ²ng chá»¯, má»—i chi tiáº¿t vÃ  hÃ¬nh áº£nh Ä‘á»�u lÃ  nhá»¯ng báº±ng chá»©ng mang dáº¥u áº¥n lá»‹ch sá»­ Converse 100 nÄƒm, vÃ  Ä‘ang khÃ´ng ngá»«ng phÃ¡t triá»ƒn lá»›n máº¡nh.
+                             Táº¥t cáº£ cÃ¡c thÃ nh tá»±u Ä‘Ã¡ng tá»± hÃ o cá»§a Converse Ä‘á»�u khÃ´ng thá»ƒ tÃ¡ch rá»�i bá»Ÿi 4 dÃ²ng sáº£n pháº©m kinh Ä‘iá»ƒn.</p>
                             <a href="#">Shop now</a>
                         </div>
                     </div>
@@ -106,8 +106,8 @@
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
                             </div>
-                             <div class="product__price" th:if= "${p.sale == 0}">[[${p.price}]]đ</div>
-                            <div class="product__price" th:unless= "${p.sale == 0}">[[${p.sale}]]đ  <span>[[${p.price}]]đ</span></div>
+                             <div class="product__price" th:if= "${p.sale == 0}">[[${p.price}]]Ä‘</div>
+                            <div class="product__price" th:unless= "${p.sale == 0}">[[${p.sale}]]Ä‘  <span>[[${p.price}]]Ä‘</span></div>
                         </div>
                     </div>
                 </div>
@@ -153,8 +153,10 @@
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
                             </div>
+
                             <div class="product__price" th:if= "${p.sale == 0}">[[${p.price}]]VNĐ</div>
                             <div class="product__price" th:unless= "${p.sale == 0}">[[${p.sale}]]VNĐ  <span>[[${p.price}]]VNĐ</span></div>
+
                         </div>
                     </div>
                 </div>
@@ -175,7 +177,8 @@
                                 <div style="display: none; width: 652.5px;" class="owl-item cloned">
                                     <div class="banner__item">
                                         <div class="banner__text">
-                                            <span>Mỗi bước đi sẽ để lại một dấu ấn</span>
+
+
                                             <h1>The Creator</h1>
                                             <a href="#">Shop now</a>
                                         </div>
@@ -184,8 +187,10 @@
                                 
                                 <div class="owl-nav disabled">
                                     <button type="button" role="presentation" class="owl-prev"><span
+
                                             aria-label="Previous"></span></button>
                                     <button type="button" role="presentation" class="owl-next"><span aria-label="Next"></span></button>
+
                                 </div>
                                 
                                 <div class="owl-dots">
@@ -211,29 +216,37 @@
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="services__item">
                         <i class="fa fa-car"></i>
+
                         <h6>Miễn phí giao hàng</h6>
                         <p>Cho các sản phầm trên 2 triệu vnđ</p>
+
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="services__item">
                         <i class="fa fa-money"></i>
+
                         <h6>Hoàn tiền</h6>
                         <p>Nếu sản phẩm có vấn đề</p>
+
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="services__item">
                         <i class="fa fa-support"></i>
+
                         <h6>Hỗ trợ 24/7</h6>
                         <p>Dịch vụ hỗ trợ nhiệt tình</p>
+
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="services__item">
                         <i class="fa fa-headphones"></i>
+
                         <h6>Giao dịch bảo mật</h6>
                         <p>100% giao dịch được bảo đảm</p>
+
                     </div>
                 </div>
             </div>
