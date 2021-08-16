@@ -4,124 +4,154 @@
 <head th:replace="fragments_user :: html_head(title = 'Chi tiáº¿t sáº£n pháº©m')"></head>
 
 <body>
-    <!-- Offcanvas Menu Begin -->
-    <div th:replace="fragments_user :: menu_begin"></div>
-    <!-- Offcanvas Menu End -->
+<!-- Offcanvas Menu Begin -->
+<div th:replace="fragments_user :: menu_begin"></div>
+<!-- Offcanvas Menu End -->
 
-    <!-- Header Section Begin -->
-    <header th:replace="fragments_user :: header"></header>
-    <!-- Header Section End -->
+<!-- Header Section Begin -->
+<header th:replace="fragments_user :: header"></header>
+<!-- Header Section End -->
 
-    <!-- Breadcrumb Begin -->
-    <div class="breadcrumb-option">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="breadcrumb__links">
-                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
-                        <a href="#">[[${product.brand.name}]]</a>
-                        <span>[[${product.name}]]</span>
-                    </div>
+<!-- Breadcrumb Begin -->
+<div class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__links">
+                    <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                    <a href="#">[[${product.brand.name}]]</a>
+                    <span>[[${product.name}]]</span>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Breadcrumb End -->
+</div>
+<!-- Breadcrumb End -->
 
- <!-- Product Details Section Begin -->
-    <section class="product-details spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="product__details__pic">
-                    
-                        <div class="product__details__pic__left product__thumb nice-scroll" style="overflow-y: hidden; outline: none; cursor: grab; touch-action: none;">
-                            <a class="pt active" href="#product-1">
-                                <img th:data-cfsrc="${product.image1}" alt="" th:src="${product.image1}">
-                            </a>
-                            <a class="pt" href="#product-2">
-                                <img th:data-cfsrc="${product.image2}" alt="" th:src="${product.image2}">
-                            </a>
-                            <a class="pt" href="#product-3">
-                                <img th:data-cfsrc="${product.image3}" alt="" th:src="${product.image3}">
-                            </a>
-                            <a class="pt" href="#product-4">
-                                <img th:data-cfsrc="${product.image4}" alt="" th:src="${product.image4}">
-                            </a>
-                        </div>
-                        
-                        <div class="product__details__slider__content">
-                            <div class="product__details__pic__slider owl-carousel owl-loaded">
-                                <div class="owl-stage-outer">
-                                    <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 3304px;">
-                                        <div class="owl-item active" style="width: 412.891px;"><img data-hash="product-1" class="product__big__img" th:data-cfsrc="${product.image1}" alt="" th:src="${product.image1}">
-                                        </div>
-                                        <div class="owl-item" style="width: 412.891px;"><noscript><img
+<!-- Product Details Section Begin -->
+<section class="product-details spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="product__details__pic">
+
+                    <div class="product__details__pic__left product__thumb nice-scroll"
+                         style="overflow-y: hidden; outline: none; cursor: grab; touch-action: none;">
+                        <a class="pt active" href="#product-1">
+                            <img th:data-cfsrc="${product.image1}" alt="" th:src="${product.image1}">
+                        </a>
+                        <a class="pt" href="#product-2">
+                            <img th:data-cfsrc="${product.image2}" alt="" th:src="${product.image2}">
+                        </a>
+                        <a class="pt" href="#product-3">
+                            <img th:data-cfsrc="${product.image3}" alt="" th:src="${product.image3}">
+                        </a>
+                        <a class="pt" href="#product-4">
+                            <img th:data-cfsrc="${product.image4}" alt="" th:src="${product.image4}">
+                        </a>
+                    </div>
+
+                    <div class="product__details__slider__content">
+                        <div class="product__details__pic__slider owl-carousel owl-loaded">
+                            <div class="owl-stage-outer">
+                                <div class="owl-stage"
+                                     style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 3304px;">
+                                    <div class="owl-item active" style="width: 412.891px;"><img data-hash="product-1"
+                                                                                                class="product__big__img"
+                                                                                                th:data-cfsrc="${product.image1}"
+                                                                                                alt=""
+                                                                                                th:src="${product.image1}">
+                                    </div>
+                                    <div class="owl-item" style="width: 412.891px;">
+                                        <noscript><img
                                                 data-hash="product-1" class="product__big__img"
-                                                src="../user/img/product/details/thumb-1.jpg" alt=""></noscript></div>
-                                        <div class="owl-item" style="width: 412.891px;"><img data-hash="product-2" class="product__big__img" th:data-cfsrc="${product.image2}" alt="" th:src="${product.image2}">
-                                        </div>
-                                        <div class="owl-item" style="width: 412.891px;"><noscript><img
+                                                src="../user/img/product/details/thumb-1.jpg" alt=""></noscript>
+                                    </div>
+                                    <div class="owl-item" style="width: 412.891px;"><img data-hash="product-2"
+                                                                                         class="product__big__img"
+                                                                                         th:data-cfsrc="${product.image2}"
+                                                                                         alt=""
+                                                                                         th:src="${product.image2}">
+                                    </div>
+                                    <div class="owl-item" style="width: 412.891px;">
+                                        <noscript><img
                                                 data-hash="product-2" class="product__big__img"
-                                                src="../user/img/product/details/product-3.jpg" alt=""></noscript></div>
-                                        <div class="owl-item" style="width: 412.891px;"><img data-hash="product-3" class="product__big__img" th:data-cfsrc="${product.image3}" alt="" th:src="${product.image3}">
-                                        </div>
-                                        <div class="owl-item" style="width: 412.891px;"><noscript><img
+                                                src="../user/img/product/details/product-3.jpg" alt=""></noscript>
+                                    </div>
+                                    <div class="owl-item" style="width: 412.891px;"><img data-hash="product-3"
+                                                                                         class="product__big__img"
+                                                                                         th:data-cfsrc="${product.image3}"
+                                                                                         alt=""
+                                                                                         th:src="${product.image3}">
+                                    </div>
+                                    <div class="owl-item" style="width: 412.891px;">
+                                        <noscript><img
                                                 data-hash="product-3" class="product__big__img"
-                                                src="../user/img/product/details/product-2.jpg" alt=""></noscript></div>
-                                        <div class="owl-item" style="width: 412.891px;"><img data-hash="product-4" class="product__big__img" th:data-cfsrc="${product.image4}" alt="" th:src="${product.image4}">
-                                        </div>
-                                        <div class="owl-item" style="width: 412.891px;"><noscript><img
+                                                src="../user/img/product/details/product-2.jpg" alt=""></noscript>
+                                    </div>
+                                    <div class="owl-item" style="width: 412.891px;"><img data-hash="product-4"
+                                                                                         class="product__big__img"
+                                                                                         th:data-cfsrc="${product.image4}"
+                                                                                         alt=""
+                                                                                         th:src="${product.image4}">
+                                    </div>
+                                    <div class="owl-item" style="width: 412.891px;">
+                                        <noscript><img
                                                 data-hash="product-4" class="product__big__img"
-                                                src="../user/img/product/details/product-4.jpg" alt=""></noscript></div>
+                                                src="../user/img/product/details/product-4.jpg" alt=""></noscript>
                                     </div>
                                 </div>
-                                
-                                <div class="owl-nav"><button type="button" role="presentation" class="owl-prev disabled"><i class="arrow_carrot-left"></i></button><button type="button" role="presentation" class="owl-next"><i
-                                        class="arrow_carrot-right"></i></button></div>
-                                <div class="owl-dots disabled"></div>
                             </div>
+
+                            <div class="owl-nav">
+                                <button type="button" role="presentation" class="owl-prev disabled"><i
+                                        class="arrow_carrot-left"></i></button>
+                                <button type="button" role="presentation" class="owl-next"><i
+                                        class="arrow_carrot-right"></i></button>
+                            </div>
+                            <div class="owl-dots disabled"></div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="col-lg-6">
-                    <div class="product__details__text">
-                        <h3>[[${product.name}]]<span>Brand: [[${product.brand.name}]]</span></h3>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <span>[[${product.view}]]</span>
-                        </div>
-                        <div class="product__details__price" th:if= "${product.sale == 0}" >[[${product.price}]]</div>
-                        <div class="product__details__price" th:unless= "${product.sale == 0}" >[[${product.sale}]]Ä‘<span>[[${product.price}]]Ä‘</span></div>
-                        <p>[[${product.description}]]</p>
-                       
-                        	
-                       	<div class="product__details__button">
-                        	<form action="#" th:action="@{/cart/add}" method="get">
-                        		<input type="hidden" name="productId" th:value="${product.id}"/>
-	                            <div class="quantity">
-	                                <span>Số lượng :</span>
-	                                <div class="pro-qty">
-	                                	<span class="dec qtybtn"></span>
-	                                    <input type="number" name="amount" value="1">
-	                                    <span class="inc qtybtn"></span>
-	                                </div>
-	                            </div>
-	                            <button type="submit" class="cart-btn"><span class="icon_bag_alt"></span>Thêm vào giỏ hàng</button>
-                            </form>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="product__details__text">
+                    <h3>[[${product.name}]]<span>Brand: [[${product.brand.name}]]</span></h3>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <span>[[${product.view}]]</span>
+                    </div>
+                    <div class="product__details__price" th:if="${product.sale == 0}">[[${product.price}]]</div>
+                    <div class="product__details__price" th:unless="${product.sale == 0}">[[${product.sale}]]Ä‘<span>[[${product.price}]]Ä‘</span>
+                    </div>
+                    <p>[[${product.description}]]</p>
+
+                    <form action="#" th:action="@{/cart/add}" method="post">
+                        <div class="product__details__button">
+                            <input type="text" name="productId" th:value="${product.id}"/>
+                            <div class="quantity">
+                                <span>Số lượng :</span>
+                                <div class="pro-qty">
+                                    <span class="dec qtybtn"></span>
+                                    <input type="number" name="amount" value="1">
+                                    <span class="inc qtybtn"></span>
+                                </div>
+                            </div>
+                            <button type="submit" class="cart-btn"><span class="icon_bag_alt"></span>Thêm vào giỏ hàng
+                            </button>
                             <ul>
                                 <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                                 <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
                             </ul>
                         </div>
-                        
-                        
-                         <div class="product__details__widget">
+
+
+                        <div class="product__details__widget">
                             <ul>
                                 <li>
                                     <span>Tình trạng:</span>
@@ -136,7 +166,9 @@
                                 <li>
                                     <span>Available size:</span>
                                     <div class="size__btn">
-                                       
+                                        <label th:for="${s.id}" class="active" th:each="s : ${listSize}">
+                                            <input type="radio" th:id="${s.id}" name="sizeId" th:value="${s.id}">[[${s.size}]]
+                                        </label>
                                     </div>
                                 </li>
                                 <li>
@@ -145,163 +177,129 @@
                                 </li>
                             </ul>
                         </div>
-                        
-                        <!-- 
-                        
-                        <form th:action="@{'/cart/add'}" th:object = "${cartDetail}" method="POST">
-	                        <input type="hidden" name="id" value="">
-	                        <div class="product__details__button">
-	                            <div class="quantity">
-	                                <span>Số lượng :</span>
-	                                <div class="pro-qty">
-	                                	<span class="dec qtybtn"></span>
-	                                    <input type="number" th:field="*{amount}" th:value="1">
-	                                    <span class="inc qtybtn"></span>
-	                                </div>
-	                            </div>
-	                            <button type="submit" class="cart-btn"><span class="icon_bag_alt"></span>Thêm vào giỏ hàng</button>
-	                            <ul>
-	                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-	                                <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
-	                            </ul>
-	                        </div>
-	                        <div class="product__details__widget">
-	                            <ul>
-	                                <li>
-	                                    <span>Tình trạng:</span>
-	                                    <div class="stock__checkbox">
-	                                        <label for="stockin">
-	                                            [[${status}]]
-	                                            <input type="checkbox" id="stockin">
-	                                            <span class="checkmark"></span>
-	                                        </label>
-	                                    </div>
-	                                </li>
-	                                <li>
-	                                    <span>Available size:</span>
-	                                    <div class="size__btn">
-	                                       
-	                                    </div>
-	                                </li>
-	                                <li>
-	                                    <span>Khuyến mãi:</span>
-	                                    <p>Free shipping</p>
-	                                </li>
-	                            </ul>
-	                        </div>
-                        </form>
-                        
-                        -->
-                        
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="product__details__tab">
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Miêu tả</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Đặc biệt</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Đánh giá ( 2 )</a>
-                            </li>
-                        </ul>
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                                <h6>MÃ´ táº£</h6>
-                                <p>[[${product.description}]]</p>
-                               
-                            </div>
-                            <div class="tab-pane" id="tabs-2" role="tabpanel">
-                                <h6>Ä�áº·t biá»‡t</h6>
-                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret. Neque porro lorem quisquam est, qui dolorem ipsum quia
-                                    dolor si. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla consequat massa quis enim.</p>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
-                                    nec, pellentesque eu, pretium quis, sem.</p>
-                            </div>
-                            <div class="tab-pane" id="tabs-3" role="tabpanel">
-                                <h6>Đánh giá( 2 )</h6>
-                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret. Neque porro lorem quisquam est, qui dolorem ipsum quia
-                                    dolor si. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla consequat massa quis enim.</p>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
-                                    nec, pellentesque eu, pretium quis, sem.</p>
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="related__title">
-                        <h5>Có thể bạn thích</h5>
+            <div class="col-lg-12">
+                <div class="product__details__tab">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Miêu tả</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Đặc biệt</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Đánh giá ( 2 )</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                            <h6>MÃ´ táº£</h6>
+                            <p>[[${product.description}]]</p>
+
+                        </div>
+                        <div class="tab-pane" id="tabs-2" role="tabpanel">
+                            <h6>Ä�áº·t biá»‡t</h6>
+                            <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
+                                quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret. Neque
+                                porro lorem quisquam est, qui dolorem ipsum quia
+                                dolor si. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret
+                                fugit, sed quia ipsu consequuntur magni dolores eos qui ratione voluptatem sequi
+                                nesciunt. Nulla consequat massa quis enim.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+                                dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
+                                nascetur ridiculus mus. Donec quam felis, ultricies
+                                nec, pellentesque eu, pretium quis, sem.</p>
+                        </div>
+                        <div class="tab-pane" id="tabs-3" role="tabpanel">
+                            <h6>Đánh giá( 2 )</h6>
+                            <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
+                                quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret. Neque
+                                porro lorem quisquam est, qui dolorem ipsum quia
+                                dolor si. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret
+                                fugit, sed quia ipsu consequuntur magni dolores eos qui ratione voluptatem sequi
+                                nesciunt. Nulla consequat massa quis enim.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+                                dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
+                                nascetur ridiculus mus. Donec quam felis, ultricies
+                                nec, pellentesque eu, pretium quis, sem.</p>
+                        </div>
                     </div>
                 </div>
-                
-                            
-                <div class="col-lg-3 col-md-4 col-sm-6" th:each="p : ${listShoes}">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" th:data-setbg="${p.image1}"  th:style="'background-image: url(' + ${p.image1} + ');'">
-                            <div class="label new" th:if= "${p.sale == 0}">New</div>
-                            <div class="label sale" th:unless= "${p.sale == 0}">Sale</div>
-                            <ul class="product__hover">
-                                 <li><a th:href="${p.image1}" class="image-popup"><span
-                                        class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="product__item__text">
-                           <h6><a th:href="@{'/product/' +${p.id}}">[[${p.name}]]</a></h6>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product__price" th:if= "${p.sale == 0}">[[${p.price}]]Ä‘</div>
-                            <div class="product__price" th:unless= "${p.sale == 0}">[[${p.sale}]]Ä‘  <span>[[${p.price}]]Ä‘</span></div>
-                        </div>
-                    </div>
-                </div>
-                
-              
-    
             </div>
         </div>
-    </section>
-    <!-- Product Details Section End -->
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="related__title">
+                    <h5>Có thể bạn thích</h5>
+                </div>
+            </div>
 
 
-    <!-- Instagram Begin -->
-    <div th:replace="fragments_user :: instagram"></div>
-    <!-- Instagram End -->
+            <div class="col-lg-3 col-md-4 col-sm-6" th:each="p : ${listShoes}">
+                <div class="product__item">
+                    <div class="product__item__pic set-bg" th:data-setbg="${p.image1}"
+                         th:style="'background-image: url(' + ${p.image1} + ');'">
+                        <div class="label new" th:if="${p.sale == 0}">New</div>
+                        <div class="label sale" th:unless="${p.sale == 0}">Sale</div>
+                        <ul class="product__hover">
+                            <li><a th:href="${p.image1}" class="image-popup"><span
+                                    class="arrow_expand"></span></a></li>
+                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                        </ul>
+                    </div>
 
-    <!-- Footer Section Begin -->
-    <footer th:replace="fragments_user :: footer"></footer>
-    <!-- Footer Section End -->
+                    <div class="product__item__text">
+                        <h6><a th:href="@{'/product/' +${p.id}}">[[${p.name}]]</a></h6>
+                        <div class="rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <div class="product__price" th:if="${p.sale == 0}">[[${p.price}]]Ä‘</div>
+                        <div class="product__price" th:unless="${p.sale == 0}">[[${p.sale}]]Ä‘
+                            <span>[[${p.price}]]Ä‘</span></div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Search Begin -->
-    <div class="search-model">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div class="search-close-switch">+</div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Search here.....">
-            </form>
+
         </div>
     </div>
-    <!-- Search End -->
-    
-    <script type="text/javascript">
-   	
-    </script>
+</section>
+<!-- Product Details Section End -->
 
-    <!-- Js Plugins -->
-    <div th:replace="fragments_user :: script"></div>
-    <!-- Js Plugins -->
+
+<!-- Instagram Begin -->
+<div th:replace="fragments_user :: instagram"></div>
+<!-- Instagram End -->
+
+<!-- Footer Section Begin -->
+<footer th:replace="fragments_user :: footer"></footer>
+<!-- Footer Section End -->
+
+<!-- Search Begin -->
+<div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch">+</div>
+        <form class="search-model-form">
+            <input type="text" id="search-input" placeholder="Search here.....">
+        </form>
+    </div>
+</div>
+<!-- Search End -->
+
+<script type="text/javascript">
+
+</script>
+
+<!-- Js Plugins -->
+<div th:replace="fragments_user :: script"></div>
+<!-- Js Plugins -->
 </body>
 
 </html>

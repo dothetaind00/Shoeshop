@@ -1,7 +1,11 @@
 package com.project.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.project.entity.Cart;
+import com.project.repository.CartRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.entity.CartDetail;
@@ -11,14 +15,35 @@ import com.project.service.CartService;
 @Service
 public class CartImpl implements CartService{
 
+	@Autowired
+	private CartRepository cartRepository;
+
 	@Override
-	public double totalAmount(List<CartDetail> listCart) {
-		// TODO Auto-generated method stub
-		float totalAmount = 0;
+	public double totalCost(List<CartDetail> listCart) {
+		float totalCost = 0;
 		for (CartDetail cartDetail : listCart) {
-			totalAmount += cartDetail.getAmount()*cartDetail.getPrice();
+			totalCost += cartDetail.getAmount()*cartDetail.getPrice();
+		}
+		return totalCost;
+	}
+
+	@Override
+	public int totalAmount(List<CartDetail> listCart) {
+		int totalAmount = 0;
+		for (CartDetail cartDetail : listCart) {
+			totalAmount += cartDetail.getAmount();
 		}
 		return totalAmount;
+	}
+
+	@Override
+	public Optional<Cart> findCartByUserId(Integer id) {
+		return cartRepository.findCartByUserId(id);
+	}
+
+	@Override
+	public Cart save(Cart cart) {
+		return cartRepository.save(cart);
 	}
 
 }
