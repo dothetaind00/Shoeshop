@@ -3,6 +3,7 @@ package com.project.controller.user;
 import com.project.entity.Product;
 import com.project.entity.Size;
 import com.project.entity.User;
+import com.project.service.BannerService;
 import com.project.service.ProductService;
 import com.project.service.SizeService;
 
@@ -21,6 +22,8 @@ public class BaseController {
 	@Autowired
 	private ProductService productService;
 
+	@Autowired
+	private BannerService bannerService;
 
 
 	@GetMapping("/login")
@@ -50,6 +53,7 @@ public class BaseController {
 	public String homePage(Model model) {
 		model.addAttribute("listNews", productService.findNewProductByDate());
 		model.addAttribute("listNikeShoes", productService.findByBrand(2, 8));
+		model.addAttribute("listBanner",bannerService.findAll());
 		return "user/index";
 	}
 

@@ -14,56 +14,30 @@
 
     <!-- Categories Section Begin -->
     <section class="categories">
-        <div class="container-fluid">
+        <div class="container-fluid" th:if="${listBanner != null}">
             <div class="row">
-                <div class="col-lg-6 p-0">
-                    <div class="categories__item categories__large__item set-bg" data-setbg="../web/img/banner/con2.jpg" style="background-image: url(&quot;../web/img/banner/con2.jpg&quot;);">
+                <div class="col-lg-6 p-0" th:with="firstBanner = ${listBanner[0]}">
+                    <div class="categories__item categories__large__item set-bg" th:data-setbg="${firstBanner.image}" style="background-image: url(&quot;../web/img/banner/con2.jpg&quot;);">
                         <div class="categories__text">
-                            <h1>Converse</h1>
-                            <p>Chào mừng bạn đến với ngôi nhà Converse! Tại đây, mỗi một dòng chữ, mỗi chi tiết và hình ảnh đều là những bằng chứng mang dấu ấn lịch sử Converse 100 năm, và đang không ngừng phát triển lớn mạnh.
-                             Tất cả các thành tựu đáng tự hào của Converse đều không thể tách rời bởi 4 dòng sản phẩm kinh điển.</p>
-                            <a href="#">Shop now</a>
+                            <h1 th:text="${firstBanner.title}"></h1>
+                            <p th:text="${firstBanner.desciption}"></p>
+                            <a th:href="${firstBanner.url}">Shop now</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                            <div class="categories__item set-bg" data-setbg="../web/img/banner/nike.jpg" style="background-image: url(&quot;../web/img/banner/nike.jpg&quot;);">
-                                <div class="categories__text">
-                                    <h4>Nike</h4>
-                                    <p>58 items</p>
-                                    <a href="#">Shop now</a>
+                            <div class="col-lg-6 col-md-6 col-sm-6 p-0" th:each="b,num : ${listBanner}" th:if="${num.count >= 2 and num.count <= 5}">
+                                <div class="banner-item">
+                                <div class="categories__item set-bg" th:data-setbg="${b.image}" style="background-image: url(&quot;../web/img/banner/nike.jpg&quot;);">
+                                    <div class="categories__text">
+                                        <h4 th:text="${b.title}"></h4>
+                                        <p ${b.desciption}></p>
+                                        <a th:href="${b.url}">Shop now</a>
+                                    </div>
+                                </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                            <div class="categories__item set-bg" data-setbg="../web/img/banner/adidas.jpg" style="background-image: url(&quot;../web/img/banner/adidas.jpg&quot;);">
-                                <div class="categories__text">
-                                    <h4>Adidas</h4>
-                                    <p>73 items</p>
-                                    <a href="#">Shop now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                            <div class="categories__item set-bg" data-setbg="../web/img/banner/van.jpg" style="background-image: url(&quot;../web/img/banner/van.jpg&quot;);">
-                                <div class="categories__text">
-                                    <h4>Van</h4>
-                                    <p>15 items</p>
-                                    <a href="#">Shop now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                            <div class="categories__item set-bg" data-setbg="../web/img/banner/ac.jpg" style="background-image: url(&quot;../web/img/banner/ac.jpg&quot;);">
-                                <div class="categories__text">
-                                    <h4>Accessories</h4>
-                                    <p>32 items</p>
-                                    <a href="#">Shop now</a>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -166,7 +140,7 @@
     <!-- Product Section End -->
 
     <!-- Banner Section Begin -->
-    <section class="banner set-bg" data-setbg="../web/img/banner/banner-1.jpg" style="background-image: url(&quot;../web/img/banner/banner-1.jpg&quot;);">
+    <section class="banner set-bg" th:data-setbg="${listBanner[5].image}" style="background-image: url(&quot;../web/img/banner/banner-1.jpg&quot;);">
         <div class="container">
             <div class="row">
                 <div class="col-xl-7 col-lg-8 m-auto">
@@ -176,9 +150,9 @@
                                 <div style="display: none; width: 652.5px;" class="owl-item cloned">
                                     <div class="banner__item">
                                         <div class="banner__text">
-                                            <span>Má»—i bÆ°á»›c Ä‘i sáº½ Ä‘á»ƒ láº¡i má»™t dáº¥u áº¥náº¥n</span>
-                                            <h1>The Creator</h1>
-                                            <a href="#">Shop now</a>
+                                            <span th:text="${listBanner[5].desciption}"></span>
+                                            <h1 th:text="${listBanner[5].title}"></h1>
+                                            <a th:href="${listBanner[5].url}">Shop now</a>
                                         </div>
                                     </div>
                                 </div>
