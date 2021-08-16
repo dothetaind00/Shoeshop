@@ -32,4 +32,8 @@ public class OrdersDetail {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
+      
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "size_id")
+    private Size size;
 }
