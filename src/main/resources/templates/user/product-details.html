@@ -56,31 +56,17 @@
                                     <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 3304px;">
                                         <div class="owl-item active" style="width: 412.891px;"><img data-hash="product-1" class="product__big__img" th:data-cfsrc="${product.image1}" alt="" th:src="${product.image1}">
                                         </div>
-                                        <div class="owl-item" style="width: 412.891px;"><noscript><img
-                                                data-hash="product-1" class="product__big__img"
-                                                src="../user/img/product/details/thumb-1.jpg" alt=""></noscript></div>
                                         <div class="owl-item" style="width: 412.891px;"><img data-hash="product-2" class="product__big__img" th:data-cfsrc="${product.image2}" alt="" th:src="${product.image2}">
                                         </div>
-                                        <div class="owl-item" style="width: 412.891px;"><noscript><img
-                                                data-hash="product-2" class="product__big__img"
-                                                src="../user/img/product/details/product-3.jpg" alt=""></noscript></div>
                                         <div class="owl-item" style="width: 412.891px;"><img data-hash="product-3" class="product__big__img" th:data-cfsrc="${product.image3}" alt="" th:src="${product.image3}">
                                         </div>
-                                        <div class="owl-item" style="width: 412.891px;"><noscript><img
-                                                data-hash="product-3" class="product__big__img"
-                                                src="../user/img/product/details/product-2.jpg" alt=""></noscript></div>
                                         <div class="owl-item" style="width: 412.891px;"><img data-hash="product-4" class="product__big__img" th:data-cfsrc="${product.image4}" alt="" th:src="${product.image4}">
                                         </div>
-                                        <div class="owl-item" style="width: 412.891px;"><noscript><img
-                                                data-hash="product-4" class="product__big__img"
-                                                src="../user/img/product/details/product-4.jpg" alt=""></noscript></div>
                                     </div>
-                                </div>
-                                
+                                </div>                              
                                 <div class="owl-nav"><button type="button" role="presentation" class="owl-prev disabled"><i class="arrow_carrot-left"></i></button><button type="button" role="presentation" class="owl-next"><i
                                         class="arrow_carrot-right"></i></button></div>
-                                <div class="owl-dots disabled"></div>
-                                
+                                <div class="owl-dots disabled"></div>                                
                             </div>
                         </div>
                         
@@ -98,10 +84,10 @@
                             <i class="fa fa-star"></i>
                             <span>[[${product.view}]]</span>
                         </div>
-                        <div class="product__details__price" th:if= "${product.sale == 0}" >[[${product.price}]]đ</div>
-                        <div class="product__details__price" th:unless= "${product.sale == 0}" >[[${product.sale}]]đ<span>[[${product.price}]]đ</span></div>
+                        <div class="product__details__price" th:if= "${product.sale == 0}" >[[${#numbers.formatDecimal(product.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</div>
+                        <div class="product__details__price" th:unless= "${product.sale == 0}" >[[${#numbers.formatDecimal(product.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ<span>[[${#numbers.formatDecimal(product.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</span></div>
                         <p>[[${product.description}]]</p>
-                        <form th:action="@{'/cart/' + ${product.id}}" method="GET">
+                       <form action="#" th:action="@{/cart/add}" method="get">
                         <div class="product__details__button">
                             <div class="quantity">
                                 <span>Số lượng :</span>
@@ -214,8 +200,8 @@
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
                             </div>
-                            <div class="product__price" th:if= "${p.sale == 0}">[[${p.price}]]đ</div>
-                            <div class="product__price" th:unless= "${p.sale == 0}">[[${p.sale}]]đ  <span>[[${p.price}]]đ</span></div>
+                            <div class="product__price" th:if= "${p.sale == 0}">[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</div>
+                            <div class="product__price" th:unless= "${p.sale == 0}">[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ <span>[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</span></div>
                         </div>
                     </div>
                 </div>

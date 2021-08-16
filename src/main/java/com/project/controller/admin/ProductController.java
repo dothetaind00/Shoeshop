@@ -1,5 +1,6 @@
 package com.project.controller.admin;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -100,7 +101,7 @@ public class ProductController {
 		return "redirect:/admin/product";
 	}
 
-	@RequestMapping("/product/edit/{id}")
+	@GetMapping("/product/edit/{id}")
 	public String edit(Model model, @PathVariable Integer id) {
 		Optional<Product> product = productService.findById(id);
 		// Check Category Exit or not
@@ -112,7 +113,7 @@ public class ProductController {
 			Date date = new Date();
 			Timestamp timestamp = new Timestamp(date.getTime());
 			pd.setOnUpdate(timestamp);
-
+				
 			model.addAttribute("category", categoryService.findAll());
 			model.addAttribute("brand", brandService.findAll());
 			model.addAttribute("product", pd);
@@ -125,7 +126,7 @@ public class ProductController {
 	}
 
 	// Delete Category
-	@RequestMapping("/product/deleteproduct/{id}")
+	@GetMapping("/product/delete/{id}")
 	public String delete(Model model, @PathVariable Integer id) {
 		productService.deleteById(id);
 		return "redirect:/admin/product";

@@ -36,7 +36,8 @@ public class ProductController {
 	@GetMapping("/product/{id}")
 	public String productDetail(Model model, @PathVariable Integer id) {
 		Optional<Product> product = productService.findById(id);
-
+		
+		// check product is exist or not
 		if (product.isPresent()) {
 
 			// get list size of shoes
@@ -51,12 +52,17 @@ public class ProductController {
 				model.addAttribute("listSize", listSize);
 
 			}
+			
+			//update view product
+			product.get().setView(product.get().getView()+1);		
+			productService.save(product.get());
 
 			model.addAttribute("listShoes", productService.findByBrand(product.get().getBrand().getId(), 4));
-			model.addAttribute("product", product.get());
+			model.addAttribute("product", product.get());		
 			return "user/product-details";
 		} else {
-			return "403";
+			model.addAttribute("mess", "Không tồn tại sản phẩm này này");
+			return "error";
 		}
 	}
 	
@@ -69,7 +75,7 @@ public class ProductController {
 			@RequestParam(name = "minAmount", required = false) String minAmount,
 			@RequestParam(name = "maxAmount", required = false) String maxAmount) {
 		
-		int pageSize = 2;
+		int pageSize = 9;
 
 		Page<Product> page;
 				

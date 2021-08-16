@@ -27,7 +27,7 @@ public class BrandController {
 		return "admin/brand";
 	}
 	
-	@GetMapping("/addbrand")
+	@GetMapping("/add")
 	public String addOrEdit(ModelMap model) {
 		Brand brand = new Brand();
 		brand.setIsDisplay(true);
@@ -36,16 +36,19 @@ public class BrandController {
 	}
 	// Save or Update Brand
 	@PostMapping("/savebrand")
-	public String addOrUpdate(ModelMap model, @ModelAttribute("brand") Brand brand) {	
+	public String addOrUpdate(ModelMap model, @ModelAttribute("brand") Brand brand) {
+		
 		if(brand.getId() == null) {
 			
 			if(brandService.findByName(brand.getName()).isPresent()) {
 				// in ra thong bao
 				// Trang bao loi
+				
 			}else {
+
 				brandService.save(brand);
 			}
-		}else {
+		}else {		
 			brandService.save(brand);
 		}
 		return "redirect:/admin/brand";
@@ -64,7 +67,7 @@ public class BrandController {
 		if(brand.isPresent()) {
 			// Exist
 			model.addAttribute("brand", brand.get());
-			return "admin/addbrand";
+			return "admin/editbrand";
 		}else {
 			// Not Exist
 			// Error Page
