@@ -44,8 +44,8 @@
                             </table>
                             <br>
                         </section>
-                        <ul class="pagination" id="pagination"></ul>
-                        <input type="hidden" id="page" name="page" value="1" />
+                        <div id="addPagi"></div>
+                        <input type="hidden" id="page" name="page" value="1"/>
                     </form>
                 </div>
             </div>
@@ -69,6 +69,8 @@
                 contentType: "application/json",
                 url: "http://localhost:8080/admin/contact/api-getall/" + pageNo,
                 success: function (result) {
+                    let pagi = `<ul class="paginationGet" id="paginationGet"></ul>`;
+                    $('#addPagi').append(pagi);
                     $('#page').val(pageNo);
 
                     $('.row-data').html('');
@@ -100,7 +102,7 @@
         };
 
         function pagination(totalPages, currentPage, ajaxGet) {
-            $('#pagination').twbsPagination({
+            $('#paginationGet').twbsPagination({
                 totalPages: totalPages,
                 visiblePages: 3,
                 startPage: currentPage,
@@ -112,65 +114,69 @@
                 }
             });
         };
+
+        $(document).on('keyup', '#searchByName', function () {
+            var searchByName = $('#searchByName').val();
+            ajaxGetName(1, searchByName);
+        });
+
+        function ajaxGetName(pageNo, searchByName) {
+            console.log(searchByName);
+            if (searchByName.trim() != '') {
+                $.ajax({
+                    type: "GET",
+                    contentType: "application/json",
+                    url: "http://localhost:8080/admin/contact/api-getname/" + pageNo + "/" + searchByName,
+                    success: function (result) {
+                        let pagi = `<ul class="paginationSearch" id="paginationSearch"></ul>`;
+                        $('#addPagi').append(pagi);
+
+                        $('#searchByName').val(searchByName);
+                        $('#page').val(pageNo);
+                        $('.row-data').html('');
+                        $.each(result.content, function (index, contact) {
+                            let row = `<tr style="text-align: center;">
+                                       <td>${contact.id}</td>
+                                       <td>${contact.name}</td>
+                                       <td>${contact.email}</td>
+                                       <td>${contact.phone}</td>
+                                       <td>${contact.address}</td>
+                                       <td>
+                                           <div class="btn-group">
+                                               <a class="btn btn-primary" th:href="@{'/admin/contact/' +${contact.id}}">Update</a>
+                                               <a class="btn btn-danger" onclick="if(!confirm('Bạn có chắc muốn xóa liên hệ?')) return false;" th:href="@{'/admin/contact/delete/' +${contact.id}}">Delete</a>
+                                           </div>
+                                       </td>
+                                   </tr>`;
+                            $('.row-data').append(row);
+                        });
+
+                        paginationName(result.totalPages, pageNo, searchByName, ajaxGet);
+
+                    },
+                    error: function (e) {
+                        alert("Error: ", e);
+                        console.log("Error", e);
+                    }
+                });
+            }
+        }
+
+        function paginationName(totalPages, currentPage, searchName, ajaxGetName) {
+            $('#paginationSearch').twbsPagination({
+                totalPages: totalPages,
+                visiblePages: 3,
+                startPage: currentPage,
+                onPageClick: function (event, page) {
+                    var now = $('#page').val();
+                    var search = $('#searchByName').val();
+                    if (now !== page) {
+                        ajaxGetName(page, search);
+                    }
+                }
+            });
+        };
     });
-
-
-
-    // $(document).on('keyup', '#searchById', function(event) {
-    //     var searchByName = $('#searchByName').val();
-    //     ajaxGetName(1, searchByName);
-    // });
-    //
-    // function ajaxGetName(pageNo, searchByName) {
-    //     // var searchByName = $('#searchByName').val();
-    //     console.log(searchByName);
-    //     if (searchByName.trim() != '') {
-    //         $.ajax({
-    //             type: "GET",
-    //             contentType: "application/json",
-    //             url: "http://localhost:8080/admin/contact/api-getname/" + pageNo + "/" + searchByName,
-    //             success: function (result) {
-    //                 $('.row-data').html('');
-    //                 $.each(result.content, function (index, contact) {
-    //                     let row = `<tr style="text-align: center;">
-    //                                    <td>${contact.id}</td>
-    //                                    <td>${contact.name}</td>
-    //                                    <td>${contact.email}</td>
-    //                                    <td>${contact.phone}</td>
-    //                                    <td>${contact.address}</td>
-    //                                    <td>
-    //                                        <div class="btn-group">
-    //                                            <a class="btn btn-primary" th:href="@{'/admin/contact/' +${contact.id}}">Update</a>
-    //                                            <a class="btn btn-danger" onclick="if(!confirm('Bạn có chắc muốn xóa liên hệ?')) return false;" th:href="@{'/admin/contact/delete/' +${contact.id}}">Delete</a>
-    //                                        </div>
-    //                                    </td>
-    //                                </tr>`;
-    //                     $('.row-data').append(row);
-    //                 });
-    //
-    //                 paginationName(result.totalPages, pageNo, searchByName, ajaxGet);
-    //
-    //             },
-    //             error: function (e) {
-    //                 alert("Error: ", e);
-    //                 console.log("Error", e);
-    //             }
-    //         });
-    //     }
-    // }
-    //
-    // function paginationName(totalPages, currentPage, searchName, ajaxGetName) {
-    //     $('#pagination').twbsPagination({
-    //         totalPages: totalPages,
-    //         visiblePages: 3,
-    //         startPage: currentPage,
-    //         onPageClick: function (event, page) {
-    //             if (currentPage !== page) {
-    //                 ajaxGetName(page, searchName);
-    //             }
-    //         }
-    //     });
-    // };
 
 </script>
 

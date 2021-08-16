@@ -28,7 +28,7 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public Page<Contact> findAllByName(String name, Pageable pageable) {
-        return contactRepository.findAllByName(name, pageable);
+        return contactRepository.findAllByNameLike(name, pageable);
     }
 
     @Override

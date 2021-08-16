@@ -15,7 +15,7 @@ public interface ContactRepository extends JpaRepository<Contact, Integer> {
     @Query("SELECT c FROM Contact c")
     Page<Contact> findAllContact(Pageable pageable);
 
-    Page<Contact> findAllByName(String name, Pageable pageable);
+    Page<Contact> findAllByNameLike(String name, Pageable pageable);
 
     Optional<Contact> findContactByPhoneLike(String phone);
 

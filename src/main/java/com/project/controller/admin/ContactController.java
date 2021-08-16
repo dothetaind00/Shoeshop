@@ -94,7 +94,7 @@ public class ContactController {
                                             @PathVariable(value = "name") String name){
         int page = pageNo.orElse(1);
         Pageable pageable = PageRequest.of(page - 1,5, Sort.by("name").ascending());
-        Page<Contact> listContact = contactService.findAllByName(name, pageable);
+        Page<Contact> listContact = contactService.findAllByName("%"+name+"%", pageable);
         return listContact;
     }
 
