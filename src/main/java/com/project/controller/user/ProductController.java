@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.project.entity.CartDetail;
 import com.project.entity.Product;
 import com.project.entity.Size;
 import com.project.service.BrandService;
@@ -39,7 +40,7 @@ public class ProductController {
 		
 		// check product is exist or not
 		if (product.isPresent()) {
-
+			CartDetail cartDetail = new CartDetail();
 			// get list size of shoes
 			List<Size> listSize = sizeService.findByProductAvailable(id);
 			if (listSize.isEmpty()) {
@@ -58,7 +59,9 @@ public class ProductController {
 			productService.save(product.get());
 
 			model.addAttribute("listShoes", productService.findByBrand(product.get().getBrand().getId(), 4));
-			model.addAttribute("product", product.get());		
+			model.addAttribute("product", product.get());
+			model.addAttribute("cartDetail", cartDetail);
+
 			return "user/product-details";
 		} else {
 			model.addAttribute("mess", "Không tồn tại sản phẩm này này");
