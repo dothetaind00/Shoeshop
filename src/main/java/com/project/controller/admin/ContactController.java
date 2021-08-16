@@ -1,5 +1,7 @@
 package com.project.controller.admin;
 
+import com.google.api.gax.rpc.NotFoundException;
+import com.google.api.gax.rpc.ResourceExhaustedException;
 import com.project.entity.Contact;
 import com.project.service.ContactService;
 import com.project.domain.PaginationResult;
@@ -8,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -48,7 +52,7 @@ public class ContactController {
 
     @GetMapping("/{id}")
     public String getUpdateContact(@PathVariable Integer id, Model model) {
-        Contact contact = contactService.findById(id);
+        Contact contact = contactService.findById(id).orElse(null);
         if (contact != null) {
             model.addAttribute("contact", contact);
             return "admin/editcontact";
@@ -82,8 +86,9 @@ public class ContactController {
 
     @GetMapping("/api-getall/{pageNo}")
     @ResponseBody
-    public Page<Contact> getAllContact(@PathVariable(value = "pageNo") Integer pageNo){
-        Pageable pageable = PageRequest.of(pageNo - 1,5, Sort.by("name").ascending());
+    public Page<Contact> getAllContact(@PathVariable(value = "pageNo") Optional<Integer> pageNo){
+        int page = pageNo.orElse(1);
+        Pageable pageable = PageRequest.of(page - 1,5, Sort.by("name").ascending());
         Page<Contact> listContact = contactService.findAllContact(pageable);
         return listContact;
     }
@@ -96,6 +101,28 @@ public class ContactController {
         Pageable pageable = PageRequest.of(page - 1,5, Sort.by("name").ascending());
         Page<Contact> listContact = contactService.findAllByName("%"+name+"%", pageable);
         return listContact;
+    }
+
+    @GetMapping("/api-getentity/{id}")
+    @ResponseBody
+    public ResponseEntity<Contact> getContactById(@PathVariable Integer id){
+        Contact contact = contactService.findById(id)
+                .orElseThrow(() -> new RuntimeException("Not found contact with id = "+id));
+        return ResponseEntity.ok(contact);
+    }
+
+    @PutMapping("/api-editcontact/{id}")
+    @ResponseBody
+    public ResponseEntity<Contact> editContact(@PathVariable Integer id,@RequestBody Contact contact){
+        Contact contac = contactService.findById(id)
+                            .orElseThrow(() -> new RuntimeException("Not found Contact with " + id));
+        contac.setName(contact.getName());
+        contac.setEmail(contact.getEmail());
+        contac.setPhone(contact.getPhone());
+        contac.setAddress(contact.getAddress());
+
+        Contact updateContact = contactService.save(contac);
+        return ResponseEntity.ok(updateContact);
     }
 
 }

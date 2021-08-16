@@ -32,8 +32,8 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public Contact findById(Integer id) {
-        return contactRepository.findById(id).orElse(null);
+    public Optional<Contact> findById(Integer id) {
+        return contactRepository.findById(id);
     }
 
     @Override

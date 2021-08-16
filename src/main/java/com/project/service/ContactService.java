@@ -13,7 +13,7 @@ public interface ContactService {
 
     Page<Contact> findAllByName(String name, Pageable pageable);
 
-    Contact findById(Integer id);
+    Optional<Contact> findById(Integer id);
 
     Contact findByPhone(String phone);
 
