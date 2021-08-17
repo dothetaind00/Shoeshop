@@ -28,7 +28,7 @@ public class  CategoryController {
 		return "admin/category";
 	}
 	
-	@GetMapping("/addcategory")
+	@GetMapping("/add")
 	public String addOrEdit(Model model) {
 		Category category = new Category();
 		category.setIsDisplay(true);
@@ -71,7 +71,7 @@ public class  CategoryController {
 		}else {
 			// Not Exist
 			// Error Page
-			model.addAttribute("mess", "Không tồn tại thương hiệu này");
+			model.addAttribute("mess", "Không tồn tại thể loại này");
 			return "error";
 		}		
 	}

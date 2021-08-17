@@ -65,8 +65,7 @@
                 <div class="col-lg-3 col-md-4 col-sm-6 mix women" th:each = "p : ${listNews}">
                     <div class="product__item">
                         <div class="product__item__pic set-bg" th:data-setbg="${p.image1}"   th:style="'background-image: url(' + ${p.image1} + ');'">
-                            <div class="label new" th:if= "${p.sale == 0}">New</div>
-                            <div class="label sale" th:unless= "${p.sale == 0}">Sale</div>
+                            <div class="label new">New</div>
                             <ul class="product__hover">
                                 <li><a th:href="${p.image1}" class="image-popup"><span
                                         class="arrow_expand"></span></a></li>
@@ -82,8 +81,8 @@
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
                             </div>
-                             <div class="product__price" th:if= "${p.sale == 0}">[[${p.price}]]Ä‘</div>
-                            <div class="product__price" th:unless= "${p.sale == 0}">[[${p.sale}]]Ä‘  <span>[[${p.price}]]Ä‘</span></div>
+                            <div class="product__price" th:if= "${p.sale == 0}">[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</div>
+                            <div class="product__price" th:unless= "${p.sale == 0}">[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ  <span>[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</span></div>
                         </div>
                     </div>
                 </div>
@@ -110,8 +109,7 @@
  				
                     <div class="product__item">
                         <div class="product__item__pic set-bg" th:data-setbg="${p.image1}"  th:style="'background-image: url(' + ${p.image1} + ');'">
-                            <div class="label new" th:if= "${p.sale == 0}">New</div>
-                            <div class="label sale" th:unless= "${p.sale == 0}">Sale</div>
+                            <div class="label sale" th:if= "${p.sale != 0}">Sale</div>
                             <ul class="product__hover">
                                  <li><a th:href="${p.image1}" class="image-popup"><span
                                         class="arrow_expand"></span></a></li>
@@ -129,10 +127,8 @@
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
                             </div>
-
-                            <div class="product__price" th:if= "${p.sale == 0}">[[${p.price}]]VNĐ</div>
-                            <div class="product__price" th:unless= "${p.sale == 0}">[[${p.sale}]]VNĐ  <span>[[${p.price}]]VNĐ</span></div>
-
+                            <div class="product__price" th:if= "${p.sale == 0}">[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</div>
+                            <div class="product__price" th:unless= "${p.sale == 0}">[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ <span>[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</span></div>
                         </div>
                     </div>
                 </div>

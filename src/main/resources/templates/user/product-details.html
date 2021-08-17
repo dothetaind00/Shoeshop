@@ -28,79 +28,46 @@
 </div>
 <!-- Breadcrumb End -->
 
-<!-- Product Details Section Begin -->
-<section class="product-details spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="product__details__pic">
+ <!-- Product Details Section Begin -->
+    <section class="product-details spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="product__details__pic">
+                    
+                        <div class="product__details__pic__left product__thumb nice-scroll" style="overflow-y: hidden; outline: none; cursor: grab; touch-action: none;">
+                            <a class="pt active" href="#product-1">
+                                <img th:data-cfsrc="${product.image1}" alt="" th:src="${product.image1}">
+                            </a>
+                            <a class="pt" href="#product-2">
+                                <img th:data-cfsrc="${product.image2}" alt="" th:src="${product.image2}">
+                            </a>
+                            <a class="pt" href="#product-3">
+                                <img th:data-cfsrc="${product.image3}" alt="" th:src="${product.image3}">
+                            </a>
+                            <a class="pt" href="#product-4">
+                                <img th:data-cfsrc="${product.image4}" alt="" th:src="${product.image4}">
+                            </a>
+                        </div>
+                        
+                        <div class="product__details__slider__content">
+                            <div class="product__details__pic__slider owl-carousel owl-loaded">
+                                <div class="owl-stage-outer">
+                                    <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 3304px;">
+                                        <div class="owl-item active" style="width: 412.891px;"><img data-hash="product-1" class="product__big__img" th:data-cfsrc="${product.image1}" alt="" th:src="${product.image1}">
+                                        </div>
+                                        <div class="owl-item" style="width: 412.891px;"><img data-hash="product-2" class="product__big__img" th:data-cfsrc="${product.image2}" alt="" th:src="${product.image2}">
+                                        </div>
+                                        <div class="owl-item" style="width: 412.891px;"><img data-hash="product-3" class="product__big__img" th:data-cfsrc="${product.image3}" alt="" th:src="${product.image3}">
+                                        </div>
+                                        <div class="owl-item" style="width: 412.891px;"><img data-hash="product-4" class="product__big__img" th:data-cfsrc="${product.image4}" alt="" th:src="${product.image4}">
+                                        </div>
+                                    </div>
+                                </div>                              
+                                <div class="owl-nav"><button type="button" role="presentation" class="owl-prev disabled"><i class="arrow_carrot-left"></i></button><button type="button" role="presentation" class="owl-next"><i
+                                        class="arrow_carrot-right"></i></button></div>
 
-                    <div class="product__details__pic__left product__thumb nice-scroll"
-                         style="overflow-y: hidden; outline: none; cursor: grab; touch-action: none;">
-                        <a class="pt active" href="#product-1">
-                            <img th:data-cfsrc="${product.image1}" alt="" th:src="${product.image1}">
-                        </a>
-                        <a class="pt" href="#product-2">
-                            <img th:data-cfsrc="${product.image2}" alt="" th:src="${product.image2}">
-                        </a>
-                        <a class="pt" href="#product-3">
-                            <img th:data-cfsrc="${product.image3}" alt="" th:src="${product.image3}">
-                        </a>
-                        <a class="pt" href="#product-4">
-                            <img th:data-cfsrc="${product.image4}" alt="" th:src="${product.image4}">
-                        </a>
-                    </div>
-
-                    <div class="product__details__slider__content">
-                        <div class="product__details__pic__slider owl-carousel owl-loaded">
-                            <div class="owl-stage-outer">
-                                <div class="owl-stage"
-                                     style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 3304px;">
-                                    <div class="owl-item active" style="width: 412.891px;"><img data-hash="product-1"
-                                                                                                class="product__big__img"
-                                                                                                th:data-cfsrc="${product.image1}"
-                                                                                                alt=""
-                                                                                                th:src="${product.image1}">
-                                    </div>
-                                    <div class="owl-item" style="width: 412.891px;">
-                                        <noscript><img
-                                                data-hash="product-1" class="product__big__img"
-                                                src="../user/img/product/details/thumb-1.jpg" alt=""></noscript>
-                                    </div>
-                                    <div class="owl-item" style="width: 412.891px;"><img data-hash="product-2"
-                                                                                         class="product__big__img"
-                                                                                         th:data-cfsrc="${product.image2}"
-                                                                                         alt=""
-                                                                                         th:src="${product.image2}">
-                                    </div>
-                                    <div class="owl-item" style="width: 412.891px;">
-                                        <noscript><img
-                                                data-hash="product-2" class="product__big__img"
-                                                src="../user/img/product/details/product-3.jpg" alt=""></noscript>
-                                    </div>
-                                    <div class="owl-item" style="width: 412.891px;"><img data-hash="product-3"
-                                                                                         class="product__big__img"
-                                                                                         th:data-cfsrc="${product.image3}"
-                                                                                         alt=""
-                                                                                         th:src="${product.image3}">
-                                    </div>
-                                    <div class="owl-item" style="width: 412.891px;">
-                                        <noscript><img
-                                                data-hash="product-3" class="product__big__img"
-                                                src="../user/img/product/details/product-2.jpg" alt=""></noscript>
-                                    </div>
-                                    <div class="owl-item" style="width: 412.891px;"><img data-hash="product-4"
-                                                                                         class="product__big__img"
-                                                                                         th:data-cfsrc="${product.image4}"
-                                                                                         alt=""
-                                                                                         th:src="${product.image4}">
-                                    </div>
-                                    <div class="owl-item" style="width: 412.891px;">
-                                        <noscript><img
-                                                data-hash="product-4" class="product__big__img"
-                                                src="../user/img/product/details/product-4.jpg" alt=""></noscript>
-                                    </div>
-                                </div>
+                                <div class="owl-dots disabled"></div>
                             </div>
 
                             <div class="owl-nav">
@@ -126,8 +93,8 @@
                         <i class="fa fa-star"></i>
                         <span>[[${product.view}]]</span>
                     </div>
-                    <div class="product__details__price" th:if="${product.sale == 0}">[[${product.price}]]</div>
-                    <div class="product__details__price" th:unless="${product.sale == 0}">[[${product.sale}]]Ä‘<span>[[${product.price}]]Ä‘</span>
+                   <div class="product__details__price" th:if= "${product.sale == 0}" >[[${#numbers.formatDecimal(product.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</div>
+                        <div class="product__details__price" th:unless= "${product.sale == 0}" >[[${#numbers.formatDecimal(product.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ<span>[[${#numbers.formatDecimal(product.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</span></div>
                     </div>
                     <p>[[${product.description}]]</p>
 
@@ -235,8 +202,7 @@
                     <h5>Có thể bạn thích</h5>
                 </div>
             </div>
-
-
+          
             <div class="col-lg-3 col-md-4 col-sm-6" th:each="p : ${listShoes}">
                 <div class="product__item">
                     <div class="product__item__pic set-bg" th:data-setbg="${p.image1}"
@@ -260,14 +226,11 @@
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                         </div>
-                        <div class="product__price" th:if="${p.sale == 0}">[[${p.price}]]Ä‘</div>
-                        <div class="product__price" th:unless="${p.sale == 0}">[[${p.sale}]]Ä‘
-                            <span>[[${p.price}]]Ä‘</span></div>
+                        <div class="product__price" th:if= "${p.sale == 0}">[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</div>
+                            <div class="product__price" th:unless= "${p.sale == 0}">[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ <span>[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</span></div>
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 </section>

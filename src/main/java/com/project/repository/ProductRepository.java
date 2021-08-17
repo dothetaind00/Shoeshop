@@ -20,7 +20,7 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, I
 	List<Product> findNewProductByDate();
 	
 	
-	@Query(value = "select * from shoedatabase.product where datediff(curdate(), oncreate) <= 7 and brand_id = ?1 and is_enable = true  LIMIT ?2", nativeQuery = true)
+	@Query(value = "select * from shoedatabase.product where brand_id = ?1 and is_enable = true  LIMIT ?2", nativeQuery = true)
 	List<Product> findByBrand(Integer id, int number);
 	
 	@Query(value = "select * from shoedatabase.product where category_id = ?1 and is_enable = true", nativeQuery = true)
