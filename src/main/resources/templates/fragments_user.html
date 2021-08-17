@@ -49,7 +49,17 @@
                 <a href="./index.html"><img src="../web/img/logo.png" alt=""></a>
             </div>
             <div id="mobile-menu-wrap"></div>
-            <div class="offcanvas__auth">
+            <div class="offcanvas__auth" sec:authorize="isAuthenticated()">
+                <a th:href="@{/user/{username}(username = ${#authentication.getPrincipal().getUsername()})}">
+                    Wellcome, <span sec:authentication="name">Username</span>
+                </a>
+
+                <a href="javascript: document.logoutForm.submit()" role="menuitem"> Đăng xuất</a>
+                <form name="logoutForm" th:action="@{/perform_logout}" method="post" th:hidden="true">
+                    <input hidden type="submit" value="Đăng xuất"/>
+                </form>
+            </div>
+            <div class="offcanvas__auth" sec:authorize="isAnonymous()">
                 <a href="#">Đăng nhập</a>
                 <a href="#">Đăng kí</a>
             </div>
@@ -75,7 +85,6 @@
                             <a href="#">[[${m.name}]]</a>
                             </li>
                             <li><a href="#">Pages</a>
-                            
                                 <ul class="dropdown">
                                     <li><a href="./product-details.html">Product Details</a></li>
                                     <li><a href="./shop-cart.html">Shop Cart</a></li>
@@ -91,18 +100,28 @@
                 <div class="col-lg-3">
                     <div class="header__right">
                         <div class="header__right__auth">
-                            <a href="./login.html">Đăng nhập</a>
-                            <a href="./register.html">Đăng kí</a>
+                            <th:block sec:authorize="isAuthenticated()">
+                                <a th:href="@{/user/{username}(username = ${#authentication.getPrincipal().getUsername()})}">
+                                    Wellcome, <span sec:authentication="name"></span>
+                                </a>
+                                <a th:href="@{/perform_logout}"> Đăng xuất </a>
+                            </th:block>
+
+                            <th:block sec:authorize="isAnonymous()">
+                                <a href="/login">Đăng nhập</a>
+                                <a href="/register">Đăng kí</a>
+                            </th:block>
+
+                            <ul class="header__right__widget">
+                                <li><span class="icon_search search-switch"></span></li>
+                                <li><a href="#"><span class="icon_heart_alt"></span>
+                                    <div class="tip">2</div>
+                                </a></li>
+                                <li><a href="#"><span class="icon_bag_alt"></span>
+                                    <div class="tip">2</div>
+                                </a></li>
+                            </ul>
                         </div>
-                        <ul class="header__right__widget">
-                            <li><span class="icon_search search-switch"></span></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span>
-                                <div class="tip">2</div>
-                            </a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span>
-                                <div class="tip">2</div>
-                            </a></li>
-                        </ul>
                     </div>
                 </div>
             </div>

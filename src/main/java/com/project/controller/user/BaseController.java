@@ -19,11 +19,6 @@ public class BaseController {
         return "user/register";
     }
 
-    @GetMapping("/test/contact")
-    public String getContact(){
-        return "redirect:/user/contact";
-    }
-
     @GetMapping("/403")
     public String accessDenied(){
         return "403";

@@ -41,7 +41,7 @@ public class ContactController {
     @ResponseBody
     public Page<Contact> getAllContact(@PathVariable(value = "pageNo") Optional<Integer> pageNo){
         int page = pageNo.orElse(1);
-        Pageable pageable = PageRequest.of(page - 1,3, Sort.by("name").ascending());
+        Pageable pageable = PageRequest.of(page - 1,8, Sort.by("name").ascending());
         Page<Contact> listContact = contactService.findAllContact(pageable);
         return listContact;
     }
@@ -51,7 +51,7 @@ public class ContactController {
     public Page<Contact> getAllContactName(@PathVariable(value = "pageNo") Optional<Integer> pageNo,
                                             @PathVariable(value = "name") String name){
         int page = pageNo.orElse(1);
-        Pageable pageable = PageRequest.of(page - 1,3, Sort.by("name").ascending());
+        Pageable pageable = PageRequest.of(page - 1,8, Sort.by("name").ascending());
         Page<Contact> listContact = contactService.findAllByName("%"+name+"%", pageable);
         return listContact;
     }
