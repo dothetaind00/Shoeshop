@@ -29,12 +29,4 @@ public class Cart {
     @JoinColumn(name = "user_id")
     private User user;
 
-	public Cart(Integer totalAmount, Double totalCost, User user) {
-		super();
-		this.totalAmount = totalAmount;
-		this.totalCost = totalCost;
-		this.user = user;
-	}
-    
-    
 }

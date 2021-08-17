@@ -10,7 +10,11 @@ import com.project.service.SizeService;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,8 +32,6 @@ public class BaseController {
 
 	@GetMapping("/login")
 	public String getPageLogin(Model model) {
-
-//    	model.addAttribute("menu",categoryService.findByIsDisplay(true));
 		return "user/login";
 	}
 
@@ -39,20 +41,20 @@ public class BaseController {
 		return "user/register";
 	}
 
-//	@GetMapping("/contact")
-//	public String getContact() {
-//		return "redirect:/user/contact";
-//	}
-
 	@GetMapping("/403")
 	public String accessDenied() {
 		return "403";
 	}
 
 	@GetMapping("/")
-	public String homePage(Model model) {
+	public String homePage(Model model, HttpSession session) {
 		model.addAttribute("listNews", productService.findNewProductByDate());
 		model.addAttribute("listNikeShoes", productService.findByBrand(2, 8));
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (!auth.getPrincipal().equals("anonymousUser")) {
+			session.removeAttribute("listCart");
+		}
 		model.addAttribute("listBanner",bannerService.findAll());
 		return "user/index";
 	}
@@ -61,22 +63,6 @@ public class BaseController {
 
 	@GetMapping("/category/{id}")
 	public String showProduct(Model model, @PathVariable Integer id) {
-//		int pageSize = 8;
-//
-//		Page<Product> page;	
-//		
-//		if (id == null || id == 0) {
-//			page = productService.findPaginated(pageNo, pageSize);
-//			model.addAttribute("listShoes", productService.findAll());
-//		} else {
-//			page = productService.findByCategory(id, pageNo, pageSize);
-//		}
-//		List<Product> listProducts = page.getContent();
-//		model.addAttribute("category_id", id);
-//		model.addAttribute("currentPage", pageNo);
-//		model.addAttribute("totalPages", page.getTotalPages());
-//		model.addAttribute("totalItems", page.getTotalElements());
-//		model.addAttribute("list", listProducts);
 		return "user/show-product";
 	}
 
