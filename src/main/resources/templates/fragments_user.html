@@ -60,8 +60,8 @@
                 </form>
             </div>
             <div class="offcanvas__auth" sec:authorize="isAnonymous()">
-                <a href="#">Đăng nhập</a>
-                <a href="#">Đăng kí</a>
+                <a href="/login">Đăng nhập</a>
+                <a href="/register">Đăng kí</a>
             </div>
         </div>
         <!-- Offcanvas Menu End -->
@@ -91,7 +91,7 @@
                                     <li><a href="./shop-cart.html">Shop Cart</a></li>
                                     <li><a href="./checkout.html">Checkout</a></li>
                                     <li><a href="./blog-details.html">Blog Details</a></li>
-                                    <li><a href="./contact.html">Contact</a></li>
+                                    <li><a href="/contact">Contact</a></li>
                                 </ul>
                             </li>
                             <li><a href="./blog.html">Blog</a></li>
@@ -100,7 +100,7 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="header__right">
-                        <div class="header__right__auth">
+                        <div class="header__right__auth" style="display: flex">
                             <th:block sec:authorize="isAuthenticated()">
                                 <a th:href="@{/user/{username}(username = ${#authentication.getPrincipal().getUsername()})}">
                                     Wellcome, <span sec:authentication="name"></span>
