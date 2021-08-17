@@ -96,10 +96,10 @@
                                        <td>${contact.phone}</td>
                                        <td>${contact.address}</td>
                                        <td>
-                                           <input type="hidden" id="Id" value="${contact.id}">
+                                           <input type="hidden" id="Id_${contact.id}" value="${contact.id}">
                                            <div class="btn-group">
-                                               <a class="btn btn-primary" href="/admin/contact/update/${contact.id}">Update</a>
-                                               <a class="btn btn-danger btnxoasp">Delete</a>
+                                               <a class="btn btn-primary" href="/admin/contact/${contact.id}">Update</a>
+                                               <a class="btn btn-danger btnxoa">Delete</a>
                                            </div>
                                        </td>
                                    </tr>`;
@@ -134,11 +134,10 @@
         $(document).on('click', '#btnSearch', function () {
             var key = $('#searchByName').val();
             if (key.trim() != '') {
-                $('#addPagi').children("#paginationGet").remove();
                 var searchByName = $('#searchByName').val();
                 ajaxGetName(1, searchByName);
             } else {
-                alert('Khong duoc de trong');
+                alert('Bạn chưa nhập từ khóa');
             }
         });
 
@@ -151,37 +150,44 @@
                     contentType: "application/json",
                     url: "http://localhost:8080/api/contact/" + pageNo + "/" + searchByName,
                     success: function (result) {
-                        $('#searchByName').val(searchByName);
-                        let pagi = `<ul class="paginationSearch" id="paginationSearch"></ul>`;
-                        $('#addPagi').append(pagi);
-                        $('#page').val(pageNo);
-                        $('#total').val(result.totalPages);
+                        if (result.totalElements > 0){
+                            $('#addPagi').children("#paginationGet").remove();
 
-                        $('.row-data').html('');
-                        $.each(result.content, function (index, contact) {
-                            let row = `<tr style="text-align: center;">
+                            $('#searchByName').val(searchByName);
+                            let pagi = `<ul class="paginationSearch" id="paginationSearch"></ul>`;
+                            $('#addPagi').append(pagi);
+                            $('#page').val(pageNo);
+                            $('#total').val(result.totalPages);
+
+                            $('.row-data').html('');
+                            $.each(result.content, function (index, contact) {
+                                let row = `<tr style="text-align: center;">
                                        <td>${contact.id}</td>
                                        <td>${contact.name}</td>
                                        <td>${contact.email}</td>
                                        <td>${contact.phone}</td>
                                        <td>${contact.address}</td>
                                        <td>
-                                           <input type="hidden" id="Id" value="${contact.id}">
+                                           <input type="hidden" id="Id_${contact.id}" value="${contact.id}">
                                            <div class="btn-group">
-                                               <a class="btn btn-primary" href="/admin/contact/update/${contact.id}">Update</a>
-                                               <a class="btn btn-danger btnxoasp">Delete</a>
+                                               <a class="btn btn-primary" href="/admin/contact/${contact.id}">Update</a>
+                                               <a class="btn btn-danger btnxoa">Delete</a>
                                            </div>
                                        </td>
                                    </tr>`;
-                            $('.row-data').append(row);
-                        });
+                                $('.row-data').append(row);
+                            });
 
-                        paginationName(result.totalPages, pageNo, searchByName, ajaxGetName);
-
+                            paginationName(result.totalPages, pageNo, searchByName, ajaxGetName);
+                        }else{
+                            alert("Không tìm thấy liên hệ nào vơi từ khóa "+searchByName);
+                            ajaxGet(1);
+                            $('#searchByName').val('');
+                        }
                     },
                     error: function (e) {
-                        alert("Error: ", e);
-                        console.log("Error", e);
+                        alert("Lỗi hệ thống");
+                        console.log("Lỗi tìm kiếm");
                     }
                 });
             }
@@ -203,7 +209,7 @@
         };
 
         //delete contact
-        $(document).on("click", ".btnxoasp", function () {
+        $(document).on("click", ".btnxoa", function () {
             var id = $(this).parent().prev().val();
             var confirmation = confirm("Bạn chắc chắn xóa liên hệ này ?");
             if (confirmation) {

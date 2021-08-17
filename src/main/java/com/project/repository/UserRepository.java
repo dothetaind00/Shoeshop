@@ -13,9 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 import java.util.Optional;
 
-@Transactional
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
+
+    @Query("select u from User u")
+    Page<User> findAllUser(Pageable pageable);
 
     Page<User> findByIsEnable(Boolean isEnable, Pageable pageable);
 
@@ -29,14 +31,17 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     Optional<User> findUserByEmail(String email);
 
+    @Transactional
     @Query("UPDATE User u set u.isEnable = :isEnable where u.id= :id")
     @Modifying
     void enableUser(@Param("isEnable") Boolean isEnable, @Param("id") Integer id);
 
+    @Transactional
     @Query("UPDATE User u set u.lastLogined = :lastLogined where u.userName= :username")
     @Modifying
     void setTimeLogin(@Param("lastLogined") Timestamp lastLogined, @Param("username") String username);
 
+    @Transactional
     @Query("UPDATE User u set u.token = :token where u.email= :email")
     @Modifying
     void updateToken(@Param("token") String token, @Param("email") String email);

@@ -5,15 +5,17 @@ import com.project.exception.CustomNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
+
+    Page<User> findAllUser(Pageable pageable);
+
     Page<User> findByIsEnable(Boolean isEnable, Pageable pageable);
 
     Page<User> findByUserNameLike(String username, Pageable pageable);
 
-    User findById(Integer id);
+    Optional<User> findById(Integer id);
 
     User findUserByUserNameAndIsEnable(String userName, Boolean isEnable) throws CustomNotFoundException;
 
