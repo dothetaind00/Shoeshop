@@ -12,21 +12,23 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "cart")
-public class Cart {
+@Table(name = "banner")
+public class Banner {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "total_amount")
-    private Integer totalAmount;
+    @Column
+    private String title;
 
-    @Column(name = "total_cost")
-    private Double totalCost;
+    @Column
+    private String desciption;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column
+    private String image;
+
+    @Column
+    private String url;
 
 }

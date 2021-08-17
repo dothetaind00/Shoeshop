@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.entity.Product;
 import com.project.entity.Size;
 import com.project.repository.SizeRepository;
 import com.project.service.SizeService;
@@ -60,6 +59,11 @@ public class SizeServiceImpl implements SizeService {
 	@Override
 	public List<Size> findByProductId(Integer id) {		
 		return sizeRepository.findByProduct(id);
+	}
+
+	@Override
+	public List<Size> findByProductAvailable(Integer id) {
+		return sizeRepository.findByProductAvailable(id);
 	}
 
 

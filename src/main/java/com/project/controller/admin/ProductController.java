@@ -1,5 +1,6 @@
 package com.project.controller.admin;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -23,8 +24,6 @@ import com.project.service.BrandService;
 import com.project.service.CategoryService;
 import com.project.service.ProductService;
 
-
-
 @Controller
 @RequestMapping("/admin")
 public class ProductController {
@@ -39,8 +38,8 @@ public class ProductController {
 	BrandService brandService;
 
 	@GetMapping("/product")
-	public String productHome(Model model , @RequestParam(name = "keyword", required = false) String keyword) {
-		return findPaginated(1,keyword, model);
+	public String productHome(Model model, @RequestParam(name = "keyword", required = false) String keyword) {
+		return findPaginated(1, keyword, model);
 	}
 
 	@GetMapping("/product/addproduct")
@@ -71,7 +70,6 @@ public class ProductController {
 			@RequestParam("image44") MultipartFile image4, @ModelAttribute("product") Product product) {
 
 		try {
-
 			// set image 1
 			if (!image1.isEmpty()) {
 				product.setImage1(productService.saveImageUrl(image1));
@@ -102,19 +100,19 @@ public class ProductController {
 		return "redirect:/admin/product";
 	}
 
-	@RequestMapping("/product/edit/{id}")
+	@GetMapping("/product/edit/{id}")
 	public String edit(Model model, @PathVariable Integer id) {
 		Optional<Product> product = productService.findById(id);
 		// Check Category Exit or not
 		if (product.isPresent()) {
 			// Exist
-			// get Product 
+			// get Product
 			Product pd = product.get();
 			// set time update
 			Date date = new Date();
 			Timestamp timestamp = new Timestamp(date.getTime());
 			pd.setOnUpdate(timestamp);
-			
+				
 			model.addAttribute("category", categoryService.findAll());
 			model.addAttribute("brand", brandService.findAll());
 			model.addAttribute("product", pd);
@@ -127,42 +125,39 @@ public class ProductController {
 	}
 
 	// Delete Category
-	@RequestMapping("/product/deleteproduct/{id}")
+	@GetMapping("/product/delete/{id}")
 	public String delete(Model model, @PathVariable Integer id) {
 		productService.deleteById(id);
 		return "redirect:/admin/product";
 	}
-	
-	
+
 	// paginated
 	@GetMapping("product/page/{pageNo}")
 	public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
-			@RequestParam(name = "keyword", required = false) String keyword , Model model) {	
-		int pageSize = 2;
-		
+			@RequestParam(name = "keyword", required = false) String keyword, Model model) {
+		int pageSize = 8;
+
 		Page<Product> page;
-		
-		if(StringUtils.hasText(keyword)) {
-			 page = productService.findAllByName(keyword, pageNo, pageSize);
-			 keyword.trim();
-		}else {
-			 page = productService.findPaginated(pageNo, pageSize);
-		}
+
+		if (StringUtils.hasText(keyword)) {
 			
+			keyword.trim();
+			page = productService.findAllByName(keyword, pageNo, pageSize);
+
+		} else {
+			page = productService.findPaginated(pageNo, pageSize);
+		}
+
 		List<Product> listProducts = page.getContent();
-		
-		model.addAttribute("keyword",keyword);
-		model.addAttribute("currentPage",pageNo);
-		model.addAttribute("totalPages",page.getTotalPages());
+
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("currentPage", pageNo);
+		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("totalItems", page.getTotalElements());
-		model.addAttribute("list",listProducts);
-		
+		model.addAttribute("list", listProducts);
+
 		return "admin/product";
-		
-		
-		
+
 	}
-	
-	
 
 }

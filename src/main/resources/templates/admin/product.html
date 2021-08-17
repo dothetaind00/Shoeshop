@@ -28,14 +28,13 @@
 
 						<div class="btn-group" style="margin-bottom: 20px;width: 1156px;">
                             <div class="col-lg-6">
-                                <a class="btn btn-success" th:href="@{/admin/product/addproduct}">Thêm mới</a>
+                                <a class="btn btn-success" th:href="@{/admin/product/add}">Thêm mới</a>
                             </div>
                             <div class="col-lg-6">
                                 <form class="navbar-form" th:action="@{/admin/product/page/1}" style="margin-left: 264px;">
                                     <input class="form-control" placeholder="Tìm kiếm" name="keyword" th:value="${keyword}" type="text" required/>
                                     <input class="btn btn-warning" type="submit" value="Tìm kiếm"/>
                                 </form>
-
                             </div>
                         </div> 
 						<section class="panel">
@@ -62,8 +61,8 @@
 										<td th:text="${sp.name}"></td>
 										<td><img th:src="@{${sp.image1}}"
 											alt="" style="height: 40px; width: 40px;"></td>											
-										<td th:text="${sp.price}"></td>
-										<td th:text="${sp.sale}"></td>
+										<td th:text="${#numbers.formatDecimal(sp.price, 3, 'COMMA', 0, 'POINT')}">VNĐ</td>
+										<td th:text="${#numbers.formatDecimal(sp.sale, 3, 'COMMA', 0, 'POINT')}">VNĐ</td>
 										<td th:text="${sp.brand.name}"></td>
 										<td th:text="${sp.category.name}"></td>								
 										<td th:text="${sp.onCreate}"></td>
@@ -76,7 +75,7 @@
 													th:href="@{'/admin/product/edit/' +${sp.id}}">Sửa</a> <a
 													class="btn btn-danger"
 													onclick="if(!confirm('Bạn có chắc chắn muốn xóa không?')) return false;"
-													th:href="@{'/admin/product/deleteproduct/' +${sp.id}}">Xóa</a>
+													th:href="@{'/admin/product/delete/' +${sp.id}}">Xóa</a>
 													<a class="btn btn-primary"
 													th:href="@{'/admin/product/size/' +${sp.id}}">Size</a>
 											</div>
@@ -96,6 +95,7 @@
                             	 <a th:if="${currentPage != i}" th:href="@{'/admin/product/page/' + ${i}} + ${keyword != null ? '?keyword=' + keyword : ''}" style="font-family: arial; font-size: 18px;">[[${i}]]</a>&nbsp;&nbsp;								
    						 		<span th:unless="${currentPage !=i}" style="font-family: arial; font-size: 18px;">[[${i}]]</span> &nbsp; &nbsp; 
                         	</span>
+                        	
                         </div>  
                         
   <!--                   <div class = "col-lg-1">

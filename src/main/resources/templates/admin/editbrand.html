@@ -13,11 +13,11 @@
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header" style="font-family: arial;"><i class="fa fa-files-o"></i> Danh mục</h3>
+            <h3 class="page-header" style="font-family: arial;"><i class="fa fa-files-o"></i> Thương hiệu</h3>
             <ol class="breadcrumb" style="font-family: arial;">
               <li><a th:href="@{/admin}">Trang chủ</a></li>
-              <li>Danh mục</li>
-              <li>Sửa danh mục</li>
+              <li>Thương hiệu</li>
+              <li>Sửa thương hiệu</li>
             </ol>
           </div>
         </div>
@@ -28,7 +28,7 @@
               
               <div class="panel-body">
                <div class="form">
-                   <form class="form-validate form-horizontal" action="#"  th:action="@{/admin/category/savecategory}" th:object="${category}" method="post"  >            
+                   <form class="form-validate form-horizontal" action="#"  th:action="@{/admin/brand/savebrand}" th:object="${brand}" method="post"  >            
                      <div class="form-group ">
                       <label for="ID" class="control-label col-lg-2">ID<span class="required">*</span></label>
                       <div class="col-lg-10">
@@ -36,7 +36,7 @@
                       </div>
                     </div>
                     <div class="form-group ">
-                      <label for="tensp" class="control-label col-lg-2">Tên danh mục<span class="required">*</span></label>
+                      <label for="tensp" class="control-label col-lg-2">Tên thương hiệu<span class="required">*</span></label>
                       <div class="col-lg-10">
                         <input th:field="*{name}" class="form-control" id="name" name="name" type="text" required />
                       </div>

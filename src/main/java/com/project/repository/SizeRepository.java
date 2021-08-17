@@ -16,4 +16,11 @@ public interface SizeRepository extends JpaRepository<Size, Integer>{
 	List<Size> findByProduct(Integer id);
 	
 	
+	@Query(value = "Select * from size where product_id = ?1 and amount > 0", nativeQuery = true)
+	List<Size> findByProductAvailable(Integer id);
+	
+	
+	
+	
+	
 }

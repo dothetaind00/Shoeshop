@@ -82,9 +82,10 @@
                         <ul>
                             <li class="active"><a href="../user/index.html">Home</a></li>    
                             <li th:each="m : ${menu}">
-                            <a href="#">[[${m.name}]]</a>
+                            <a th:href="@{'/product/page/1?category=' + ${m.id}}">[[${m.name}]]</a>
                             </li>
-                            <li><a href="#">Pages</a>
+                            <li><a th:href="@{'/product/page/1'}">Shop</a>
+                            <li><a href="#">Pages</a>                            
                                 <ul class="dropdown">
                                     <li><a href="./product-details.html">Product Details</a></li>
                                     <li><a href="./shop-cart.html">Shop Cart</a></li>
@@ -148,54 +149,14 @@
     <!-- Breadcrumb End -->
 
     <!-- Instagram Begin -->
-    <div class="instagram" th:fragment="instagram">
+    <div class="instagram" th:fragment="instagram" th:if="${banners != null}">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="../web/img/instagram/1.jpg" style="background-image: url(&quot;../web/img/instagram/1.jpg&quot;);">
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0" th:each="b,num : ${banners}" th:if="${num.count >= 7 and num.count <= 12}">
+                    <div class="instagram__item set-bg" th:data-setbg="${b.image}" style="background-image: url(&quot;../web/img/instagram/1.jpg&quot;);">
                         <div class="instagram__text">
                             <i class="fa fa-instagram"></i>
-                            <a href="#">Bụi</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="../web/img/instagram/2.jpg" style="background-image: url(&quot;../web/img/instagram/2.jpg&quot;);">
-                        <div class="instagram__text">
-                            <i class="fa fa-instagram"></i>
-                            <a href="#">Bụi</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="../web/img/instagram/3.jpg" style="background-image: url(&quot;../web/img/instagram/3.jpg&quot;);">
-                        <div class="instagram__text">
-                            <i class="fa fa-instagram"></i>
-                            <a href="#">Bụi</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="../web/img/instagram/4.jpg" style="background-image: url(&quot;../web/img/instagram/4.jpg&quot;);">
-                        <div class="instagram__text">
-                            <i class="fa fa-instagram"></i>
-                            <a href="#">Bụi</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="../web/img/instagram/5.jpg" style="background-image: url(&quot;../web/img/instagram/5.jpg&quot;);">
-                        <div class="instagram__text">
-                            <i class="fa fa-instagram"></i>
-                            <a href="#">Bụi</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="../web/img/instagram/6.jpg" style="background-image: url(&quot;../web/img/instagram/6.jpg&quot;);">
-                        <div class="instagram__text">
-                            <i class="fa fa-instagram"></i>
-                            <a href="#">Bụi</a>
+                            <a href="${b.url}">Bụi</a>
                         </div>
                     </div>
                 </div>
