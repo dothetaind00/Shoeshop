@@ -14,6 +14,8 @@ public interface CartService {
 
 	Optional<Cart> findCartByUserId(Integer id);
 
+	Optional<Cart> findCartByUserUserName(String username);
+
 	Cart save(Cart cart);
 
 }

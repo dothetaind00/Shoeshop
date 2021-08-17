@@ -36,12 +36,33 @@ public class CartController {
     @Autowired
     private SizeService sizeService;
 
+    @GetMapping
+    public String getPage(Authentication authentication, HttpSession session, Model model){
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!authentication.getPrincipal().equals("anonymousUser")){
+            Optional<User> user = userService.findUserByUserName(authentication.getName());
+
+            Optional<Cart> cart = cartService.findCartByUserId(user.get().getId());
+            if (cart.isPresent()) {
+                List<CartDetail> list = cartDetailService.findAllByCartId(cart.get().getId());
+                model.addAttribute("listCart",list);
+                model.addAttribute("totalCost",cart.get().getTotalCost());
+            }
+        }else{
+            System.out.println("here");
+
+            List<CartDetail> listCart = (List<CartDetail>) session.getAttribute("listCart");
+            model.addAttribute("listCart",listCart);
+            model.addAttribute("totalCost",cartService.totalCost(listCart));
+        }
+        return "user/shop-cart";
+    }
+
     @PostMapping(value = "/add")
     public String addCartTets(@RequestParam Integer productId, @RequestParam Integer amount,
                               @RequestParam Integer sizeId, Authentication authentication,
                               HttpSession session, Model model) {
 
-        List<CartDetail> listCart = (List<CartDetail>) session.getAttribute("listCart");
         Product product = productService.findById(productId).orElse(null);
         Optional<Size> size = sizeService.findById(sizeId);
 
@@ -78,7 +99,7 @@ public class CartController {
                 cartService.save(cart.get());
                 cartDetailService.saveAll(list);
                 model.addAttribute("listCart",cartDetailService.findAllByCartId(cart.get().getId()));
-
+                model.addAttribute("totalCost",cart.get().getTotalCost());
             }else{
                 Cart cartNew = new Cart();
                 cartNew.setUser(user.orElse(null));
@@ -90,6 +111,7 @@ public class CartController {
                 cartDetail.setCart(newCart);
 
                 model.addAttribute("listCart",cartDetailService.findAllByCartId(newCart.getId()));
+                model.addAttribute("totalCost",cartNew.getTotalCost());
                 cartDetailService.save(cartDetail);
             }
 
@@ -97,6 +119,7 @@ public class CartController {
         }
 
         //xu ly session
+        List<CartDetail> listCart = (List<CartDetail>) session.getAttribute("listCart");
         if (listCart == null) {
             //init map
             listCart = new ArrayList<>();
@@ -119,8 +142,9 @@ public class CartController {
                 listCart.add(addCart(product, size, amount));
         }
         session.setAttribute("listCart", listCart);
-        session.setAttribute("totalAmount", cartService.totalCost(listCart));
+        session.setAttribute("totalCost", cartService.totalCost(listCart));
         model.addAttribute("listCart",listCart);
+        model.addAttribute("totalCost",cartService.totalCost(listCart));
 
         return "user/shop-cart";
     }
@@ -136,69 +160,77 @@ public class CartController {
     }
 
     @GetMapping(value = "/update")
-    public String updateCart(Authentication authentication,HttpSession session, HttpServletRequest request) {
+    public String updateCart(Authentication authentication,HttpSession session, HttpServletRequest request, Model model) {
 
         String[] itemUpdate = request.getParameterValues("amount");
 
         authentication = SecurityContextHolder.getContext().getAuthentication();
         //authenticated
         if (!authentication.getPrincipal().equals("anonymousUser")){
+            Optional<User> user = userService.findUserByUserName(authentication.getName());
 
+            Optional<Cart> cart = cartService.findCartByUserId(user.get().getId());
+            if (cart.isPresent()){
+                List<CartDetail> list = cartDetailService.findAllByCartId(cart.get().getId());
+                if (!list.isEmpty()){
+                    for (int i = 0; i < list.size(); i++) {
+                        list.get(i).setAmount(Integer.parseInt(itemUpdate[i]));
+                    }
+
+                    cartDetailService.saveAll(list);
+                    cart.get().setTotalAmount(cartService.totalAmount(list));
+                    cart.get().setTotalCost(cartService.totalCost(list));
+                    cartService.save(cart.get());
+
+                    model.addAttribute("listCart",list);
+                    model.addAttribute("totalCost",cart.get().getTotalCost());
+                }else{
+                    model.addAttribute("totalCost",cartService.totalCost(list));
+                }
+            }
+            return "user/shop-cart";
         }
+
         //non-authenticated
         List<CartDetail> listCart = (List<CartDetail>) session.getAttribute("listCart");
         for (int i = 0; i < listCart.size(); i++) {
             listCart.get(i).setAmount(Integer.parseInt(itemUpdate[i]));
         }
         session.setAttribute("listCart", listCart);
-        session.setAttribute("totalAmount", cartService.totalAmount(listCart));
+        model.addAttribute("listCart",listCart);
+        model.addAttribute("totalCost",cartService.totalCost(listCart));
 
         return "user/shop-cart";
     }
 
     @RequestMapping(value = "/remove/{id}")
-    public String deleteItems(@PathVariable(value = "id") int productID
-                            ,Authentication authentication,
-                              HttpSession session) {
+    public String deleteItems(@PathVariable(value = "id") int id, @RequestParam(name = "size", required = false) Integer size_id,
+                            Authentication authentication, Model model, HttpSession session) {
 
         authentication = SecurityContextHolder.getContext().getAuthentication();
         //authenticated
-        if (!authentication.isAuthenticated()){
+        if (!authentication.getPrincipal().equals("anonymousUser")){
+            cartDetailService.deleteById(id);
 
+            Optional<Cart> cart = cartService.findCartByUserUserName(authentication.getName());
+            List<CartDetail> list = cartDetailService.findAllByCartId(cart.get().getId());
+            cart.get().setTotalCost(cartService.totalCost(list));
+            cart.get().setTotalAmount(cartService.totalAmount(list));
+            cartService.save(cart.get());
+
+            return "redirect:/cart";
         }
 
+        //process session
         List<CartDetail> listCart = (List<CartDetail>) session.getAttribute("listCart");
         for (int i = 0; i < listCart.size(); i++) {
-            if (listCart.get(i).getProduct().getId() == productID) {
+            if (listCart.get(i).getProduct().getId() == id && listCart.get(i).getSize().getId() == size_id) {
                 listCart.remove(i);
                 break;
             }
         }
         session.setAttribute("listCart", listCart);
-        return "user/shop-cart";
-    }
 
-    // save cart vao db
-    public String saveCart(HttpSession session) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        double totalAmount = (double) session.getAttribute("totalAmount");
-        if (auth.getPrincipal().equals("anonymousUser")) {
-            System.out.println("test");
-        } else {
-            Optional<User> user = userService.findUserByUserName(auth.getName());
-            if (user.isPresent()) {
-                Cart cart = (Cart) session.getAttribute("cart");
-                cart.setTotalCost(totalAmount);
-//                cartRepository.save(cart);
-//                List<CartDetail> listCart = (List<CartDetail>) session.getAttribute("listCart");
-//                for (CartDetail cartDetail : listCart) {
-//                    cartDetail.setCart(cart);
-//                    System.out.println(cartDetail.getPrice());
-//                    System.out.println(cartDetail.getAmount());
-//                    cartDetailRepository.save(cartDetail);
-//                }
-            }
-        }
-        return "success";
+        return "redirect:/cart";
     }
 }
