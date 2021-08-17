@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,52 +23,60 @@ public class ContactServiceImpl implements ContactService {
     private SendMail sendMail;
 
     @Override
-    public Contact findById(Integer id) {
-        return contactRepository.findById(id).orElse(null);
+    public Page<Contact> findAllContact(Pageable pageable) {
+        return contactRepository.findAllContact(pageable);
     }
 
     @Override
-    public Contact findByPhone(String phone) {
-        return null;
+    public Page<Contact> findAllByName(String name, Pageable pageable) {
+        return contactRepository.findAllByNameLike(name, pageable);
     }
 
     @Override
-    public Boolean existByEmailAndPhone(String email, String phone) {
-        return contactRepository.existsByEmailAndPhone(email, phone);
+    public Optional<Contact> findById(Integer id) {
+        return contactRepository.findById(id);
     }
 
     @Override
-    public List<Contact> findAll() {
-        return contactRepository.findAll();
+    public Optional<Contact> findContactByPhone(String phone) {
+        return contactRepository.findContactByPhone(phone);
     }
 
     @Override
-    public Page<Contact> findAllPaging(Pageable pageable) {
-        return contactRepository.findAll(pageable);
+    public Boolean existByPhone(String phone) {
+        return contactRepository.existsByPhone(phone);
     }
 
     @Override
     public Contact save(Contact contact) {
         if (contact.getId() == null) {
-            if (contactRepository.existsByEmailAndPhone(contact.getEmail(), contact.getPhone())) {
+            if (contactRepository.existsByPhone(contact.getPhone())) {
                 return null;
             }
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    sendMail.sendMail(contact.getEmail(), "Web Shoe", contact.getName());
+                    sendMail.sendMail(contact.getEmail(), "Shoe Store", contact.getName());
                 }
             });
             thread.start();
 
             return contactRepository.save(contact);
+        }else{
+            Optional<Contact> c = contactRepository.findContactByPhone(contact.getPhone());
+            if (c.isPresent()){
+                if (c.get().getId() == contact.getId()){
+                    return contactRepository.save(contact);
+                }else{
+                    return null;
+                }
+            }
+            return contactRepository.save(contact);
         }
-
-        return contactRepository.save(contact);
     }
 
     @Override
-    public void delete(Integer id) {
-        contactRepository.deleteById(id);
+    public void delete(Contact contact) {
+        contactRepository.delete(contact);
     }
 }

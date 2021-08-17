@@ -19,6 +19,6 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
         if (authentication != null) {
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
-        response.sendRedirect(request.getContextPath() + "/user");
+        response.sendRedirect(request.getContextPath() + "/");
     }
 }

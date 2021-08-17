@@ -9,17 +9,17 @@ import java.util.Optional;
 
 public interface ContactService {
 
-    Contact findById(Integer id);
+    Page<Contact> findAllContact(Pageable pageable);
 
-    Contact findByPhone(String phone);
+    Page<Contact> findAllByName(String name, Pageable pageable);
 
-    Boolean existByEmailAndPhone(String email, String phone);
+    Optional<Contact> findById(Integer id);
 
-    List<Contact> findAll();
+    Optional<Contact> findContactByPhone(String phone);
 
-    Page<Contact> findAllPaging(Pageable pageable);
+    Boolean existByPhone(String phone);
 
     Contact save(Contact contact);
 
-    void delete(Integer id);
+    void delete(Contact contact);
 }

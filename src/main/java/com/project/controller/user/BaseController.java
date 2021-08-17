@@ -59,8 +59,6 @@ public class BaseController {
 		return "user/index";
 	}
 
-	
-
 	@GetMapping("/category/{id}")
 	public String showProduct(Model model, @PathVariable Integer id) {
 		return "user/show-product";

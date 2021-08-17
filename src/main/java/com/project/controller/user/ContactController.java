@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller(value = "contactOfUser")
-@RequestMapping("user/contact")
+@RequestMapping("/contact")
 public class ContactController {
 
     @Autowired
@@ -29,12 +29,12 @@ public class ContactController {
     @PostMapping
     public String addContact(@ModelAttribute @Valid Contact contact, BindingResult result) {
         if (result.hasErrors()) {
-            return "redirect:/user/contact?invalid";
+            return "redirect:/contact?invalid";
         }
 
         if (contactService.save(contact) == null)
-            return "redirect:/user/contact?existed";
+            return "redirect:/contact?existed";
 
-        return "redirect:/user/contact";
+        return "redirect:/contact?success";
     }
 }

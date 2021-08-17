@@ -4,6 +4,7 @@ import com.project.entity.Contact;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -11,7 +12,12 @@ import java.util.Optional;
 @Repository
 public interface ContactRepository extends JpaRepository<Contact, Integer> {
 
-    Optional<Contact> findContactByPhoneLike(String phone);
+    @Query("SELECT c FROM Contact c")
+    Page<Contact> findAllContact(Pageable pageable);
 
-    Boolean existsByEmailAndPhone(String email, String phone);
+    Page<Contact> findAllByNameLike(String name, Pageable pageable);
+
+    Optional<Contact> findContactByPhone(String phone);
+
+    Boolean existsByPhone(String email);
 }

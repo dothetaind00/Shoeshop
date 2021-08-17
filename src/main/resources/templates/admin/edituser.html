@@ -20,8 +20,8 @@
                     </h3>
                     <ol class="breadcrumb" style="font-family: arial;">
                         <li><a th:href="@{/admin}">Trang chủ</a></li>
-                        <li>Liên hệ</li>
-                        <li>Cập nhật Liên hệ</li>
+                        <li><a href="/admin/user">Tài khoản</a></li>
+                        <li>Cập nhật tài khoản</li>
                     </ol>
                 </div>
             </div>
@@ -40,8 +40,7 @@
                                     <br>
                                     <h5 style="text-align: center;">Field Not Empty !</h5>
                                 </th:block>
-                                <form class="form-validate form-horizontal" action="#"
-                                      th:action="@{/admin/user}" th:object="${user}" method="post">
+                                <form id="formSubmit" class="form-validate form-horizontal" action="#" th:object="${user}">
                                     <div class="form-group ">
                                         <label for="id" class="control-label col-lg-2">ID<span class="required">*</span></label>
                                         <div class="col-lg-10">
@@ -103,7 +102,7 @@
 
                                     <div class="form-group">
                                         <div class="col-lg-offset-2 col-lg-10">
-                                            <button class="btn btn-primary" type="submit">Update</button>
+                                            <button id="btnUpdate" class="btn btn-primary" type="button">Update</button>
                                         </div>
                                     </div>
                                 </form>
@@ -119,6 +118,35 @@
 
 </section>
 <!-- container section end -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+    $('#btnUpdate').click(function (e) {
+        e.preventDefault();
+        var data = {};
+        var formData = $('#formSubmit').serializeArray();
+        $.each(formData, function (i, v) {
+            data["" + v.name + ""] = v.value;
+        });
+        updateUser(data);
+    });
+
+    function updateUser(data){
+        $.ajax({
+            type: "PUT",
+            contentType: "application/json",
+            url: "http://localhost:8080/api/user/"+data.id,
+            data: JSON.stringify(data),
+            dataType: 'json',
+            success: function (result) {
+                alert("Cập nhật thành công liên hệ "+result.userName);
+            },
+            error: function (e){
+                alert("Cập nhật không thành công ");
+            }
+        });
+    }
+</script>
 
 </body>
 

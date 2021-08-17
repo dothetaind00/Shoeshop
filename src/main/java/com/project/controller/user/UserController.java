@@ -7,6 +7,7 @@ import com.project.service.RoleService;
 import com.project.service.UserService;
 import com.project.service.sendmail.SendMail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +31,7 @@ public class UserController {
     private SendMail sendMail;
 
     @GetMapping("/{username}")
+    @Secured("ROLE_USER")
     public String getUser(@PathVariable String username, Model model) {
         try {
             User user = userService.findUserByUserNameAndIsEnable(username, true);

@@ -43,10 +43,6 @@
                         <div class="contact__form">
                             <h5>GỬI LIÊN HỆ</h5>
 
-                            <th:block sec:authorize="isAuthenticated()">
-                                <a th:href="@{/user/{username}(username = ${#authentication.getPrincipal().getUsername()})}">Click vao day</a>
-                            </th:block>
-
                             <form action="#" th:action="@{contact}" th:object="${contact}" method="post">
                                 <input type="hidden" th:field="*{id}">
                                 <input type="text" th:field="*{name}" placeholder="Name">
@@ -57,12 +53,17 @@
                             </form>
                             <th:block th:if="${param.existed != null}">
                                 <br>
-                                <h5>Contact Existed !</h5>
+                                <h5>Liên hệ đã tồn tại !</h5>
                             </th:block>
 
                             <th:block th:if="${param.invalid != null}">
                                 <br>
-                                <h5>Field Not Empty !</h5>
+                                <h5>Các trường không được để trống !</h5>
+                            </th:block>
+
+                            <th:block th:if="${param.success != null}">
+                                <br>
+                                <h5>Tạo liên hệ thành công !</h5>
                             </th:block>
 
                         </div>

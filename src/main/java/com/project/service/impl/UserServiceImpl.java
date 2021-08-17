@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,10 +24,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
     @Override
-    public Page<User> findByIsEnable(Boolean isEnable, Pageable pageable) {
-        return userRepository.findByIsEnable(isEnable, pageable);
+    public Page<User> findAllUser(Pageable pageable) {
+        return userRepository.findAllUser(pageable);
     }
 
     @Override
@@ -35,8 +35,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Integer id) {
-        return userRepository.findById(id).orElseThrow(() -> new NullPointerException("Cannot find user"));
+    public Page<User> findByIsEnable(Boolean isEnable, Pageable pageable) {
+        return userRepository.findByIsEnable(isEnable, pageable);
+    }
+
+    @Override
+    public Optional<User> findById(Integer id) {
+        return userRepository.findById(id);
     }
 
     @Transactional
@@ -81,7 +86,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User postUser(User user) {
-        return userRepository.save(user);
+        Optional<User> userOptional = userRepository.findUserByEmail(user.getEmail());
+        if (userOptional.isPresent()){
+            if (userOptional.get().getId() == user.getId()){
+                return userRepository.save(user);
+            }else{
+                return null;
+            }
+        }else {
+            return userRepository.save(user);
+        }
     }
 
     @Override
