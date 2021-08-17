@@ -14,56 +14,32 @@
 
     <!-- Categories Section Begin -->
     <section class="categories">
-        <div class="container-fluid">
+        <div class="container-fluid" th:if="${listBanner != null}">
             <div class="row">
-                <div class="col-lg-6 p-0">
-                    <div class="categories__item categories__large__item set-bg" data-setbg="../web/img/banner/con2.jpg" style="background-image: url(&quot;../web/img/banner/con2.jpg&quot;);">
+                <div class="col-lg-6 p-0" th:with="firstBanner = ${listBanner[0]}">
+                    <div class="categories__item categories__large__item set-bg" th:data-setbg="${firstBanner.image}" style="background-image: url(&quot;../web/img/banner/con2.jpg&quot;);">
                         <div class="categories__text">
-                            <h1>Converse</h1>
-                            <p>ChÃ o má»«ng báº¡n Ä‘áº¿n vá»›i ngÃ´i nhÃ  Converse! Táº¡i Ä‘Ã¢y, má»—i má»™t dÃ²ng chá»¯, má»—i chi tiáº¿t vÃ  hÃ¬nh áº£nh Ä‘á»�u lÃ  nhá»¯ng báº±ng chá»©ng mang dáº¥u áº¥n lá»‹ch sá»­ Converse 100 nÄƒm, vÃ  Ä‘ang khÃ´ng ngá»«ng phÃ¡t triá»ƒn lá»›n máº¡nh.
-                             Táº¥t cáº£ cÃ¡c thÃ nh tá»±u Ä‘Ã¡ng tá»± hÃ o cá»§a Converse Ä‘á»�u khÃ´ng thá»ƒ tÃ¡ch rá»�i bá»Ÿi 4 dÃ²ng sáº£n pháº©m kinh Ä‘iá»ƒn.</p>
-                            <a href="#">Shop now</a>
+
+                            <h1 th:text="${firstBanner.title}"></h1>
+                            <p th:text="${firstBanner.desciption}"></p>
+                            <a th:href="${firstBanner.url}">Shop now</a>
+
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                            <div class="categories__item set-bg" data-setbg="../web/img/banner/nike.jpg" style="background-image: url(&quot;../web/img/banner/nike.jpg&quot;);">
-                                <div class="categories__text">
-                                    <h4>Nike</h4>
-                                    <p>58 items</p>
-                                    <a href="#">Shop now</a>
+                            <div class="col-lg-6 col-md-6 col-sm-6 p-0" th:each="b,num : ${listBanner}" th:if="${num.count >= 2 and num.count <= 5}">
+                                <div class="banner-item">
+                                <div class="categories__item set-bg" th:data-setbg="${b.image}" style="background-image: url(&quot;../web/img/banner/nike.jpg&quot;);">
+                                    <div class="categories__text">
+                                        <h4 th:text="${b.title}"></h4>
+                                        <p ${b.desciption}></p>
+                                        <a th:href="${b.url}">Shop now</a>
+                                    </div>
+                                </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                            <div class="categories__item set-bg" data-setbg="../web/img/banner/adidas.jpg" style="background-image: url(&quot;../web/img/banner/adidas.jpg&quot;);">
-                                <div class="categories__text">
-                                    <h4>Adidas</h4>
-                                    <p>73 items</p>
-                                    <a href="#">Shop now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                            <div class="categories__item set-bg" data-setbg="../web/img/banner/van.jpg" style="background-image: url(&quot;../web/img/banner/van.jpg&quot;);">
-                                <div class="categories__text">
-                                    <h4>Van</h4>
-                                    <p>15 items</p>
-                                    <a href="#">Shop now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 p-0">
-                            <div class="categories__item set-bg" data-setbg="../web/img/banner/ac.jpg" style="background-image: url(&quot;../web/img/banner/ac.jpg&quot;);">
-                                <div class="categories__text">
-                                    <h4>Accessories</h4>
-                                    <p>32 items</p>
-                                    <a href="#">Shop now</a>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -163,7 +139,7 @@
     <!-- Product Section End -->
 
     <!-- Banner Section Begin -->
-    <section class="banner set-bg" data-setbg="../web/img/banner/banner-1.jpg" style="background-image: url(&quot;../web/img/banner/banner-1.jpg&quot;);">
+    <section class="banner set-bg" th:data-setbg="${listBanner[5].image}" style="background-image: url(&quot;../web/img/banner/banner-1.jpg&quot;);">
         <div class="container">
             <div class="row">
                 <div class="col-xl-7 col-lg-8 m-auto">
@@ -173,20 +149,17 @@
                                 <div style="display: none; width: 652.5px;" class="owl-item cloned">
                                     <div class="banner__item">
                                         <div class="banner__text">
-
-
-                                            <h1>The Creator</h1>
-                                            <a href="#">Shop now</a>
+                                            <span th:text="${listBanner[5].desciption}"></span>
+                                            <h1 th:text="${listBanner[5].title}"></h1>
+                                            <a th:href="${listBanner[5].url}">Shop now</a>
                                         </div>
                                     </div>
                                 </div>
                                 
                                 <div class="owl-nav disabled">
                                     <button type="button" role="presentation" class="owl-prev"><span
-
-                                            aria-label="Previous"></span></button>
-                                    <button type="button" role="presentation" class="owl-next"><span aria-label="Next"></span></button>
-
+                                            aria-label="Previous">Ã¢â‚¬Â¹</span></button>
+                                    <button type="button" role="presentation" class="owl-next"><span aria-label="Next">Ã¢â‚¬Âº</span></button>
                                 </div>
                                 
                                 <div class="owl-dots">
@@ -212,37 +185,29 @@
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="services__item">
                         <i class="fa fa-car"></i>
-
                         <h6>Miễn phí giao hàng</h6>
                         <p>Cho các sản phầm trên 2 triệu vnđ</p>
-
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="services__item">
                         <i class="fa fa-money"></i>
-
                         <h6>Hoàn tiền</h6>
                         <p>Nếu sản phẩm có vấn đề</p>
-
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="services__item">
                         <i class="fa fa-support"></i>
-
                         <h6>Hỗ trợ 24/7</h6>
                         <p>Dịch vụ hỗ trợ nhiệt tình</p>
-
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="services__item">
                         <i class="fa fa-headphones"></i>
-
                         <h6>Giao dịch bảo mật</h6>
                         <p>100% giao dịch được bảo đảm</p>
-
                     </div>
                 </div>
             </div>

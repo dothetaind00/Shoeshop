@@ -17,13 +17,11 @@ import com.project.service.CategoryService;
 
 @Controller
 @RequestMapping("/admin/category")
-public class CategoryController {
+public class  CategoryController {
 	
 	@Autowired
 	CategoryService categoryService;
-	
-	
-	
+
 	@GetMapping("")
 	public String categoryHome(Model model) {
 		model.addAttribute("list", categoryService.findAll());	

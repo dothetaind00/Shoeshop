@@ -70,7 +70,6 @@ public class ProductController {
 			@RequestParam("image44") MultipartFile image4, @ModelAttribute("product") Product product) {
 
 		try {
-
 			// set image 1
 			if (!image1.isEmpty()) {
 				product.setImage1(productService.saveImageUrl(image1));

@@ -131,54 +131,14 @@
     <!-- Breadcrumb End -->
 
     <!-- Instagram Begin -->
-    <div class="instagram" th:fragment="instagram">
+    <div class="instagram" th:fragment="instagram" th:if="${banners != null}">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="../web/img/instagram/1.jpg" style="background-image: url(&quot;../web/img/instagram/1.jpg&quot;);">
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0" th:each="b,num : ${banners}" th:if="${num.count >= 7 and num.count <= 12}">
+                    <div class="instagram__item set-bg" th:data-setbg="${b.image}" style="background-image: url(&quot;../web/img/instagram/1.jpg&quot;);">
                         <div class="instagram__text">
                             <i class="fa fa-instagram"></i>
-                            <a href="#">Bụi</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="../web/img/instagram/2.jpg" style="background-image: url(&quot;../web/img/instagram/2.jpg&quot;);">
-                        <div class="instagram__text">
-                            <i class="fa fa-instagram"></i>
-                            <a href="#">Bụi</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="../web/img/instagram/3.jpg" style="background-image: url(&quot;../web/img/instagram/3.jpg&quot;);">
-                        <div class="instagram__text">
-                            <i class="fa fa-instagram"></i>
-                            <a href="#">Bụi</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="../web/img/instagram/4.jpg" style="background-image: url(&quot;../web/img/instagram/4.jpg&quot;);">
-                        <div class="instagram__text">
-                            <i class="fa fa-instagram"></i>
-                            <a href="#">Bụi</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="../web/img/instagram/5.jpg" style="background-image: url(&quot;../web/img/instagram/5.jpg&quot;);">
-                        <div class="instagram__text">
-                            <i class="fa fa-instagram"></i>
-                            <a href="#">Bụi</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                    <div class="instagram__item set-bg" data-setbg="../web/img/instagram/6.jpg" style="background-image: url(&quot;../web/img/instagram/6.jpg&quot;);">
-                        <div class="instagram__text">
-                            <i class="fa fa-instagram"></i>
-                            <a href="#">Bụi</a>
+                            <a href="${b.url}">Bụi</a>
                         </div>
                     </div>
                 </div>
