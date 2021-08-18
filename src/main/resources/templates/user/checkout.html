@@ -20,64 +20,31 @@
     <!-- Checkout Section Begin -->
     <section class="checkout spad">
         <div class="container">
-
-            <form action="#" class="checkout__form">
+            <th:block th:if="${param.code != null}">
+                <input type="hidden" id="code" th:value="${param.code[0]}">
+            </th:block>
+            <form id="formSubmit" action="#" class="checkout__form" th:object="${user}">
                 <div class="row">
                     <div class="col-lg-8">
                         <h5>Thông tin hóa đơn</h5>
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="checkout__form__input">
-                                    <p>Họ <span>*</span></p>
-                                    <input type="text">
+                                    <p>Tên người nhận<span>*</span></p>
+                                    <input type="text" name="name" th:value="${user.fullName}" placeholder="Nhập tên của bạn" required>
                                 </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="checkout__form__input">
-                                    <p>Tên <span>*</span></p>
-                                    <input type="text">
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-
                                 <div class="checkout__form__input">
                                     <p>Địa chỉ <span>*</span></p>
-                                    <input type="text" placeholder="Phố">
-                                    <input type="text" placeholder="Địa chỉ nhà">
+                                    <input type="text" name="address" th:value="${user.address}" placeholder="Địa chỉ giao hàng" required>
                                 </div>
-                                <div class="checkout__form__input">
-                                    <p>Tỉnh/Thành phố <span>*</span></p>
-                                    <input type="text">
-                                </div>
-
-
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="checkout__form__input">
                                     <p>Điện thoại <span>*</span></p>
-                                    <input type="text">
+                                    <input type="text" name="phone" th:value="${user.phone}" placeholder="Nhập số điện thoại" required>
                                 </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="checkout__form__input">
                                     <p>Email <span>*</span></p>
-                                    <input type="text">
+                                    <input type="email" name="email" th:value="${user.email}"  placeholder="Nhập email của bạn" required>
                                 </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="checkout__form__checkbox">
-                                    <label for="acc">
-                                        Tạo tài  khoản?
-                                        <input type="checkbox" id="acc">
-                                        <span class="checkmark"></span>
-                                    </label>
-
-                                </div>
-                                <div class="checkout__form__input">
-                                    <p>Mật khẩu <span>*</span></p>
-                                    <input type="text">
-                                </div>
-
                             </div>
                         </div>
                     </div>
@@ -103,10 +70,8 @@
                                 </ul>
                             </div>
                             <div class="checkout__order__widget">
-
-
                             </div>
-                            <button type="submit" class="site-btn">Đặt hàng</button>
+                            <button type="button" id="btnOrder" class="site-btn">Đặt hàng</button>
                         </div>
                     </div>
                 </div>
@@ -131,6 +96,39 @@
     <!-- Search End -->`
 
     <div th:replace="fragments_user :: script"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+
+        $('#btnOrder').click(function (e){
+            e.preventDefault();
+            var data = {};
+            var formData = $('#formSubmit').serializeArray();
+            $.each(formData, function (i, v) {
+                data["" + v.name + ""] = v.value;
+            });
+            let code = $('#code').val();
+            checkCoupon(data,code);
+        });
+
+        function checkCoupon(data,code){
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "http://localhost:8080/checkout/api/" + code,
+                data: JSON.stringify(data),
+                dataType: 'json',
+                success: function (result) {
+                    if (result.name != null){
+                        alert("thanh cong")
+                    }
+                },
+                error: function (e){
+                    console.log("Error");
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>

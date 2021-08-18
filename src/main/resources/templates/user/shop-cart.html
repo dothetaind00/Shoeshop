@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="fragments_user :: html_head(title = 'Giỏ hàng ')"></head>
+<head th:replace="fragments_user :: html_head(title='Giỏ hàng')"></head>
 
 <body>
 	<!-- Offcanvas Menu Begin -->
@@ -15,7 +15,7 @@
 
 	<!-- Breadcrumb Begin -->
 	<div
-		th:replace="fragments_user :: breadcrumb(href = './index.html', content = 'Shop-cart')"></div>
+		th:replace="fragments_user :: breadcrumb(href = '/', content = 'Shop-cart')"></div>
 	<!-- Breadcrumb End -->
 
 	<!-- Shop Cart Section Begin -->
@@ -72,12 +72,12 @@
 				<div class="row">
 					<div class="col-lg-6 col-md-6 col-sm-6">
 						<div class="cart__btn">
-							<a href="#">Tiếp tục mua sắm</a>
+							<a href="/">Tiếp tục mua sắm</a>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6">
 						<div class="cart__btn update__btn">
-							<button type="submit"><span class="icon_loading"></span>Cập nhật giỏ hàng</button>
+							<button type="submit" th:disabled="${listCart == null}"><span class="icon_loading"></span>Cập nhật giỏ hàng</button>
 						</div>
 					</div>
 				</div>
@@ -87,9 +87,8 @@
 					<div class="discount__content">
 						<h6>Mã giảm giá</h6>
 						<form action="#">
-							<input type="text"
-								placeholder="Nhập mã giảm giá">
-							<button type="submit" class="site-btn">Xác nhận</button>
+							<input id="codeCoupon" type="text" placeholder="Nhập mã giảm giá">
+							<button id="btnConfirm" th:disabled="${listCart == null}" type="button" class="site-btn">Xác nhận</button>
 						</form>
 					</div>
 				</div>
@@ -97,10 +96,17 @@
 					<div class="cart__total__procced">
 						<h6>Tổng tiền</h6>
 						<ul>
-							<li>Giá KM <span>0</span></li>
-							<li>Tổng <span th:text="${totalCost}"></span></li>
+							<li>Giá KM <span id="totalsale">0</span></li>
+							<li>Tổng <span id="totalcost" th:text="${totalCost}"></span></li>
 						</ul>
-						<a th:href="@{/cart/save}" class="primary-btn">Thanh toán</a>
+						<div id="checkout">
+							<th:block th:if="${#lists.isEmpty(listCart)}">
+								<a th:href="@{/cart/save}" style="pointer-events: none;" class="primary-btn">Thanh toán</a>
+							</th:block>
+							<th:block th:unless="${#lists.isEmpty(listCart)}">
+								<a th:href="@{/checkout}" class="primary-btn">Thanh toán</a>
+							</th:block>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -124,6 +130,37 @@
 	<!-- Search End -->
 
 	<div th:replace="fragments_user :: script"></div>
-</body>
 
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+
+		$('#btnConfirm').click(function (){
+			let code = $('#codeCoupon').val();
+			checkCoupon(code);
+		});
+
+		function checkCoupon(code){
+			$.ajax({
+				type: "GET",
+				contentType: "application/json",
+				url: "http://localhost:8080/admin/coupon/api/" + code,
+				success: function (result) {
+					if (result.id != ''){
+						let totalStart = $('#totalcost').text();
+						let totalEnd = totalStart - (totalStart * (result.percent / 100));
+						$('#totalsale').text(totalEnd);
+						console.log(result.id);
+						$('#checkout').html('');
+						let link = `<a href="/checkout?code=${result.code}" class="primary-btn">Thanh toán</a>`;
+						$('#checkout').append(link);
+						alert("Mã giảm giá hợp lệ "+totalEnd);
+					}
+				},
+				error: function (e){
+					console.log("Error");
+				}
+			});
+		}
+	</script>
+</body>
 </html>

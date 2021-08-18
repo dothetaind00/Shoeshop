@@ -46,7 +46,7 @@
                 </a></li>
             </ul>
             <div class="offcanvas__logo">
-                <a href="./index.html"><img src="../web/img/logo.png" alt=""></a>
+                <a href="/"><img src="../web/img/logo.png" alt=""></a>
             </div>
             <div id="mobile-menu-wrap"></div>
             <div class="offcanvas__auth" sec:authorize="isAuthenticated()">
@@ -74,7 +74,7 @@
             <div class="row">
                 <div class="col-xl-3 col-lg-2">
                     <div class="header__logo">
-                        <a href="../web/index.html"><img src="../web/img/logo.png" alt=""></a>
+                        <a href="/"><img src="../web/img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-7">
@@ -118,7 +118,7 @@
                                 <li><a href="#"><span class="icon_heart_alt"></span>
                                     <div class="tip">2</div>
                                 </a></li>
-                                <li><a href="#"><span class="icon_bag_alt"></span>
+                                <li><a href="/cart"><span class="icon_bag_alt"></span>
                                     <div class="tip">2</div>
                                 </a></li>
                             </ul>
@@ -190,7 +190,7 @@
                         <ul>
                             <li><a href="#">Về chúng tôi</a></li>
                             <li><a href="#">Blogs</a></li>
-                            <li><a href="./contact.html">Liên hệ </a></li>
+                            <li><a href="/contact">Liên hệ </a></li>
                             <li><a href="#">Câu hỏi nhanh</a></li>
                         </ul>
                     </div>
@@ -199,7 +199,11 @@
                     <div class="footer__widget">
                         <h6>Tài khoản</h6>
                         <ul>
-                            <li><a href="#">Tài khoản của tôi</a></li>
+                            <th:block sec:authorize="isAuthenticated()">
+                            <li>
+                                <a th:href="@{/user/{username}(username = ${#authentication.getPrincipal().getUsername()})}">Tài khoản của tôi</a>
+                            </li>
+                            </th:block>
                             <li><a href="#">Tra cứu đơn hàng</a></li>
                             <li><a href="#">Checkout</a></li>
                             <li><a href="#">Wishlist</a></li>

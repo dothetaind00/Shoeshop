@@ -1,5 +1,6 @@
 package com.project.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,18 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column
+    private String name;
+
+    @Column
+    private String phone;
+
+    @Column
+    private String email;
+
+    @Column(columnDefinition = "TEXT")
+    private String address;
+
     @Column(name = "total_amount")
     private Integer totalAmount;
 
@@ -37,14 +50,17 @@ public class Orders {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "coupon_id")
+    @JsonIgnore
     private Coupon coupon;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "status_id")
+    @JsonIgnore
     private Status status;
 
 }

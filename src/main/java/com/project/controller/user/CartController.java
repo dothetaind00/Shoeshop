@@ -49,11 +49,13 @@ public class CartController {
                 model.addAttribute("totalCost",cart.get().getTotalCost());
             }
         }else{
-            System.out.println("here");
-
             List<CartDetail> listCart = (List<CartDetail>) session.getAttribute("listCart");
-            model.addAttribute("listCart",listCart);
-            model.addAttribute("totalCost",cartService.totalCost(listCart));
+            if (listCart == null) {
+                model.addAttribute("totalCost", 0);
+            } else {
+                model.addAttribute("totalCost", cartService.totalCost(listCart));
+            }
+            model.addAttribute("listCart", listCart);
         }
         return "user/shop-cart";
     }
@@ -193,13 +195,16 @@ public class CartController {
 
         //non-authenticated
         List<CartDetail> listCart = (List<CartDetail>) session.getAttribute("listCart");
-        for (int i = 0; i < listCart.size(); i++) {
-            listCart.get(i).setAmount(Integer.parseInt(itemUpdate[i]));
+        if(listCart != null) {
+            for (int i = 0; i < listCart.size(); i++) {
+                listCart.get(i).setAmount(Integer.parseInt(itemUpdate[i]));
+            }
+            session.setAttribute("listCart", listCart);
+            model.addAttribute("totalCost", cartService.totalCost(listCart));
+        }else {
+            model.addAttribute("totalCost", 0);
         }
-        session.setAttribute("listCart", listCart);
-        model.addAttribute("listCart",listCart);
-        model.addAttribute("totalCost",cartService.totalCost(listCart));
-
+        model.addAttribute("listCart", listCart);
         return "user/shop-cart";
     }
 
@@ -233,4 +238,6 @@ public class CartController {
 
         return "redirect:/cart";
     }
+
+
 }
