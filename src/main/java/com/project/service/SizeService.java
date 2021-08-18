@@ -29,4 +29,6 @@ public interface SizeService{
 	List<Size> findByProductAvailable(Integer id);
 
 	Integer totalAmount(Integer size_id);
+
+	void updateAmount(Integer amount, Integer id);
 }

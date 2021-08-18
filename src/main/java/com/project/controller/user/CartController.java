@@ -55,6 +55,9 @@ public class CartController {
             } else {
                 model.addAttribute("totalCost", cartService.totalCost(listCart));
             }
+            if (model.asMap().get("message") != null){
+                model.addAttribute("erroramount", model.asMap().get("message").toString());
+            }
             model.addAttribute("listCart", listCart);
         }
         return "user/shop-cart";

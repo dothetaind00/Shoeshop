@@ -29,4 +29,6 @@ public interface CouponService {
 
     Optional<Coupon> findCouponByCode(String code);
 
+    void updateAmount(Integer amount,Integer id);
+
 }

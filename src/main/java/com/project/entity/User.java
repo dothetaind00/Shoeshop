@@ -54,7 +54,7 @@ public class User {
     @Column(name = "lastlogined", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp lastLogined;
 
-    @Column(name = "is_enable", columnDefinition = "BIT")
+    @Column(name = "is_enable")
     private Boolean isEnable;
 
     @ManyToMany(fetch = FetchType.EAGER)

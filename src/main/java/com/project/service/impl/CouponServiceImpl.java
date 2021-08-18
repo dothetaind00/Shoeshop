@@ -70,4 +70,9 @@ public class CouponServiceImpl implements CouponService {
         Optional<Coupon> coupon = couponRepository.findCode(code);
         return coupon;
     }
+
+    @Override
+    public void updateAmount(Integer amount, Integer id) {
+        couponRepository.updateAmount(amount, id);
+    }
 }

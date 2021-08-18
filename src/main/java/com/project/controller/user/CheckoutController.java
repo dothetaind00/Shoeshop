@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -47,7 +48,8 @@ public class CheckoutController {
     private SizeService sizeService;
 
     @GetMapping("/checkout")
-    public String getPage(Authentication authentication, HttpSession session,Model model) {
+    public String getPage(Authentication authentication, HttpSession session,
+                          RedirectAttributes redirectAttributes, Model model) {
         authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!authentication.getPrincipal().equals("anonymousUser")) {
             Optional<User> user = userService.findUserByUserName(authentication.getName());
@@ -55,6 +57,21 @@ public class CheckoutController {
 
             Optional<Cart> cart = cartService.findCartByUserUserName(authentication.getName());
             List<CartDetail> list = cartDetailService.findAllByCartId(cart.get().getId());
+
+            boolean isFlag = true;
+            String message = "";
+            for(CartDetail cartDetail : list){
+                if (cartDetail.getAmount() > cartDetail.getSize().getAmount()){
+                    message = "Sản phẩm "+ cartDetail.getProduct().getName() +" chỉ còn "+ cartDetail.getSize().getAmount();
+                    isFlag = false;
+                    break;
+                }
+            }
+            if (!isFlag){
+                redirectAttributes.addFlashAttribute("message",message);
+                return "redirect:/cart?error";
+            }
+
             model.addAttribute("listCart", list);
             model.addAttribute("totalCost", cart.get().getTotalCost());
             return "user/checkout";
@@ -65,6 +82,20 @@ public class CheckoutController {
             model.addAttribute("totalCost", 0);
         } else {
             model.addAttribute("totalCost", cartService.totalCost(listCart));
+
+            boolean isFlag = true;
+            String message = "";
+            for(CartDetail cartDetail : listCart){
+                if (cartDetail.getAmount() > cartDetail.getSize().getAmount()){
+                    message = "Sản phẩm "+ cartDetail.getProduct().getName() +" chỉ còn "+ cartDetail.getSize().getAmount();
+                    isFlag = false;
+                    break;
+                }
+            }
+            if (!isFlag){
+                redirectAttributes.addFlashAttribute("message",message);
+                return "redirect:/cart?error";
+            }
         }
         model.addAttribute("listCart", listCart);
         return "user/checkout";
@@ -77,6 +108,8 @@ public class CheckoutController {
         if (code.isPresent()) {
             coupon = couponService.findCouponByCode(code.get());
             orders.setCoupon(coupon.get());
+            couponService.updateAmount(coupon.get().getAmount() - 1, coupon.get().getId());
+
         }else{
             orders.setCoupon(null);
         }
@@ -91,28 +124,24 @@ public class CheckoutController {
             List<CartDetail> list = cartDetailService.findAllByCartId(cart.get().getId());
 
             orders.setUser(user.get());
+            //save order
             save(orders, list, orders.getCoupon());
-
+            //delete
+            cartDetailService.deleteCart(cart.get().getId());
+            //save
+            cart.get().setTotalAmount(null);
+            cart.get().setTotalCost(null);
+            cartService.save(cart.get());
         } else {
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
             HttpSession session = request.getSession(true);
             List<CartDetail> list = (List<CartDetail>) session.getAttribute("listCart");
 
             orders.setUser(null);
-
-            boolean isFlag = true;
-            for (CartDetail cartDetail : list){
-                if (cartDetail.getAmount() > cartDetail.getSize().getAmount()){
-                    isFlag = false;
-                }
-            }
-            if(isFlag == true){
-                save(orders, list, orders.getCoupon());
-            }else{
-                // don't have enough amount
-                return new ResponseEntity<>(ordersService.save(orders), HttpStatus.NOT_FOUND);
-            }
-
+            //save order
+            save(orders, list, orders.getCoupon());
+            //remove session
+            session.removeAttribute("listCart");
         }
 
         return new ResponseEntity<>(ordersService.save(orders), HttpStatus.OK);
@@ -139,8 +168,10 @@ public class CheckoutController {
             od.setSize(cartDetail.getSize());
             od.setOrders(ord);
             list1.add(od);
+            sizeService.updateAmount(cartDetail.getSize().getAmount() - cartDetail.getAmount(),cartDetail.getSize().getId());
         }
         ordersDetailService.saveAll(list1);
+
     }
 
 }

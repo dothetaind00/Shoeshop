@@ -138,12 +138,12 @@
                 dataType: 'json',
                 success: function (result) {
                     if (result.name != null){
-                        alert("thanh cong");
-                        window.location.href("/");
+                        alert("Thanh toán đơn hàng thành công");
+                        window.location.href = "http://localhost:8080/product";
                     }
                 },
                 error: function (e){
-                    alert("Khong the thanh toan")
+                    alert("Thanh toán không thành công")
                     console.log("Error");
                 }
             });

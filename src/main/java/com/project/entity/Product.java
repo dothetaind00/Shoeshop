@@ -60,7 +60,7 @@ public class Product {
     @Column
     private String status;
 
-    @Column(name = "is_enable", columnDefinition = "BIT")
+    @Column(name = "is_enable")
     private Boolean isEnable;
 
     @Column(name = "oncreate", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")

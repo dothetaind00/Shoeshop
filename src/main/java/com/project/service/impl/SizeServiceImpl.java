@@ -71,5 +71,9 @@ public class SizeServiceImpl implements SizeService {
 		return sizeRepository.totalAmount(size_id);
 	}
 
+	@Override
+	public void updateAmount(Integer amount,Integer id) {
+		sizeRepository.updateAmount(amount,id);
+	}
 
 }
