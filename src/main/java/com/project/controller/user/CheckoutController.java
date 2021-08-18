@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller(value = "checkoutOfUser")
-@RequestMapping("/checkout")
 public class CheckoutController {
 
     @Autowired
@@ -45,29 +44,44 @@ public class CheckoutController {
     private StatusService statusService;
 
     @Autowired
-    private ProductService productService;
+    private SizeService sizeService;
 
-    @GetMapping
-    public String getPage(Authentication authentication, Model model) {
+    @GetMapping("/checkout")
+    public String getPage(Authentication authentication, HttpSession session,Model model) {
         authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!authentication.getPrincipal().equals("anonymousUser")) {
             Optional<User> user = userService.findUserByUserName(authentication.getName());
             model.addAttribute("user", user.get());
+
+            Optional<Cart> cart = cartService.findCartByUserUserName(authentication.getName());
+            List<CartDetail> list = cartDetailService.findAllByCartId(cart.get().getId());
+            model.addAttribute("listCart", list);
+            model.addAttribute("totalCost", cart.get().getTotalCost());
             return "user/checkout";
         }
         model.addAttribute("user", new User());
+        List<CartDetail> listCart = (List<CartDetail>) session.getAttribute("listCart");
+        if (listCart == null) {
+            model.addAttribute("totalCost", 0);
+        } else {
+            model.addAttribute("totalCost", cartService.totalCost(listCart));
+        }
+        model.addAttribute("listCart", listCart);
         return "user/checkout";
     }
 
-    @PostMapping("/api/{code}")
+    @PostMapping(value = {"/api/checkout","/api/checkout/{code}"})
     @ResponseBody
     public ResponseEntity<Orders> addOrders(@PathVariable(name = "code", required = false) Optional<String> code, @RequestBody Orders orders) {
-        Status status = statusService.findById(1).orElse(null);
         Optional<Coupon> coupon = null;
         if (code.isPresent()) {
             coupon = couponService.findCouponByCode(code.get());
+            orders.setCoupon(coupon.get());
+        }else{
+            orders.setCoupon(null);
         }
-        orders.setCoupon(coupon.get());
+
+        Status status = statusService.findById(1).orElse(null);
         orders.setStatus(status);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -76,39 +90,45 @@ public class CheckoutController {
             Optional<Cart> cart = cartService.findCartByUserUserName(authentication.getName());
             List<CartDetail> list = cartDetailService.findAllByCartId(cart.get().getId());
 
-            orders.setTotalAmount(cartService.totalAmount(list));
-
-            Double totalCost = cartService.totalCost(list);
-            orders.setTotalCost(totalCost);
-            if (coupon.isPresent()) {
-                orders.setDiscountPrice(totalCost - (totalCost * coupon.get().getPercent() * 0.01));
-            } else {
-                orders.setDiscountPrice(0.0);
-            }
             orders.setUser(user.get());
-            save(orders, list);
+            save(orders, list, orders.getCoupon());
+
         } else {
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
             HttpSession session = request.getSession(true);
             List<CartDetail> list = (List<CartDetail>) session.getAttribute("listCart");
 
-            orders.setCoupon(coupon.get());
-            orders.setTotalAmount(cartService.totalAmount(list));
-            Double totalCost = cartService.totalCost(list);
-            orders.setTotalCost(totalCost);
-            if (coupon.isPresent()) {
-                orders.setDiscountPrice(totalCost - (totalCost * coupon.get().getPercent() * 0.01));
-            } else {
-                orders.setDiscountPrice(0.0);
-            }
             orders.setUser(null);
-            save(orders, list);
+
+            boolean isFlag = true;
+            for (CartDetail cartDetail : list){
+                if (cartDetail.getAmount() > cartDetail.getSize().getAmount()){
+                    isFlag = false;
+                }
+            }
+            if(isFlag == true){
+                save(orders, list, orders.getCoupon());
+            }else{
+                // don't have enough amount
+                return new ResponseEntity<>(ordersService.save(orders), HttpStatus.NOT_FOUND);
+            }
+
         }
 
         return new ResponseEntity<>(ordersService.save(orders), HttpStatus.OK);
     }
 
-    private void save(Orders orders, List<CartDetail> list){
+    private void save(Orders orders, List<CartDetail> list, Coupon coupon){
+        orders.setTotalAmount(cartService.totalAmount(list));
+
+        Double totalCost = cartService.totalCost(list);
+        orders.setTotalCost(totalCost);
+        if (coupon != null) {
+            orders.setDiscountPrice(totalCost - (totalCost * coupon.getPercent() * 0.01));
+        } else {
+            orders.setDiscountPrice(0.0);
+        }
+
         Orders ord = ordersService.save(orders);
         List<OrdersDetail> list1 = new ArrayList<>();
         for (CartDetail cartDetail : list){

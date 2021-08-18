@@ -17,19 +17,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
 
-@Controller
-@RequestMapping("/admin/coupon")
+@Controller(value = "couponOfAdmin")
 public class CouponController {
     @Autowired
     private CouponService couponService;
 
-    @GetMapping("")
+    @GetMapping("/admin/coupon")
     public String categoryHome(Model model) {
         model.addAttribute("list", couponService.findAll());
         return "admin/coupon";
     }
 
-    @GetMapping("/addcoupon")
+    @GetMapping("/admin/coupon/addcoupon")
     public String addOrEdit(Model model) {
         Coupon coupon = new Coupon();
         model.addAttribute("coupon", coupon);
@@ -37,7 +36,7 @@ public class CouponController {
     }
 
 
-    @PostMapping("/savecoupon")
+    @PostMapping("/admin/coupon/savecoupon")
     public String addOrUpdate(Model model, @ModelAttribute("coupon") Coupon coupon, @RequestParam String start, @RequestParam String end) {
         try {
             start = start + " 00:00:00";
@@ -67,13 +66,13 @@ public class CouponController {
     }
 
     // Delete Category
-    @GetMapping("/delete/{id}")
+    @GetMapping("/admin/coupon/delete/{id}")
     public String delete(Model model, @PathVariable Integer id) {
         couponService.deleteById(id);
         return "redirect:/admin/coupon";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/admin/coupon/edit/{id}")
     public String edit(Model model, @PathVariable Integer id) {
         Optional<Coupon> cou = couponService.findById(id);
         // Check Category Exit or not
@@ -93,7 +92,7 @@ public class CouponController {
         }
     }
 
-    @GetMapping("/api/{code}")
+    @GetMapping("/api/coupon/{code}")
     @ResponseBody
     public ResponseEntity<Coupon> checkCoupon(@PathVariable(value = "code") String code){
         Optional<Coupon> coupon = couponService.findCouponByCode(code);

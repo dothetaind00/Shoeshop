@@ -27,4 +27,6 @@ public interface SizeService{
 	Optional<Size> findBySizeAndProductId(String size, Integer id);
 	
 	List<Size> findByProductAvailable(Integer id);
+
+	Integer totalAmount(Integer size_id);
 }

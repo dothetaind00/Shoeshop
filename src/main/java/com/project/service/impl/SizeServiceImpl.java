@@ -66,11 +66,10 @@ public class SizeServiceImpl implements SizeService {
 		return sizeRepository.findByProductAvailable(id);
 	}
 
+	@Override
+	public Integer totalAmount(Integer size_id) {
+		return sizeRepository.totalAmount(size_id);
+	}
 
 
-
-
-	
-	
-	
 }

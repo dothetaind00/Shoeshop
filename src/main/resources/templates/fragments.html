@@ -135,10 +135,11 @@
                 <ul class="dropdown-menu extended logout">
                     <div class="log-arrow-up"></div>
                     <li class="eborder-top">
-                        <a th:href="@{'/admin/'${#authentication.getPrincipal().getUsername()}}"><i class="icon_profile"></i> My Profile</a>
+                        <a th:href="@{'/admin/'${#authentication.getPrincipal().getUsername()}}"><i
+                                class="icon_profile"></i>Thông tin tài khoản</a>
                     </li>
                     <li>
-                        <a th:href="@{/perform_logout}"><i class="icon_key_alt"></i> Log Out</a>
+                        <a th:href="@{/perform_logout}"><i class="icon_key_alt"></i> Đăng xuất</a>
                     </li>
                 </ul>
             </li>
@@ -158,29 +159,27 @@
                 <span>Dashboard</span>
             </a></li>
             <li class="active"><a class="" th:href="@{/admin/product}"> <i class="icon_bag_alt"></i> <span
-                    style="font-family: arial;">Sản
-                            phẩm</span>
+                    style="font-family: arial;">Sản phẩm</span>
             </a></li>
             <li class="active"><a class="" th:href="@{/admin/category}"> <i class="icon_book_alt"></i> <span
-                    style="font-family: arial;">Danh
-                            mục</span>
+                    style="font-family: arial;">Danh mục</span>
             </a></li>
             <li class="active"><a class="" th:href="@{/admin/banner}"> <i class="icon_image"></i> <span
-                    style="font-family: arial;">Banner
-                          </span>
+                    style="font-family: arial;">Banner</span>
             </a></li>
             <li class="active"><a class="" th:href="@{/admin/coupon}"> <i class="arrow_down_alt"></i> <span
                     style="font-family: arial;">Mã giảm giá</span>
             </a></li>
-            <li class="active"><a class="" th:href="@{/admin/user}"> <i class="icon_group"></i> <span
-                    style="font-family: arial;">Thành
-                            viên</span>
-            </a></li>
             <li class="active"><a class="" th:href="@{/admin/order}"> <i class="icon_documents"></i> <span
-                    style="font-family: arial;">Đơn
-                            hàng</span>
+                    style="font-family: arial;">Đơn hàng</span>
             </a></li>
-            <li class="active"><a class="" th:href="@{/admin/statistical}"> <i class=" icon_datareport_alt"></i> <span
+            <li class="active"><a class="" th:href="@{/admin/user}"> <i class="icon_group"></i> <span
+                    style="font-family: arial;">Tài khoản</span>
+            </a></li>
+            <li class="active"><a class="" th:href="@{/admin/contact}"> <i class="icon_documents"></i> <span
+                    style="font-family: arial;">Liên hệ</span>
+            </a></li>
+            <li class="active"><a class="" th:href="@{/admin/}"> <i class=" icon_datareport_alt"></i> <span
                     style="font-family: arial;">Thống kê</span>
             </a></li>
             <li class="active"><a class="" th:href="@{/admin/month}"> <i class="icon_calendar"></i> <span
