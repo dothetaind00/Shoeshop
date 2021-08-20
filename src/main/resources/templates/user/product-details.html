@@ -101,11 +101,10 @@
                                 <span class="inc qtybtn"></span>
                             </div>
                         </div>
-                        <button type="submit" class="cart-btn"><span class="icon_bag_alt"></span>Thêm vào giỏ hàng
+                        <button type="submit" class="cart-btn" name="submit_button" id="submit_button"><span class="icon_bag_alt"></span>Thêm vào giỏ hàng
                         </button>
                         <ul>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
+                            <li><a th:href="@{'/wishlist/' + ${p.id}}"><span class="icon_heart_alt"></span></a></li>
                         </ul>
                     </div>
 
@@ -115,11 +114,7 @@
                             <li>
                                 <span>Tình trạng:</span>
                                 <div class="stock__checkbox">
-                                    <label for="stockin">
                                         [[${status}]]
-                                        <input type="checkbox" id="stockin">
-                                        <span class="checkmark"></span>
-                                    </label>
                                 </div>
                             </li>
                             <li>
@@ -200,13 +195,11 @@
                 <div class="product__item">
                     <div class="product__item__pic set-bg" th:data-setbg="${p.image1}"
                          th:style="'background-image: url(' + ${p.image1} + ');'">
-                        <div class="label new" th:if="${p.sale == 0}">New</div>
-                        <div class="label sale" th:unless="${p.sale == 0}">Sale</div>
+                        <div class="label sale" th:if="${p.sale != 0}">Sale</div>
                         <ul class="product__hover">
                             <li><a th:href="${p.image1}" class="image-popup"><span
                                     class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                            <li><a th:href="@{'/wishlist/' + ${p.id}}"><span class="icon_heart_alt"></span></a></li>
                         </ul>
                     </div>
 
@@ -252,13 +245,21 @@
 </div>
 <!-- Search End -->
 
-<script type="text/javascript">
 
-</script>
 
 <!-- Js Plugins -->
 <div th:replace="fragments_user :: script"></div>
 <!-- Js Plugins -->
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#submit_button').click(function() {
+            if (!$("input[name='sizeId']:checked").val()) {
+                alert('Bạn chưa chon size! Vui lòng chọn Size');
+                return false;
+            }
+        });
+    });
+</script>
 </body>
 
 </html>
