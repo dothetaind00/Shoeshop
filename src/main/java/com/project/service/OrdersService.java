@@ -17,4 +17,8 @@ public interface OrdersService {
 
     Page<Orders> findOrdersByTime(Integer status,Timestamp startdate, Timestamp enddate, Pageable pageable);
 
+    void cancelOrder(Integer ordersId,Integer statusId);
+
+    String toDate(String str);
+
 }

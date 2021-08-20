@@ -60,9 +60,8 @@ public class Orders {
     @JsonIgnore
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "coupon_id")
-    @JsonIgnore
     private Coupon coupon;
 
     @ManyToOne(fetch = FetchType.EAGER)

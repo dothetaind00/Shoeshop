@@ -28,9 +28,18 @@
                 <div class="col-lg-12">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem">
                         <div>
-                            <input type="text" id="searchByName" name="searchByName" placeholder="Nhập username...">
+                            <input type="text" id="searchByName" name="searchByName" placeholder="Nhập mã đơn hàng">
                             <input type="button" id="btnSearch" value="Tìm kiếm"/>
                         </div>
+
+                        <div class="form-group" style="display: flex; justify-content: space-around">
+                            <input class="form-control" type="text" id="fromDate" placeholder="Từ ngày">
+                            &nbsp;&nbsp;
+                            <input class="form-control" type="text" id="toDate" placeholder="Đến ngày">
+                            &nbsp;&nbsp;
+                            <button id="btnDuyet" type="button">Duyệt</button>
+                        </div>
+
                         <div>
                             <label for="status" style="font-weight: bold;">Trạng thái </label>
                             <select id="status" name="status">
@@ -39,9 +48,9 @@
                                 <option value="3">Đang giao</option>
                                 <option value="4">Đã giao</option>
                                 <option value="5">Đã hủy</option>
-                                <option value="6">Trả hàng</option>
                             </select>
                         </div>
+
                         <div style="margin-right: 5rem;">
                             <input type="button" id="viewAll" value="Reset"/>
                         </div>
@@ -161,15 +170,13 @@
                                 <div class="modal-footer">
                                     <div>
                                         <input type="hidden" id="orderId">
-                                        <label for="status_details" style="font-weight: bold;">Cập nhật trạng
-                                            thái </label>
+                                        <label for="status_details" style="font-weight: bold;">Cập nhật trạng thái </label>
                                         <select id="status_details" name="status">
-                                            <option value="1">Chờ xác nhận</option>
+                                            <option value="1" selected>Chờ xác nhận</option>
                                             <option value="2">Chờ lấy hàng</option>
                                             <option value="3">Đang giao</option>
                                             <option value="4">Đã giao</option>
-                                            <option value="5" selected>Đã hủy</option>
-                                            <option value="6">Trả hàng</option>
+                                            <option value="5">Đã hủy</option>
                                         </select>
                                     </div>
                                     <button type="button" class="btn btn-secondary"
@@ -191,17 +198,53 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="/paging/jquery.twbsPagination.js"></script>
 <script src="/paging/jquery.twbsPagination.min.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+
+        var from = $("#fromDate").datepicker({
+            dateFormat: "dd-mm-yy",
+            changeMonth: true
+        }).on("change", function () {
+            to.datepicker("option", "minDate", getDate(this));
+        }), to = $("#toDate").datepicker({
+            dateFormat: "dd-mm-yy",
+            changeMonth: true
+        }).on("change", function () {
+            from.datepicker("option", "maxDate", getDate(this));
+        });
+
+        function getDate(element) {
+            var date;
+            var dateFormat = "dd-mm-yy";
+            try {
+                date = $.datepicker.parseDate(dateFormat, element.value);
+            } catch (error) {
+                date = null;
+            }
+
+            return date;
+        }
+    });
+</script>
+
 <script type="text/javascript">
     $(document).ready(function () {
+
         $('#viewAll').click(function () {
             ajaxGet(1, 1);
             $('#addPagi').children("#paginationSearch").remove();
+            $('#addPagi').children("#paginationDate").remove();
             $('#searchByName').val('');
+            // $('#status').val(1).change();
+            $('#status').val(1);
         });
 
         $("#status").change(function () {
             $("#status option:selected").each(function () {
                 let status = $(this).val();
+                $('#addPagi').children("#paginationSearch").remove();
+                $('#addPagi').children("#paginationDate").remove();
                 alert("Ma trang thai : " + status);
                 ajaxGet(1, status);
             });
@@ -210,10 +253,10 @@
         $("#status_details").change(function () {
             var orderId = $('#orderId').val();
             var confirmation = confirm("Bạn có muốn cập nhật trạng thái đơn hàng ?");
-            if (confirmation){
+            if (confirmation) {
                 $("#status_details option:selected").each(function () {
                     let status = $(this).val();
-                    updateOrder(orderId,status);
+                    updateOrder(orderId, status);
                 });
             }
         });
@@ -253,9 +296,7 @@
                                 </tr>`;
                         $('.row-data').append(row);
                     });
-
                     pagination(result.totalPages, pageNo, ajaxGet);
-
                 },
                 error: function (e) {
                     alert("Error: ", e);
@@ -278,85 +319,136 @@
             });
         };
 
-        $(document).on('click', '#btnSearch', function () {
-            var key = $('#searchByName').val();
-            if (key.trim() != '') {
-                var searchByName = $('#searchByName').val();
-                ajaxGetName(1, searchByName);
-            } else {
-                alert('Bạn chưa nhập từ khóa');
+        $(document).on('click', '#btnDuyet', function () {
+            let fromD = $('#fromDate').val();
+            let toD = $('#toDate').val();
+            if(fromD.trim() != '' || toD.trim() != ''){
+                $('#addPagi').children("#paginationSearch").remove();
+                $('#searchByName').val('');
+                ajaxGetDate(1);
+            }else{
+                alert("Kiểm tra lại ngày");
             }
         });
 
-        //search name
-        function ajaxGetName(pageNo, searchByName) {
-            console.log(searchByName);
-            if (searchByName.trim() != '') {
-                $.ajax({
-                    type: "GET",
-                    contentType: "application/json",
-                    url: "http://localhost:8080/api/user/" + pageNo + "/" + searchByName,
-                    success: function (result) {
-                        if (result.totalElements > 0) {
-                            $('#addPagi').children("#paginationGet").remove();
+        //duyet ngay
+        function ajaxGetDate(pageNo) {
+            var data = {statusid: $('#status').val(), startdate: $('#fromDate').val(), enddate: $('#toDate').val()}
 
-                            $('#searchByName').val(searchByName);
-                            let pagi = `<ul class="paginationSearch" id="paginationSearch"></ul>`;
-                            $('#addPagi').append(pagi);
-                            $('#page').val(pageNo);
-                            $('#total').val(result.totalPages);
+            $.ajax({
+                type: "GET",
+                data: data,
+                contentType: "application/json",
+                url: "http://localhost:8080/api/orders/" + pageNo,
+                success: function (result) {
+                    if (result.totalElements > 0) {
+                        $('#addPagi').children("#paginationGet").remove();
 
-                            $('.row-data').html('');
-                            $.each(result.content, function (index, user) {
-                                let row = `<tr style="text-align: center;">
-                                    <td>${user.id}</td>
-                                    <td>${user.userName}</td>
-                                    <td>${user.fullName}</td>
-                                    <td>${user.email}</td>
-                                    <td>${user.phone}</td>
-                                    <td>${user.address}</td>
-                                    <td>${user.isEnable ? 'Hoạt động' : 'Không hoạt động'}</td>
+                        let pagi = `<ul class="paginationDate" id="paginationDate"></ul>`;
+                        $('#addPagi').append(pagi);
+                        $('#page').val(pageNo);
+                        $('#total').val(result.totalPages);
+
+                        $('.row-data').html('');
+                        $.each(result.content, function (index, orders) {
+                            let row = `<tr style="text-align: center;">
+                                    <td>${orders.id}</td>
+                                    <td>${orders.name}</td>
+                                    <td>${orders.phone}</td>
+                                    <td>${orders.email}</td>
+                                    <td>${orders.address}</td>
+                                    <td>${orders.totalCost}</td>
+                                    <td>${orders.totalAmount}</td>
+                                    <td>${orders.timeOrder}</td>
+                                    <td>${orders.status.name}</td>
                                     <td>
-                                        <input type="hidden" id="Id_${user.id}" value="${user.id}">
+                                        <input type="hidden" id="Id_${orders.id}" value="${orders.id}">
                                         <div class="btn-group">
-                                            <a class="btn btn-primary"
-                                               href="/admin/user/${user.id}">Update</a>
-                                            <a class="btn btn-danger btnxoa">Delete</a>
+                                            <button type="button" class="btn btn-primary btnUpdate">Update</button>
+                                            <button type="button" class="btn btn-danger btnXoa">Cancel</button>
                                         </div>
                                     </td>
                                 </tr>`;
-                                $('.row-data').append(row);
-                            });
+                            $('.row-data').append(row);
+                        });
 
-                            paginationName(result.totalPages, pageNo, searchByName, ajaxGetName);
-                        } else {
-                            alert("Không user nào được tìm thấy với từ khóa " + searchByName);
-                            ajaxGet(1);
-                            $('#searchByName').val('');
-                        }
-                    },
-                    error: function (e) {
-                        alert("Lỗi hệ thống");
-                        console.log("Lỗi tìm kiếm");
+                        paginationDate(result.totalPages, pageNo, ajaxGetDate);
+                    } else {
+                        alert("Không đơn hàng nào được tìm thấy");
+                        // var selectedVal = $("#status option:selected").text();
+                        var selectedVal = $("#status").val();
+                        ajaxGet(1, selectedVal);
                     }
-                });
-            }
+                },
+                error: function (e) {
+                    alert("Lỗi hệ thống");
+                    console.log("Lỗi tìm kiếm");
+                }
+            });
+
         }
 
-        function paginationName(totalPages, currentPage, searchName, ajaxGetName) {
-            $('#paginationSearch').twbsPagination('destroy');
-            $('#paginationSearch').twbsPagination({
+        function paginationDate(totalPages, currentPage, ajaxGetDate) {
+            $('#paginationDate').twbsPagination('destroy');
+            $('#paginationDate').twbsPagination({
                 totalPages: totalPages,
                 visiblePages: 3,
                 startPage: currentPage,
                 onPageClick: function (event, page) {
-                    var search = $('#searchByName').val();
                     if (currentPage !== page) {
-                        ajaxGetName(page, search);
+                        ajaxGetDate(page);
                     }
                 }
             });
         };
+
+        $('#btnSearch').click(function () {
+            let orderId = $('#searchByName').val();
+            if (orderId != '') {
+                $.ajax({
+                    type: "GET",
+                    contentType: "application/json",
+                    url: "http://localhost:8080/api/order/" + orderId,
+                    success: function (result) {
+                        $('#maDonHang').text("Mã đơn hàng: " + result.id);
+                        $('#hoTenNguoiNhan').text("Người nhận: " + result.name);
+                        $('#sdtNhanHang').text("SĐT: " + result.phone);
+                        $('#diaChiNhan').text("Địa chỉ: " + result.address);
+                        $('#trangThaiDonHang').text("Trạng thái đơn: " + result.status.name);
+                        $('#ngayDatHang').text("Ngày đặt: " + result.timeOrder);
+                        $('#orderId').val(result.id);
+
+                        var stt = 1;
+                        $('.chiTietTable tbody').html('');
+                        $.each(result.ordersDetails, function (i, orderdetails) {
+                            let row =`<tr>
+                                        <td>stt</td>
+                                        <td>${orderdetails.product.name}</td>
+                                        <td>${orderdetails.price}</td>
+                                        <td>${orderdetails.amount}</td>
+                                      </tr>`;
+                            $('.chiTietTable tbody').append(row);
+                            stt++;
+                        });
+
+                        let status_id = result.status.id;
+
+                        $("#status_details option").each(function (i, item) {
+                            if (item.value == status_id) {
+                                $(`#status_details option[value=${status_id}]`).attr('selected', 'selected');
+                            }
+                        });
+
+                        $("#chiTietModal").modal();
+                    },
+                    error: function (response) {
+                        alert("Không tìm thấy đơn hàng " + orderId);
+                    }
+                });
+            } else {
+                alert("Bạn chưa nhập mã đơn hàng");
+            }
+        });
 
         //get info order
         $(document).on("click", ".btnUpdate", function () {
@@ -375,19 +467,19 @@
                     $('#orderId').val(result.id);
 
                     var stt = 1;
+                    $('.chiTietTable tbody').html('');
                     $.each(result.ordersDetails, function (i, orderdetails) {
-                        var chiTietRow = '<tr>' +
-                            '<td>' + stt + '</td>' +
-                            '<td>' + orderdetails.product.name + '</td>' +
-                            '<td>' + orderdetails.price + '</td>' +
-                            '<td>' + orderdetails.amount + '</td>';
-
-                        $('.chiTietTable tbody').append(chiTietRow);
+                        let row =`<tr>
+                                        <td>stt</td>
+                                        <td>${orderdetails.product.name}</td>
+                                        <td>${orderdetails.price}</td>
+                                        <td>${orderdetails.amount}</td>
+                                      </tr>`;
+                        $('.chiTietTable tbody').append(row);
                         stt++;
                     });
 
                     let status_id = result.status.id;
-
                     $("#status_details option").each(function (i, item) {
                         if (item.value == status_id) {
                             $(`#status_details option[value=${status_id}]`).attr('selected', 'selected');
@@ -402,16 +494,16 @@
             });
         });
 
-        function updateOrder(ordersId, statusId){
+        function updateOrder(ordersId, statusId) {
             $.ajax({
                 type: "PUT",
                 contentType: "application/json",
                 url: "http://localhost:8080/api/orders/" + ordersId + "/" + statusId,
                 success: function (result) {
-                    if (result.id == ordersId){
+                    if (result.id == ordersId) {
                         alert("Cập nhật thành công");
                         $('#chiTietModal').modal('hide');
-                        ajaxGet(1,1);
+                        ajaxGet(1, statusId);
                     }
                 },
                 error: function (e) {
@@ -421,21 +513,21 @@
             });
         }
 
-        //delete contact
-        $(document).on("click", ".btnxoa", function () {
+        //delete orders
+        $(document).on("click", ".btnXoa", function () {
             var id = $(this).parent().prev().val();
-            var confirmation = confirm("Bạn chắc chắn vô hiệu hóa khoản này ?");
+            var confirmation = confirm("Bạn chắc chắn huỷ đơn hàng này ?");
             if (confirmation) {
                 $.ajax({
                     type: "DELETE",
                     async: false,
                     contentType: "application/json",
-                    url: "http://localhost:8080/api/user/" + id,
+                    url: "http://localhost:8080/api/orders/" + id,
                     success: function (result) {
                         if (result.deleted == true) {
-                            alert("Vô hiệu hóa thành công tài khoản");
+                            alert("Đơn hàng đã được hủy");
                             $('#searchByName').val('');
-                            ajaxGet(1);
+                            ajaxGet(1, 5);
                         }
                     },
                     error: function (e) {

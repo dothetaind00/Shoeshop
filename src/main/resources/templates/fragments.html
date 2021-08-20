@@ -46,6 +46,7 @@
     <link href="NiceAdmin/css/style-responsive.css" rel="stylesheet"/>
     <link href="NiceAdmin/css/xcharts.min.css" rel=" stylesheet">
     <link href="NiceAdmin/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <!-- javascripts -->
     <script src="NiceAdmin/js/jquery.js"></script>
@@ -129,13 +130,13 @@
         <ul class="nav pull-right top-menu">
 
             <li class="dropdown">
-                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                <button type="button" data-toggle="dropdown" class="dropdown-toggle">
                     Wellcome, <b><span sec:authentication="name">Username</span></b>
-                </a>
+                </button>
                 <ul class="dropdown-menu extended logout">
                     <div class="log-arrow-up"></div>
                     <li class="eborder-top">
-                        <a th:href="@{'/admin/'${#authentication.getPrincipal().getUsername()}}"><i
+                        <a th:href="@{/admin/{username}(username = ${#authentication.getPrincipal().getUsername()})}"><i
                                 class="icon_profile"></i>Thông tin tài khoản</a>
                     </li>
                     <li>
