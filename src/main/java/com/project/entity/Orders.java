@@ -1,10 +1,17 @@
 package com.project.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.LazyGroup;
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
+import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -58,9 +65,11 @@ public class Orders {
     @JsonIgnore
     private Coupon coupon;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "status_id")
-    @JsonIgnore
     private Status status;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orders")
+    private List<OrdersDetail> ordersDetails = new ArrayList<>();
 
 }
