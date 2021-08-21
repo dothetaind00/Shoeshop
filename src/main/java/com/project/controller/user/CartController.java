@@ -2,10 +2,8 @@ package com.project.controller.user;
 
 import com.project.auth.MyUserDetails;
 import com.project.entity.*;
-import com.project.repository.CartDetailRepository;
-import com.project.repository.CartRepository;
 import com.project.service.*;
-import com.sun.org.apache.xpath.internal.operations.Mod;
+import com.project.utils.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/cart")
@@ -36,13 +36,16 @@ public class CartController {
     @Autowired
     private SizeService sizeService;
 
+    @Autowired
+    private SecurityUtil securityUtil;
+
     @GetMapping
     public String getPage(Authentication authentication, HttpSession session, Model model){
         authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!authentication.getPrincipal().equals("anonymousUser")){
-            Optional<User> user = userService.findUserByUserName(authentication.getName());
+            MyUserDetails userDetails = securityUtil.myUserDetails();
 
-            Optional<Cart> cart = cartService.findCartByUserId(user.get().getId());
+            Optional<Cart> cart = cartService.findCartByUserId(userDetails.getUser().getId()));
             if (cart.isPresent()) {
                 List<CartDetail> list = cartDetailService.findAllByCartId(cart.get().getId());
                 model.addAttribute("listCart",list);
