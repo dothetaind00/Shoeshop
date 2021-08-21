@@ -31,9 +31,6 @@ public class CartController {
     private CartDetailService cartDetailService;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private SizeService sizeService;
 
     @Autowired
@@ -45,7 +42,7 @@ public class CartController {
         if (!authentication.getPrincipal().equals("anonymousUser")){
             MyUserDetails userDetails = securityUtil.myUserDetails();
 
-            Optional<Cart> cart = cartService.findCartByUserId(userDetails.getUser().getId()));
+            Optional<Cart> cart = cartService.findCartByUserId(userDetails.getUser().getId());
             if (cart.isPresent()) {
                 List<CartDetail> list = cartDetailService.findAllByCartId(cart.get().getId());
                 model.addAttribute("listCart",list);
@@ -78,9 +75,9 @@ public class CartController {
         //xu ly database
         if (!authentication.getPrincipal().equals("anonymousUser")){
 
-            Optional<User> user = userService.findUserByUserName(authentication.getName());
+            MyUserDetails userDetails = securityUtil.myUserDetails();
 
-            Optional<Cart> cart = cartService.findCartByUserId(user.get().getId());
+            Optional<Cart> cart = cartService.findCartByUserId(userDetails.getUser().getId());
             if (cart.isPresent()){
                 List<CartDetail> list = cartDetailService.findAllByCartId(cart.get().getId());
 
@@ -110,7 +107,7 @@ public class CartController {
                 model.addAttribute("totalCost",cart.get().getTotalCost());
             }else{
                 Cart cartNew = new Cart();
-                cartNew.setUser(user.orElse(null));
+                cartNew.setUser(userDetails.getUser());
                 cartNew.setTotalCost(product.getPrice() * amount);
                 cartNew.setTotalAmount(amount);
                 Cart newCart = cartService.save(cartNew);
@@ -175,9 +172,9 @@ public class CartController {
         authentication = SecurityContextHolder.getContext().getAuthentication();
         //authenticated
         if (!authentication.getPrincipal().equals("anonymousUser")){
-            Optional<User> user = userService.findUserByUserName(authentication.getName());
+            MyUserDetails userDetails = securityUtil.myUserDetails();
 
-            Optional<Cart> cart = cartService.findCartByUserId(user.get().getId());
+            Optional<Cart> cart = cartService.findCartByUserId(userDetails.getUser().getId());
             if (cart.isPresent()){
                 List<CartDetail> list = cartDetailService.findAllByCartId(cart.get().getId());
                 if (!list.isEmpty()){

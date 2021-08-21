@@ -1,11 +1,13 @@
 package com.project.controller.user;
 
+import com.project.auth.MyUserDetails;
 import com.project.entity.Role;
 import com.project.entity.User;
 import com.project.exception.CustomNotFoundException;
 import com.project.service.RoleService;
 import com.project.service.UserService;
 import com.project.service.sendmail.SendMail;
+import com.project.utils.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
@@ -32,20 +34,17 @@ public class UserController {
     @Autowired
     private SendMail sendMail;
 
+    @Autowired
+    private SecurityUtil securityUtil;
+
     @GetMapping("/{username}")
     @Secured({"ROLE_USER","ROLE_ADMIN"})
     public String getUser(@PathVariable String username, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(!authentication.getPrincipal().equals("anonymousUser")){
-            try {
-                User user = userService.findUserByUserNameAndIsEnable(username, true);
-                model.addAttribute("user", user);
-                return "user/edit-user";
-            }catch (CustomNotFoundException ex){
-                model.addAttribute("user", new User());
-                model.addAttribute("error", ex.getMessage());
-                return "user/edit-user";
-            }
+            MyUserDetails userDetails = securityUtil.myUserDetails();
+            model.addAttribute("user", userDetails.getUser());
+            return "user/edit-user";
         }
         return "redirect:http://localhost:8080/perform_logout";
     }
