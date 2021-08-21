@@ -1,5 +1,6 @@
 package com.project.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +9,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -39,6 +39,7 @@ public class Coupon {
     private Timestamp endDate;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "coupon")
+    @JsonIgnore
     private List<Orders> orders = new ArrayList<>();
 
 }
