@@ -1,11 +1,14 @@
 package com.project.config;
 
 import com.project.auth.CustomerUserDetailService;
+import com.project.jwt.JwtAuthenticationEntryPoint;
+import com.project.jwt.JwtRequestFilter;
 import com.project.security.CustomAccessDeniedHandler;
 import com.project.security.CustomAuthSuccessHandler;
 import com.project.security.CustomLogoutSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -57,6 +60,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return sessionRegistry;
     }
 
+    @Bean
+    public JwtRequestFilter jwtRequestFilter() {
+        return new JwtRequestFilter();
+    }
+
+    @Bean
+    public JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint() {
+        return new JwtAuthenticationEntryPoint();
+    }
+
+    @Bean
+    @Override
+    protected AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
@@ -86,6 +105,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler());
+        //số phiên đăng nhập tối đa 1
         http.sessionManagement().maximumSessions(1).expiredUrl("/login?expired")
                     .maxSessionsPreventsLogin(true).sessionRegistry(sessionRegistry());
     }
