@@ -495,8 +495,12 @@
         });
 
         function updateOrder(ordersId, statusId) {
+            let token = localStorage.getItem("token");
             $.ajax({
                 type: "PUT",
+                headers: {
+                    Authorization: 'Bearer ' + token
+                },
                 contentType: "application/json",
                 url: "http://localhost:8080/api/orders/" + ordersId + "/" + statusId,
                 success: function (result) {
