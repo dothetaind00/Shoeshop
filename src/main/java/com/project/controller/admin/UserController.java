@@ -1,8 +1,10 @@
 package com.project.controller.admin;
 
+import com.project.auth.MyUserDetails;
 import com.project.entity.User;
 import com.project.exception.CustomNotFoundException;
 import com.project.service.UserService;
+import com.project.utils.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,16 +27,15 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private SecurityUtil securityUtil;
+
     @GetMapping("/admin/profile")
     public String getAdmin(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!authentication.getPrincipal().equals("anonymousUser")){
-            try {
-                User user = userService.findUserByUserNameAndIsEnable(authentication.getName(), true);
-                model.addAttribute("user",user);
-            } catch (CustomNotFoundException e) {
-                e.printStackTrace();
-            }
+            MyUserDetails userDetails = securityUtil.myUserDetails();
+            model.addAttribute("user",userDetails.getUser());
         }
         return "admin/profileadmin";
     }

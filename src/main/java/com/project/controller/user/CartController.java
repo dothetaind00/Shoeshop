@@ -148,6 +148,7 @@ public class CartController {
         }
         session.setAttribute("listCart", listCart);
         session.setAttribute("totalCost", cartService.totalCost(listCart));
+        session.setAttribute("total", cartService.totalAmount(listCart));
         model.addAttribute("listCart",listCart);
         model.addAttribute("totalCost",cartService.totalCost(listCart));
 
@@ -203,8 +204,10 @@ public class CartController {
                 listCart.get(i).setAmount(Integer.parseInt(itemUpdate[i]));
             }
             session.setAttribute("listCart", listCart);
+            session.setAttribute("total", cartService.totalAmount(listCart));
             model.addAttribute("totalCost", cartService.totalCost(listCart));
         }else {
+            session.setAttribute("total", 0);
             model.addAttribute("totalCost", 0);
         }
         model.addAttribute("listCart", listCart);
@@ -238,7 +241,11 @@ public class CartController {
             }
         }
         session.setAttribute("listCart", listCart);
-
+        if (listCart != null){
+            session.setAttribute("total", cartService.totalAmount(listCart));
+        }else{
+            session.setAttribute("total", 0);
+        }
         return "redirect:/cart";
     }
 

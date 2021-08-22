@@ -102,7 +102,8 @@ public class SizeController {
 		}else {
 			// dont have this size
 			// error page
-			return null;
+			model.addAttribute("mess", "Không tồn tại size này");
+			return "error";
 		}
 		
 	}
@@ -117,7 +118,8 @@ public class SizeController {
 		}else {
 			// don't have this size
 			// error
-			return null;
+			model.addAttribute("mess", "Không tồn tại size này");
+			return "error";
 		}
 		
 	}

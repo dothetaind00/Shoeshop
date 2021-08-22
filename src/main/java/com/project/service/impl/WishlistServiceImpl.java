@@ -51,6 +51,10 @@ public class WishlistServiceImpl implements WishlistService {
 	public List<Wishlist> findByUser(User user) {
 		return wishlistRepository.findByUser(user);
 	}
-	
-	
+
+	@Override
+	public List<Wishlist> findByUserUserName(String username) {
+		return wishlistRepository.findByUserUserName(username);
+	}
+
 }

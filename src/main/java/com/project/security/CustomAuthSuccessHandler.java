@@ -59,12 +59,6 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
         }
         redirectStrategy.sendRedirect(request, response, targetURL);
 
-        MyUserDetails userDetails = securityUtil.myUserDetails();
-        Optional<Cart> cart = cartRepository.findCartByUserId(userDetails.getUser().getId());
-        if (cart.isPresent()){
-            System.out.println("Ok");
-        }
-
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
         userRepository.setTimeLogin(timestamp, authentication.getName());

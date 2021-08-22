@@ -42,7 +42,7 @@
                     <div class="tip">2</div>
                 </a></li>
                 <li><a href="#"><span class="icon_bag_alt"></span>
-                    <div class="tip">2</div>
+                    <div class="tip">0</div>
                 </a></li>
             </ul>
             <div class="offcanvas__logo">
@@ -114,10 +114,36 @@
                             <ul class="header__right__widget">
                                 <li><span class="icon_search search-switch"></span></li>
                                 <li><a href="/wishlist"><span class="icon_heart_alt"></span>
-                                    <div class="tip">0</div>
+                                    <th:block sec:authorize="isAuthenticated()">
+                                        <th:block th:if="${amountWishlist != null}">
+                                            <div class="tip" th:text="${amountWishlist}"></div>
+                                        </th:block>
+                                        <th:block th:unless="${amountWishlist != null}">
+                                            <div class="tip">0</div>
+                                        </th:block>
+                                    </th:block>
+                                    <th:block sec:authorize="isAnonymous()">
+                                        <div class="tip">0</div>
+                                    </th:block>
                                 </a></li>
                                 <li><a href="/cart"><span class="icon_bag_alt"></span>
-                                    <div class="tip">0</div>
+<!--                                    <p>[[${#httpServletRequest.getAttribute('amountIcon')}]]</p>-->
+                                    <th:block sec:authorize="isAuthenticated()">
+                                        <th:block th:if="${amountIcon != null}">
+                                            <div class="tip" th:text="${amountIcon}"></div>
+                                        </th:block>
+                                        <th:block th:unless="${amountIcon != null}">
+                                            <div class="tip">0</div>
+                                        </th:block>
+                                    </th:block>
+                                    <th:block sec:authorize="isAnonymous()">
+                                        <th:block th:if="${session.total != null}">
+                                            <div class="tip" th:text="${session.total}"></div>
+                                        </th:block>
+                                        <th:block th:unless="${session.total != null}">
+                                            <div class="tip">0</div>
+                                        </th:block>
+                                    </th:block>
                                 </a></li>
                             </ul>
                         </div>
