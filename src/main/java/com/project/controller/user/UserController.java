@@ -82,7 +82,7 @@ public class UserController {
             });
             thread.start();
 
-            return "redirect:/login";
+            return "redirect:/login?success";
 
         } else {
             //update

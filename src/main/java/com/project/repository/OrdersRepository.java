@@ -24,12 +24,12 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
     @Query("UPDATE Orders o SET o.status.id = :statusId WHERE o.id = :ordersId")
     void cancelOrder(@Param("ordersId") Integer ordersId, @Param("statusId") Integer statusId);
 
-    @Query(value = "SELECT MONTH(time_order), SUM(total_amount), sum(total_cost) FROM orders Where status_id = 5 Group by MONTH(time_order) order by MONTH(time_order) asc", nativeQuery = true)
+    @Query(value = "SELECT MONTH(time_order), SUM(total_amount), sum(total_cost) FROM orders Where status_id = 4 Group by MONTH(time_order) order by MONTH(time_order) asc", nativeQuery = true)
     public List<Object[]> listByMonth();
 
-    @Query(value = "SELECT MONTH(time_order), SUM(total_amount), sum(total_cost) FROM orders Where status_id = 5 and time_order between ?1 and ?2 Group by MONTH(time_order) order by MONTH(time_order) asc;", nativeQuery = true)
+    @Query(value = "SELECT MONTH(time_order), SUM(total_amount), sum(total_cost) FROM orders Where status_id = 4 and time_order between ?1 and ?2 Group by MONTH(time_order) order by MONTH(time_order) asc;", nativeQuery = true)
     public List<Object[]> findByMonth(String firstDate, String endDate);
 
-    @Query(value = "SELECT count(id) FROM orders where status_id = 5", nativeQuery = true)
+    @Query(value = "SELECT count(id) FROM orders where status_id = 4", nativeQuery = true)
     Integer countOrder();
 }

@@ -236,6 +236,8 @@
             $('#addPagi').children("#paginationSearch").remove();
             $('#addPagi').children("#paginationDate").remove();
             $('#searchByName').val('');
+            $('#fromDate').val('');
+            $('#toDate').val('');
             // $('#status').val(1).change();
             $('#status').val(1);
         });
@@ -245,7 +247,7 @@
                 let status = $(this).val();
                 $('#addPagi').children("#paginationSearch").remove();
                 $('#addPagi').children("#paginationDate").remove();
-                alert("Ma trang thai : " + status);
+                alert("Trạng thái : " + $(this).text());
                 ajaxGet(1, status);
             });
         });

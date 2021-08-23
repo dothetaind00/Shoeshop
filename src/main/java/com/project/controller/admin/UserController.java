@@ -1,10 +1,8 @@
 package com.project.controller.admin;
 
-import com.project.auth.MyUserDetails;
 import com.project.entity.User;
 import com.project.exception.CustomNotFoundException;
 import com.project.service.UserService;
-import com.project.utils.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

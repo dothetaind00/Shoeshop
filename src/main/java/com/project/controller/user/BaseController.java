@@ -51,7 +51,6 @@ public class BaseController {
 	public String homePage(Model model, HttpSession session, HttpServletRequest request) {
 
 		Integer amount = (Integer) request.getAttribute("amountIcon");
-		System.out.println("" + amount);
 
 		model.addAttribute("listNews", productService.findNewProductByDate());
 		model.addAttribute("listNikeShoes", productService.findByBrand(1, 8));
