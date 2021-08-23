@@ -136,10 +136,10 @@
                 <ul class="dropdown-menu extended logout">
                     <div class="log-arrow-up"></div>
                     <li class="eborder-top">
-                        <a th:href="@{/admin/{username}(username = ${#authentication.getPrincipal().getUsername()})}"><i
-                                class="icon_profile"></i>Thông tin tài khoản</a>
-<!--                        <a th:href="@{/admin/profile}"><i-->
+<!--                        <a th:href="@{/admin/{username}(username = ${#authentication.getPrincipal().getUsername()})}"><i-->
 <!--                                class="icon_profile"></i>Thông tin tài khoản</a>-->
+                        <a th:href="@{/admin/profile}"><i
+                                class="icon_profile"></i>Thông tin tài khoản</a>
                     </li>
                     <li>
                         <a th:href="@{/perform_logout}"><i class="icon_key_alt"></i> Đăng xuất</a>

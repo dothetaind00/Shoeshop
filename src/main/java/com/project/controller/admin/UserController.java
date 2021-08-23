@@ -27,15 +27,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private SecurityUtil securityUtil;
-
     @GetMapping("/admin/profile")
     public String getAdmin(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!authentication.getPrincipal().equals("anonymousUser")){
-            MyUserDetails userDetails = securityUtil.myUserDetails();
-            model.addAttribute("user",userDetails.getUser());
+            try {
+                User user = userService.findUserByUserNameAndIsEnable(authentication.getName(), true);
+                model.addAttribute("user",user);
+            } catch (CustomNotFoundException e) {
+                e.printStackTrace();
+            }
         }
         return "admin/profileadmin";
     }
