@@ -34,4 +34,6 @@ public interface UserService {
     void enableUser(Boolean isEnable, Integer id);
 
     void updateToken(String token, String email);
+
+    Integer countUser();
 }

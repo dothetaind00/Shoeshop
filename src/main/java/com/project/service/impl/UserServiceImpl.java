@@ -123,4 +123,7 @@ public class UserServiceImpl implements UserService {
     public void updateToken(String token, String email) {
         userRepository.updateToken(token, email);
     }
+
+    @Override
+    public Integer countUser() { return userRepository.countUser(); }
 }

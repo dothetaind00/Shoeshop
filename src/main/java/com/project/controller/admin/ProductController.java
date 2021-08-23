@@ -42,7 +42,7 @@ public class ProductController {
 		return findPaginated(1, keyword, model);
 	}
 
-	@GetMapping("/product/addproduct")
+	@GetMapping("/product/add")
 	public String addProduct(Model model) {
 		Product product = new Product();
 

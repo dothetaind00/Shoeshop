@@ -34,17 +34,20 @@ public class UserController {
     @Autowired
     private SendMail sendMail;
 
-    @Autowired
-    private SecurityUtil securityUtil;
-
     @GetMapping("/{username}")
     @Secured({"ROLE_USER","ROLE_ADMIN"})
     public String getUser(@PathVariable String username, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(!authentication.getPrincipal().equals("anonymousUser")){
-            MyUserDetails userDetails = securityUtil.myUserDetails();
-            model.addAttribute("user", userDetails.getUser());
-            return "user/edit-user";
+            try {
+                User user = userService.findUserByUserNameAndIsEnable(username, true);
+                model.addAttribute("user", user);
+                return "user/edit-user";
+            }catch (CustomNotFoundException ex){
+                model.addAttribute("user", new User());
+                model.addAttribute("error", ex.getMessage());
+                return "user/edit-user";
+            }
         }
         return "redirect:http://localhost:8080/perform_logout";
     }

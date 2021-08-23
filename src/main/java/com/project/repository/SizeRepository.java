@@ -29,4 +29,7 @@ public interface SizeRepository extends JpaRepository<Size, Integer>{
 	@Modifying
 	@Query("update Size s set s.amount = :amount where s.id = :id")
 	void updateAmount(@Param("amount") Integer amount,@Param("id") Integer id);
+
+	@Query(value = "SELECT sum(s.amount) FROM size s , product p where p.is_enable = 1 and s.product_id = p.id;", nativeQuery = true)
+	Integer sumProduct();
 }

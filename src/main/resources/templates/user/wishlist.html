@@ -40,7 +40,8 @@
 												<h6 th:text="${item.product.name}"></h6>
 											</div>
 										</td>
-										<td class="cart__price" th:text="${#numbers.formatDecimal(item.product.price, 3, 'COMMA', 0, 'POINT') + ' VNĐ'}"></td>								
+										<td class="cart__price" th:if= "${item.product.sale == 0}">[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</td>
+										<td class="cart__price" th:unless= "${item.product.sale != 0}">[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ  <span>[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</span></td>
 										<td class="cart__close">
 											<div sec:authorize="isAuthenticated()">
 												<a th:href="@{'/wishlist/remove/' + ${item.id}}">

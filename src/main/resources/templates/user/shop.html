@@ -159,7 +159,7 @@
                                 <div class="product__item__text">
                                     <h6><a th:href="@{'/product/' + ${p.id}}">[[${p.name}]]</a></h6>
                                     <div class="product__price" th:if= "${p.sale == 0}">[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</div>
-                                    <div class="product__price" th:unless= "${p.sale == 0}">[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ  <span>[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</span></div>
+                                    <div class="product__price" th:unless= "${p.sale == 0}">[[${#numbers.formatDecimal(p.sale, 3, 'COMMA', 0, 'POINT')}]] VNĐ  <span>[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</span></div>
                                 </div>
                             </div>
                         </div>

@@ -1,0 +1,166 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: html_head" />
+
+<body>
+<!-- container section start -->
+<section id="container" class="">
+    <header th:replace="fragments :: bar"></header>
+    <aside th:replace="fragments :: menu"></aside>
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header" style="font-family: arial;">
+                        <i class="fa fa-gift"></i> Thống kê
+                    </h3>
+                    <ol class="breadcrumb" style="font-family: arial;">
+                        <li><a th:href="@{/admin}">Trang chủ</a></li>
+                        <li>Thống kê</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- page start-->
+            <div class="col-lg-12">
+                <section class="" style="margin-top: 0px">
+                    <div class=" row">
+                        <div class="col-md-3" style="color: white">
+                            <div class="" style="background-color: blue;">
+                                <div class="col-md-4 ">
+                                    <i class="fa fa-eye"> </i>
+                                </div>
+                                <div class="col-md-8">
+                                    <h4>Sản phẩm trong kho</h4>
+                                    <h3>[[${product}]]</h3>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 " style="color: white">
+                            <div class="" style="background-color: green;">
+                                <div class="col-md-4 ">
+                                    <i class="fa fa-users"></i>
+                                </div>
+                                <div class="col-md-8 ">
+                                    <h4>Số lượng Users</h4>
+                                    <h3>[[${user}]]</h3>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 " style="color: white">
+                            <div class="" style="background-color: red;">
+                                <div class="col-md-4 ">
+                                    <i class="fa fa-usd"></i>
+                                </div>
+                                <div class="col-md-8 ">
+                                    <h4>Tổng doanh thu</h4>
+                                    <h3>[[${total}]]</h3>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 " style="color: white">
+                            <div class="" style="background-color: orange;">
+                                <div class="col-md-4 ">
+                                    <i class="fa fa-shopping-cart"></i>
+                                </div>
+                                <div class="col-md-8 ">
+                                    <h4>Tổng Đơn hàng</h4>
+                                    <h3>[[${order}]]</h3>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="row">
+                    <form action="/admin/filter" method="post">
+                        <label for="firstdate" class="control-label">Bắt đầu từ<span class="required">*</span></label>
+                        <div class="col-6"><input type="date" name="firstdate" id="firstdate" required th:value="${firstdate}"></div>
+                        <label for="lastdate" class="control-label">Kết thúc<span class="required">*</span></label>
+                        <div class="col-6"><input type="date" name="lastdate" id="lastdate" required th:value="${lastdate}"></div>
+                        <button type="submit" class="btn-primary" name="submit_button" id="submit_button">Thống kê</button>
+                        <a class="btn btn-primary" href="/admin" role="button">Reset</a>
+                    </form>
+                </div>
+
+                <div class="row">
+                    <div id="piechart" style="width: 900px; height: 500px;"></div>
+                </div>
+                <div class="row">
+                    <div id="piechart2" style="width: 900px; height: 500px;"></div>
+                </div>
+            </div>
+
+            <!-- page end-->
+        </section>
+    </section>
+    <!--main content end-->
+
+</section>
+<script type="text/javascript"
+        src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    google.charts.load("current", {'packages':["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Tháng', 'Tổng số lượng sản phẩm'],
+            /*[# th:each = "row : ${list}"]*/
+            ['[[${row[0]}]]',[[${row[1]}]]],
+            /*[/]*/
+        ]);
+
+        var options = {
+            legend: 'none',
+            pieSliceText: 'label',
+            title: 'Tổng sản phẩm đã bán được theo tháng: [[${amount}]] sản phẩm',
+            pieStartAngle: 100,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+    }
+
+    google.charts.setOnLoadCallback(drawChart2);
+    function drawChart2() {
+        var data2 = google.visualization.arrayToDataTable([
+            ['Tháng', 'Tổng doanh thu theo tháng'],
+            /*[# th:each = "row : ${list}"]*/
+            ['[[${row[0]}]]',[[${row[2]}]]],
+            /*[/]*/
+        ]);
+
+        var options2 = {
+            legend: 'none',
+            pieSliceText: 'label',
+            title: 'Tổng doanh thu theo tháng: [[${total}]] VNĐ',
+            pieStartAngle: 100,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart2'));
+        chart.draw(data2, options2);
+    }
+
+    $(document).ready(function(){
+        $('#submit_button').click(function() {
+            var firstDate = $('#firstdate').val();
+            var lastDate = $('#lastdate').val();
+            if(firstDate > lastDate){
+                alert('Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc');
+                return false;
+            }
+        });
+    });
+
+</script>
+
+</body>
+
+</html>

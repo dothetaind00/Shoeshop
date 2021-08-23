@@ -76,4 +76,7 @@ public class SizeServiceImpl implements SizeService {
 		sizeRepository.updateAmount(amount,id);
 	}
 
+	@Override
+	public Integer sumProduct() { return sizeRepository.sumProduct(); }
+
 }

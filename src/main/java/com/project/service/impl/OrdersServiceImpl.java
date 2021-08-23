@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -63,5 +64,19 @@ public class OrdersServiceImpl implements OrdersService {
             e.printStackTrace();
         }
         return null;
+    }
+    @Override
+    public List<Object[]> listByMonth() {
+        return ordersRepository.listByMonth();
+    }
+
+    @Override
+    public List<Object[]> findByMonth(String firstDate, String endDate) {
+        return ordersRepository.findByMonth(firstDate, endDate);
+    }
+
+    @Override
+    public Integer countOrder() {
+        return ordersRepository.countOrder();
     }
 }
