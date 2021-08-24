@@ -59,9 +59,7 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
         }
         redirectStrategy.sendRedirect(request, response, targetURL);
 
-        Date date = new Date();
-        Timestamp timestamp = new Timestamp(date.getTime());
-        userRepository.setTimeLogin(timestamp, authentication.getName());
+        userRepository.setTimeLogin(new Timestamp(System.currentTimeMillis()), authentication.getName());
     }
 
     protected String determineTargetUrl(Authentication authentication) {
