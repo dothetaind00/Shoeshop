@@ -236,6 +236,8 @@
             $('#addPagi').children("#paginationSearch").remove();
             $('#addPagi').children("#paginationDate").remove();
             $('#searchByName').val('');
+            $('#fromDate').val('');
+            $('#toDate').val('');
             // $('#status').val(1).change();
             $('#status').val(1);
         });
@@ -245,7 +247,7 @@
                 let status = $(this).val();
                 $('#addPagi').children("#paginationSearch").remove();
                 $('#addPagi').children("#paginationDate").remove();
-                alert("Ma trang thai : " + status);
+                alert("Trạng thái : " + $(this).text());
                 ajaxGet(1, status);
             });
         });
@@ -495,8 +497,12 @@
         });
 
         function updateOrder(ordersId, statusId) {
+            let token = localStorage.getItem("token");
             $.ajax({
                 type: "PUT",
+                headers: {
+                    Authorization: 'Bearer ' + token
+                },
                 contentType: "application/json",
                 url: "http://localhost:8080/api/orders/" + ordersId + "/" + statusId,
                 success: function (result) {

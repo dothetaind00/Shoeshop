@@ -2,10 +2,8 @@ package com.project.controller.user;
 
 import com.project.auth.MyUserDetails;
 import com.project.entity.*;
-import com.project.repository.CartDetailRepository;
-import com.project.repository.CartRepository;
 import com.project.service.*;
-import com.sun.org.apache.xpath.internal.operations.Mod;
+import com.project.utils.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/cart")
@@ -31,18 +31,18 @@ public class CartController {
     private CartDetailService cartDetailService;
 
     @Autowired
-    private UserService userService;
+    private SizeService sizeService;
 
     @Autowired
-    private SizeService sizeService;
+    private SecurityUtil securityUtil;
 
     @GetMapping
     public String getPage(Authentication authentication, HttpSession session, Model model){
         authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!authentication.getPrincipal().equals("anonymousUser")){
-            Optional<User> user = userService.findUserByUserName(authentication.getName());
+            MyUserDetails userDetails = securityUtil.myUserDetails();
 
-            Optional<Cart> cart = cartService.findCartByUserId(user.get().getId());
+            Optional<Cart> cart = cartService.findCartByUserId(userDetails.getUser().getId());
             if (cart.isPresent()) {
                 List<CartDetail> list = cartDetailService.findAllByCartId(cart.get().getId());
                 model.addAttribute("listCart",list);
@@ -75,9 +75,9 @@ public class CartController {
         //xu ly database
         if (!authentication.getPrincipal().equals("anonymousUser")){
 
-            Optional<User> user = userService.findUserByUserName(authentication.getName());
+            MyUserDetails userDetails = securityUtil.myUserDetails();
 
-            Optional<Cart> cart = cartService.findCartByUserId(user.get().getId());
+            Optional<Cart> cart = cartService.findCartByUserId(userDetails.getUser().getId());
             if (cart.isPresent()){
                 List<CartDetail> list = cartDetailService.findAllByCartId(cart.get().getId());
 
@@ -107,7 +107,7 @@ public class CartController {
                 model.addAttribute("totalCost",cart.get().getTotalCost());
             }else{
                 Cart cartNew = new Cart();
-                cartNew.setUser(user.orElse(null));
+                cartNew.setUser(userDetails.getUser());
                 cartNew.setTotalCost(product.getPrice() * amount);
                 cartNew.setTotalAmount(amount);
                 Cart newCart = cartService.save(cartNew);
@@ -148,6 +148,7 @@ public class CartController {
         }
         session.setAttribute("listCart", listCart);
         session.setAttribute("totalCost", cartService.totalCost(listCart));
+        session.setAttribute("total", cartService.totalAmount(listCart));
         model.addAttribute("listCart",listCart);
         model.addAttribute("totalCost",cartService.totalCost(listCart));
 
@@ -172,9 +173,9 @@ public class CartController {
         authentication = SecurityContextHolder.getContext().getAuthentication();
         //authenticated
         if (!authentication.getPrincipal().equals("anonymousUser")){
-            Optional<User> user = userService.findUserByUserName(authentication.getName());
+            MyUserDetails userDetails = securityUtil.myUserDetails();
 
-            Optional<Cart> cart = cartService.findCartByUserId(user.get().getId());
+            Optional<Cart> cart = cartService.findCartByUserId(userDetails.getUser().getId());
             if (cart.isPresent()){
                 List<CartDetail> list = cartDetailService.findAllByCartId(cart.get().getId());
                 if (!list.isEmpty()){
@@ -203,8 +204,10 @@ public class CartController {
                 listCart.get(i).setAmount(Integer.parseInt(itemUpdate[i]));
             }
             session.setAttribute("listCart", listCart);
+            session.setAttribute("total", cartService.totalAmount(listCart));
             model.addAttribute("totalCost", cartService.totalCost(listCart));
         }else {
+            session.setAttribute("total", 0);
             model.addAttribute("totalCost", 0);
         }
         model.addAttribute("listCart", listCart);
@@ -238,7 +241,11 @@ public class CartController {
             }
         }
         session.setAttribute("listCart", listCart);
-
+        if (listCart != null){
+            session.setAttribute("total", cartService.totalAmount(listCart));
+        }else{
+            session.setAttribute("total", 0);
+        }
         return "redirect:/cart";
     }
 

@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 
 public interface OrdersService {
@@ -20,5 +21,11 @@ public interface OrdersService {
     void cancelOrder(Integer ordersId,Integer statusId);
 
     String toDate(String str);
+
+    List<Object[]> listByMonth();
+
+    List<Object[]> findByMonth(String firstDate, String endDate);
+
+    Integer countOrder();
 
 }

@@ -56,8 +56,22 @@ public class  CategoryController {
 	// Delete Category
 	@GetMapping("/delete/{id}")
 	public String delete(Model model, @PathVariable Integer id) {
-		categoryService.deleteById(id);
-		return "redirect:/admin/category";
+		//		categoryService.deleteById(id);
+
+		// we not delete we just disable it.
+		Optional<Category> cate = categoryService.findById(id);
+		// Check Category Exit or not
+		if(cate.isPresent()) {
+			// Exist
+			cate.get().setIsDisplay(false);
+			categoryService.save(cate.get());
+			return "redirect:/admin/category";
+		}else {
+			// Not Exist
+			// Error Page
+			model.addAttribute("mess", "Không tồn tại thể loại này");
+			return "error";
+		}
 	}
 	
 	@GetMapping("/edit/{id}")

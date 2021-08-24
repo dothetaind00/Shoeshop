@@ -42,7 +42,7 @@ public class ProductController {
 		return findPaginated(1, keyword, model);
 	}
 
-	@GetMapping("/product/addproduct")
+	@GetMapping("/product/add")
 	public String addProduct(Model model) {
 		Product product = new Product();
 
@@ -127,8 +127,20 @@ public class ProductController {
 	// Delete Category
 	@GetMapping("/product/delete/{id}")
 	public String delete(Model model, @PathVariable Integer id) {
-		productService.deleteById(id);
-		return "redirect:/admin/product";
+		//		productService.deleteById(id);
+
+		Optional<Product> product = productService.findById(id);
+		// Check Category Exit or not
+		if (product.isPresent()) {
+			product.get().setIsEnable(false);
+			productService.save(product.get());
+			return "redirect:/admin/product";
+		} else {
+			// Not Exist
+			// Error Page
+			model.addAttribute("mess", "Không tồn tại sản phẩm này");
+			return "error";
+		}
 	}
 
 	// paginated

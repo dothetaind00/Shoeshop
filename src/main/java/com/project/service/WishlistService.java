@@ -22,4 +22,6 @@ public interface WishlistService {
 	
 	List<Wishlist> findByUser(User user);
 
+	List<Wishlist> findByUserUserName(String username);
+
 }

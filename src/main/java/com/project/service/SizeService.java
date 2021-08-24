@@ -31,4 +31,6 @@ public interface SizeService{
 	Integer totalAmount(Integer size_id);
 
 	void updateAmount(Integer amount, Integer id);
+
+	Integer sumProduct();
 }

@@ -1,11 +1,13 @@
 package com.project.controller.user;
 
+import com.project.auth.MyUserDetails;
 import com.project.entity.Role;
 import com.project.entity.User;
 import com.project.exception.CustomNotFoundException;
 import com.project.service.RoleService;
 import com.project.service.UserService;
 import com.project.service.sendmail.SendMail;
+import com.project.utils.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
@@ -80,7 +82,7 @@ public class UserController {
             });
             thread.start();
 
-            return "redirect:/login";
+            return "redirect:/login?success";
 
         } else {
             //update

@@ -54,10 +54,24 @@ public class BrandController {
 		return "redirect:/admin/brand";
 	}
 	// Delete brand
-	@RequestMapping("/delete/{id}")
+	@GetMapping("/delete/{id}")
 	public String delete(ModelMap model, @PathVariable Integer id) {
-		brandService.deleteById(id);
-		return "redirect:/admin/brand";
+		//		brandService.deleteById(id);
+
+		// we not delete we just disable it.
+		Optional<Brand> brand = brandService.findById(id);
+		// Check brand Exit or not
+		if(brand.isPresent()) {
+			// Exist
+			brand.get().setIsDisplay(false);
+			brandService.save(brand.get());
+			return "redirect:/admin/brand";
+		}else {
+			// Not Exist
+			// Error Page
+			model.addAttribute("mess", "Không tồn tại thương hiệu này");
+			return "error";
+		}
 	}
 	
 	@RequestMapping("/edit/{id}")

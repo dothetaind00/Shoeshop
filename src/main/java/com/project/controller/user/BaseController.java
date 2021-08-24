@@ -10,6 +10,7 @@ import com.project.service.SizeService;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +48,13 @@ public class BaseController {
 	}
 
 	@GetMapping("/")
-	public String homePage(Model model, HttpSession session) {
+	public String homePage(Model model, HttpSession session, HttpServletRequest request) {
+
+		Integer amount = (Integer) request.getAttribute("amountIcon");
+
 		model.addAttribute("listNews", productService.findNewProductByDate());
-		model.addAttribute("listNikeShoes", productService.findByBrand(2, 8));
+		model.addAttribute("listNikeShoes", productService.findByBrand(1, 8));
+		model.addAttribute("listAdidasShoes", productService.findByBrand(2, 8));
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!auth.getPrincipal().equals("anonymousUser")) {

@@ -14,7 +14,7 @@
     <!-- Header Section End -->
 
     <!-- Breadcrumb Begin -->
-    <div th:replace="fragments_user :: breadcrumb(href = './index.html', content = 'Login')"></div>
+    <div th:replace="fragments_user :: breadcrumb(href = '/', content = 'Login')"></div>
     <!-- Breadcrumb End -->
 
     <!-- Contact Section Begin -->
@@ -26,17 +26,22 @@
                         <div class="contact__form">
                             <h5>Đăng nhập</h5>
                             <form action="#" th:action="@{/perform_login}" method="post">
-                                <input type="text" name="username" placeholder="Username" required>
-                                <input type="text" name="password" placeholder="Password" required>
+                                <input type="text" id="userName" name="username" placeholder="Username" required>
+                                <input type="password" id="password" name="password" placeholder="Password" required>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <button type="submit" class="site-btn">Đăng nhập </button>
+                                    <button id="btnLogin" type="submit" class="site-btn">Đăng nhập </button>
                                     <a th:href="@{/user/forgot-password}">Forgot Password</a>
                                 </div>
                             </form>
 
                             <th:block th:if="${param.incorrect != null}">
                                 <br>
-                                <h3>Username Or Password Invalid !</h3>
+                                <h3>Tài khoản hoặc mật khẩu của bạn không hợp lệ !</h3>
+                            </th:block>
+
+                            <th:block th:if="${param.success != null}">
+                                <br>
+                                <h3>Bạn hãy check mail để kích hoạt tài khoản !</h3>
                             </th:block>
                         </div>
                     </div>
@@ -70,6 +75,30 @@
     <!-- Search End -->`
 
     <div th:replace="fragments_user :: script"></div>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#btnLogin').click(function (){
+                var username=$("#userName").val();
+                var password=$("#password").val();
+                $.ajax({
+                    cache: true,
+                    type: "POST",
+                    url: "http://localhost:8080/api/login",
+                    contentType: "application/json",
+                    data:JSON.stringify({"username":username ,"password" : password}),
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        //save token
+                        localStorage.setItem("token",data.token);
+                    },
+                    error: function (request) {
+                        console.log("Connection error");
+                    },
+                });
+            });
+        });
+    </script>
 </body>
 </html>

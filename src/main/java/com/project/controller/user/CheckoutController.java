@@ -1,7 +1,9 @@
 package com.project.controller.user;
 
+import com.project.auth.MyUserDetails;
 import com.project.entity.*;
 import com.project.service.*;
+import com.project.utils.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,9 +32,6 @@ public class CheckoutController {
     private OrdersDetailService ordersDetailService;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private CouponService couponService;
 
     @Autowired
@@ -47,15 +46,19 @@ public class CheckoutController {
     @Autowired
     private SizeService sizeService;
 
+    @Autowired
+    private SecurityUtil securityUtil;
+
     @GetMapping("/checkout")
     public String getPage(Authentication authentication, HttpSession session,
                           RedirectAttributes redirectAttributes, Model model) {
         authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!authentication.getPrincipal().equals("anonymousUser")) {
-            Optional<User> user = userService.findUserByUserName(authentication.getName());
-            model.addAttribute("user", user.get());
+            MyUserDetails userDetails = securityUtil.myUserDetails();
+            model.addAttribute("user", userDetails.getUser());
 
-            Optional<Cart> cart = cartService.findCartByUserUserName(authentication.getName());
+            Optional<Cart> cart = cartService.findCartByUserId(userDetails.getUser().getId());
+
             List<CartDetail> list = cartDetailService.findAllByCartId(cart.get().getId());
 
             boolean isFlag = true;
@@ -119,11 +122,11 @@ public class CheckoutController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!authentication.getPrincipal().equals("anonymousUser")) {
-            Optional<User> user = userService.findUserByUserName(authentication.getName());
-            Optional<Cart> cart = cartService.findCartByUserUserName(authentication.getName());
+            MyUserDetails userDetails = securityUtil.myUserDetails();
+            Optional<Cart> cart = cartService.findCartByUserId(userDetails.getUser().getId());
             List<CartDetail> list = cartDetailService.findAllByCartId(cart.get().getId());
 
-            orders.setUser(user.get());
+            orders.setUser(userDetails.getUser());
             //save order
             save(orders, list, orders.getCoupon());
             //delete

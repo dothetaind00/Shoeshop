@@ -16,7 +16,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    @Query("select u from User u")
+    @Query(value = "select * from user u join user_role ur on u.id = ur.user_id where ur.role_id = 2", nativeQuery = true)
     Page<User> findAllUser(Pageable pageable);
 
     Page<User> findByIsEnable(Boolean isEnable, Pageable pageable);
@@ -45,4 +45,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("UPDATE User u set u.token = :token where u.email= :email")
     @Modifying
     void updateToken(@Param("token") String token, @Param("email") String email);
+
+    @Query(value = "SELECT count(id) FROM user where is_enable = 1", nativeQuery = true)
+    Integer countUser();
 }

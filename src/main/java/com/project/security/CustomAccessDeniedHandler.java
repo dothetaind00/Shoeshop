@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+//AccessDeineHandler Được sử dụng để giải quyết các trường hợp ngoại lệ khi người dùng được xác thực truy cập tài nguyên trái phép
 @Component
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 

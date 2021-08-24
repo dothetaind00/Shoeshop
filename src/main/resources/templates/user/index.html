@@ -22,7 +22,6 @@
                             <h1 th:text="${firstBanner.title}"></h1>
                             <p th:text="${firstBanner.desciption}"></p>
                             <a th:href="${firstBanner.url}">Shop now</a>
-
                         </div>
                     </div>
                 </div>
@@ -81,16 +80,15 @@
                                 <i class="fa fa-star"></i>
                             </div>
                             <div class="product__price" th:if= "${p.sale == 0}">[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</div>
-                            <div class="product__price" th:unless= "${p.sale == 0}">[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ  <span>[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</span></div>
+                            <div class="product__price" th:unless= "${p.sale == 0}">[[${#numbers.formatDecimal(p.sale, 3, 'COMMA', 0, 'POINT')}]] VNĐ  <span>[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</span></div>
                         </div>
                     </div>
                 </div>
-                                                               
             </div>
         </div>
     </section>
     <section class="product spad">
-        <div class="container">
+        <div class="container" th:if="${listNikeShoes != null && !listNikeShoes.empty}">
             <div class="row">
                 <div class="col-lg-4 col-md-4">
                     <div class="section-title">
@@ -103,20 +101,16 @@
             </div>
             
             <div class="row property__gallery" id="MixItUpCEC7D7">
-            
  				<div class="col-lg-3 col-md-4 col-sm-6 mix men" th:each = "p : ${listNikeShoes}">
- 				
                     <div class="product__item">
                         <div class="product__item__pic set-bg" th:data-setbg="${p.image1}"  th:style="'background-image: url(' + ${p.image1} + ');'">
                             <div class="label sale" th:if= "${p.sale != 0}">Sale</div>
                             <ul class="product__hover">
                                  <li><a th:href="${p.image1}" class="image-popup"><span
                                         class="arrow_expand"></span></a></li>
-                                <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                
+                                <li><a th:href="@{'/wishlist/' + ${p.id}}"><span class="icon_heart_alt"></span></a></li>
                             </ul>
                         </div>
-                        
                         <div class="product__item__text">
                            <h6><a th:href="@{'/product/' +${p.id}}">[[${p.name}]]</a></h6>
                             <div class="rating">
@@ -127,13 +121,57 @@
                                 <i class="fa fa-star"></i>
                             </div>
                             <div class="product__price" th:if= "${p.sale == 0}">[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</div>
-                            <div class="product__price" th:unless= "${p.sale == 0}">[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ <span>[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</span></div>
+                            <div class="product__price" th:unless= "${p.sale == 0}">[[${#numbers.formatDecimal(p.sale, 3, 'COMMA', 0, 'POINT')}]] VNĐ <span>[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</span></div>
                         </div>
                     </div>
                 </div>
-                                                
             </div>
         </div>
+
+        <div class="container" th:if="${listAdidasShoes != null && !listAdidasShoes.empty}">
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <div class="section-title">
+                        <h4>Adidas</h4>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8">
+
+                </div>
+            </div>
+
+            <div class="row property__gallery" id="MixItUpCEC7D7">
+
+                <div class="col-lg-3 col-md-4 col-sm-6 mix men" th:each = "p : ${listAdidasShoes}">
+
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg" th:data-setbg="${p.image1}"  th:style="'background-image: url(' + ${p.image1} + ');'">
+                            <div class="label sale" th:if= "${p.sale != 0}">Sale</div>
+                            <ul class="product__hover">
+                                <li><a th:href="${p.image1}" class="image-popup"><span
+                                        class="arrow_expand"></span></a></li>
+                                <li><a th:href="@{'/wishlist/' + ${p.id}}"><span class="icon_heart_alt"></span></a></li>
+                            </ul>
+                        </div>
+
+                        <div class="product__item__text">
+                            <h6><a th:href="@{'/product/' +${p.id}}">[[${p.name}]]</a></h6>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="product__price" th:if= "${p.sale == 0}">[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</div>
+                            <div class="product__price" th:unless= "${p.sale == 0}">[[${#numbers.formatDecimal(p.sale, 3, 'COMMA', 0, 'POINT')}]] VNĐ <span>[[${#numbers.formatDecimal(p.price, 3, 'COMMA', 0, 'POINT')}]] VNĐ</span></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </section>
     <!-- Product Section End -->
 
@@ -157,8 +195,8 @@
                                 
                                 <div class="owl-nav disabled">
                                     <button type="button" role="presentation" class="owl-prev"><span
-                                            aria-label="Previous">Ã¢â‚¬Â¹</span></button>
-                                    <button type="button" role="presentation" class="owl-next"><span aria-label="Next">Ã¢â‚¬Âº</span></button>
+                                            aria-label="Previous"> < </span></button>
+                                    <button type="button" role="presentation" class="owl-next"><span aria-label="Next"> > </span></button>
                                 </div>
                                 
                                 <div class="owl-dots">

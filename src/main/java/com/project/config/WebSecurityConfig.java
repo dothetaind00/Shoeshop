@@ -21,77 +21,77 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
-@Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true)
+//@Configuration
+//@EnableWebSecurity
+//@EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new CustomerUserDetailService();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public AuthenticationSuccessHandler authSuccessHandler() {
-        return new CustomAuthSuccessHandler();
-    }
-
-    @Bean
-    public LogoutSuccessHandler logoutSuccessHandler() {
-        return new CustomLogoutSuccessHandler();
-    }
-
-    @Bean
-    public AccessDeniedHandler accessDeniedHandler() {
-        return new CustomAccessDeniedHandler();
-    }
-
-    @Bean
-    public SessionRegistry sessionRegistry() {
-        SessionRegistry sessionRegistry = new SessionRegistryImpl();
-        return sessionRegistry;
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-            .authorizeRequests()
-                .antMatchers("/admin/**").authenticated()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/login","/register").permitAll()
-            .and()
-            .formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/perform_login")
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .successHandler(authSuccessHandler())
-                .failureUrl("/login?incorrect")
-            .and()
-            .logout()
-                .logoutUrl("/perform_logout")
-                .deleteCookies("JSESSIONID")
-                .logoutSuccessHandler(logoutSuccessHandler())
-            .and()
-                .csrf().disable()
-                .exceptionHandling()
-                .accessDeniedHandler(accessDeniedHandler());
-        http.sessionManagement().maximumSessions(1).expiredUrl("/login?expired")
-                    .maxSessionsPreventsLogin(true).sessionRegistry(sessionRegistry());
-    }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/test/**");
-    }
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        return new CustomerUserDetailService();
+//    }
+//
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+//
+//    @Bean
+//    public AuthenticationSuccessHandler authSuccessHandler() {
+//        return new CustomAuthSuccessHandler();
+//    }
+//
+//    @Bean
+//    public LogoutSuccessHandler logoutSuccessHandler() {
+//        return new CustomLogoutSuccessHandler();
+//    }
+//
+//    @Bean
+//    public AccessDeniedHandler accessDeniedHandler() {
+//        return new CustomAccessDeniedHandler();
+//    }
+//
+//    @Bean
+//    public SessionRegistry sessionRegistry() {
+//        SessionRegistry sessionRegistry = new SessionRegistryImpl();
+//        return sessionRegistry;
+//    }
+//
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
+//    }
+//
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http
+//            .authorizeRequests()
+//                .antMatchers("/admin/**").authenticated()
+//                .antMatchers("/admin/**").hasRole("ADMIN")
+//                .antMatchers("/login","/register").permitAll()
+//            .and()
+//            .formLogin()
+//                .loginPage("/login")
+//                .loginProcessingUrl("/perform_login")
+//                .usernameParameter("username")
+//                .passwordParameter("password")
+//                .successHandler(authSuccessHandler())
+//                .failureUrl("/login?incorrect")
+//            .and()
+//            .logout()
+//                .logoutUrl("/perform_logout")
+//                .deleteCookies("JSESSIONID")
+//                .logoutSuccessHandler(logoutSuccessHandler())
+//            .and()
+//                .csrf().disable()
+//                .exceptionHandling()
+//                .accessDeniedHandler(accessDeniedHandler());
+//        http.sessionManagement().maximumSessions(1).expiredUrl("/login?expired")
+//                    .maxSessionsPreventsLogin(true).sessionRegistry(sessionRegistry());
+//    }
+//
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web.ignoring().antMatchers("/test/**");
+//    }
 }

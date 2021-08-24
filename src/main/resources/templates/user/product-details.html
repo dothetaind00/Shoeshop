@@ -104,10 +104,9 @@
                         <button type="submit" class="cart-btn" name="submit_button" id="submit_button"><span class="icon_bag_alt"></span>Thêm vào giỏ hàng
                         </button>
                         <ul>
-                            <li><a th:href="@{'/wishlist/' + ${p.id}}"><span class="icon_heart_alt"></span></a></li>
+                             <li><a th:href="@{'/wishlist/' + ${product.id}}"><span class="icon_heart_alt"></span></a></li>
                         </ul>
                     </div>
-
 
                     <div class="product__details__widget">
                         <ul>
@@ -150,12 +149,12 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                        <h6>MÃ´ táº£</h6>
+                        <h6>Mô tả</h6>
                         <p>[[${product.description}]]</p>
 
                     </div>
                     <div class="tab-pane" id="tabs-2" role="tabpanel">
-                        <h6>Ä�áº·t biá»‡t</h6>
+                        <h6>Đặc biệt</h6>
                         <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
                             quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret. Neque
                             porro lorem quisquam est, qui dolorem ipsum quia

@@ -1,11 +1,16 @@
 package com.project.security;
 
+import com.project.auth.MyUserDetails;
+import com.project.entity.Cart;
+import com.project.repository.CartRepository;
 import com.project.repository.UserRepository;
+import com.project.utils.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
@@ -18,10 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
@@ -32,6 +34,12 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private CartRepository cartRepository;
+
+    @Autowired
+    private SecurityUtil securityUtil;
 
     public CustomAuthSuccessHandler() {
     }
@@ -50,6 +58,7 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
             return;
         }
         redirectStrategy.sendRedirect(request, response, targetURL);
+
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
         userRepository.setTimeLogin(timestamp, authentication.getName());
